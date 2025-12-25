@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const Navbar = () => {
     const location = useLocation();
     const pathname = location.pathname;
     const navigate = useNavigate();
+    const { user, isAuthenticated, logout } = useAuth();
+    const [showUserMenu, setShowUserMenu] = useState(false);
 
     const isDropdownActive = (prefixes = []) => {
         return prefixes.some((prefix) => pathname.startsWith(prefix));
@@ -126,13 +129,161 @@ const Navbar = () => {
                         </button>
 
                         <div className="navbar-cta">
-                            <button 
-                                onClick={() => navigate('/login')} 
-                                className="btn btn-accent"
-                                style={{ cursor: 'pointer' }}
-                            >
-                                Get Started
-                            </button>
+                            {isAuthenticated && user ? (
+                                <div className="user-profile" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                    {/* User Avatar */}
+                                    <div
+                                        onClick={() => setShowUserMenu(!showUserMenu)}
+                                        style={{
+                                            width: '40px',
+                                            height: '40px',
+                                            borderRadius: '50%',
+                                            backgroundColor: '#11E44F',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            cursor: 'pointer',
+                                            fontWeight: 'bold',
+                                            color: '#121212',
+                                            fontSize: '18px',
+                                            transition: 'all 0.3s ease',
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.target.style.backgroundColor = '#8AFFAC';
+                                            e.target.style.transform = 'scale(1.1)';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.target.style.backgroundColor = '#11E44F';
+                                            e.target.style.transform = 'scale(1)';
+                                        }}
+                                    >
+                                        {user.fname?.[0]?.toUpperCase() || 'U'}
+                                    </div>
+
+                                    {/* User Name */}
+                                    <div style={{ display: 'flex', flexDirection: 'column', color: '#DAFAF4' }}>
+                                        <span style={{ fontSize: '14px', fontWeight: '600' }}>
+                                            {user.fname} {user.lname}
+                                        </span>
+                                        <span style={{ fontSize: '12px', color: '#8AFFAC' }}>
+                                            {user.email}
+                                        </span>
+                                    </div>
+
+                                    {/* Dropdown Menu */}
+                                    {showUserMenu && (
+                                        <div
+                                            style={{
+                                                position: 'absolute',
+                                                top: '100%',
+                                                right: 0,
+                                                marginTop: '12px',
+                                                backgroundColor: '#1a1a1a',
+                                                border: '1px solid #313131',
+                                                borderRadius: '8px',
+                                                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.5)',
+                                                minWidth: '200px',
+                                                zIndex: 1000,
+                                            }}
+                                        >
+                                            <div style={{ padding: '12px 0' }}>
+                                                <button
+                                                    onClick={() => {
+                                                        navigate('/profile');
+                                                        setShowUserMenu(false);
+                                                    }}
+                                                    style={{
+                                                        width: '100%',
+                                                        padding: '10px 16px',
+                                                        backgroundColor: 'transparent',
+                                                        border: 'none',
+                                                        color: '#DAFAF4',
+                                                        textAlign: 'left',
+                                                        cursor: 'pointer',
+                                                        fontSize: '14px',
+                                                        transition: 'all 0.2s ease',
+                                                    }}
+                                                    onMouseEnter={(e) => {
+                                                        e.target.style.backgroundColor = '#11E44F12';
+                                                        e.target.style.color = '#11E44F';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        e.target.style.backgroundColor = 'transparent';
+                                                        e.target.style.color = '#DAFAF4';
+                                                    }}
+                                                >
+                                                    <i className="fa-solid fa-user" style={{ marginRight: '8px' }}></i>
+                                                    My Profile
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        navigate('/dashboard');
+                                                        setShowUserMenu(false);
+                                                    }}
+                                                    style={{
+                                                        width: '100%',
+                                                        padding: '10px 16px',
+                                                        backgroundColor: 'transparent',
+                                                        border: 'none',
+                                                        color: '#DAFAF4',
+                                                        textAlign: 'left',
+                                                        cursor: 'pointer',
+                                                        fontSize: '14px',
+                                                        transition: 'all 0.2s ease',
+                                                    }}
+                                                    onMouseEnter={(e) => {
+                                                        e.target.style.backgroundColor = '#11E44F12';
+                                                        e.target.style.color = '#11E44F';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        e.target.style.backgroundColor = 'transparent';
+                                                        e.target.style.color = '#DAFAF4';
+                                                    }}
+                                                >
+                                                    <i className="fa-solid fa-chart-line" style={{ marginRight: '8px' }}></i>
+                                                    Dashboard
+                                                </button>
+                                                <div style={{ height: '1px', backgroundColor: '#313131', margin: '8px 0' }}></div>
+                                                <button
+                                                    onClick={() => {
+                                                        logout();
+                                                        setShowUserMenu(false);
+                                                        navigate('/');
+                                                    }}
+                                                    style={{
+                                                        width: '100%',
+                                                        padding: '10px 16px',
+                                                        backgroundColor: 'transparent',
+                                                        border: 'none',
+                                                        color: '#e63946',
+                                                        textAlign: 'left',
+                                                        cursor: 'pointer',
+                                                        fontSize: '14px',
+                                                        transition: 'all 0.2s ease',
+                                                    }}
+                                                    onMouseEnter={(e) => {
+                                                        e.target.style.backgroundColor = '#e6394612';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        e.target.style.backgroundColor = 'transparent';
+                                                    }}
+                                                >
+                                                    <i className="fa-solid fa-sign-out-alt" style={{ marginRight: '8px' }}></i>
+                                                    Logout
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <button 
+                                    onClick={() => navigate('/login')} 
+                                    className="btn btn-accent"
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    Get Started
+                                </button>
+                            )}
                         </div>
                     </div>
                 </nav>

@@ -38,11 +38,16 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       const response = await authAPI.verifyOTP(email, otp);
-      if (response.token) {
-        setToken(response.token);
-        setUser(response.user);
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('user', JSON.stringify(response.user));
+      
+      // Handle nested response structure: response.data.token or response.token
+      const token = response.token || (response.data && response.data.token);
+      const user = response.user || (response.data && response.data.user);
+      
+      if (token) {
+        setToken(token);
+        setUser(user);
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
         setIsAuthenticated(true);
       }
       return response;
@@ -75,13 +80,8 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       const response = await authAPI.login(email, password);
-      if (response.token) {
-        setToken(response.token);
-        setUser(response.user);
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('user', JSON.stringify(response.user));
-        setIsAuthenticated(true);
-      }
+      // Login returns OTP, not token. Token comes after OTP verification.
+      // Just return the response - don't set authentication yet
       return response;
     } catch (err) {
       setError(err.message);

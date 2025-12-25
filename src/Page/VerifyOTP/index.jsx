@@ -61,20 +61,19 @@ export default function VerifyOTPPage() {
     try {
       const response = await verifyOTP(email, otp);
 
-      if (response && response.token) {
+      // Handle both response structures: response.token or response.data.token
+      const token = response.token || (response.data && response.data.token);
+      
+      if (token) {
         setSuccessMessage("OTP verified successfully! Redirecting...");
         
+        // Auto-login after OTP verification (for both registration and login flows)
+        // The token is already stored by verifyOTP in AuthContext
         setTimeout(() => {
-          if (flowType === "register") {
-            // After registration verification, go to login
-            navigate("/login", {
-              state: { message: "Registration successful! Please login." }
-            });
-          } else {
-            // After login verification, go to dashboard
-            navigate("/dashboard");
-          }
+          navigate("/");
         }, 1500);
+      } else {
+        setLocalError("OTP verification failed. No token received.");
       }
     } catch (err) {
       setLocalError(err.message || "OTP verification failed. Please try again.");

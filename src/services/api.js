@@ -97,7 +97,7 @@ export const userAPI = {
   },
 
   updateProfile: async (userData) => {
-    return apiCall('/user/profile', 'PUT', userData);
+    return apiCall('/user/update-profile', 'PUT', userData);
   },
 
   changePassword: async (passwordData) => {

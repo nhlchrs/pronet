@@ -43,8 +43,10 @@
 
     try {
       const response = await login(formData.email, formData.password);
-      if (response && response.otp) {
-        // Login successful - now need to verify OTP
+      
+      // Backend returns data nested under response.data
+      if (response && response.data && (response.data.otp || response.data.token)) {
+        // Login successful - need to verify OTP
         setTimeout(() => {
           navigate("/verify-otp", {
             state: {
@@ -53,12 +55,10 @@
               message: "Please verify OTP to complete login",
             },
           });
-        }, 500);
-      } else if (response && response.token) {
-        // Fallback: If token is returned directly (shouldn't happen based on backend)
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 500);
+        }, 800);
+      } else {
+        // No OTP found - unexpected response
+        setLocalError("Login response incomplete. Please try again.");
       }
     } catch (err) {
       setLocalError(err.message || "Login failed. Please try again.");
