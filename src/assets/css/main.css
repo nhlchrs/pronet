@@ -5,6 +5,11 @@ Description: pro-net is modern and elegant React Js Bootstrap Template for SEO &
 Version: 1.0.0
 ================================================*/
 
+/* Tailwind CSS Directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ======================================================
 Table of Contents
 =========================================================

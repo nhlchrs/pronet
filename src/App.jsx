@@ -1,20 +1,37 @@
-import { BrowserRouter as Router } from "react-router-dom"
+import { BrowserRouter as Router, useLocation } from "react-router-dom"
 import AppRouters from "./Router";
 import { ModalVideoProvider } from "./Components/Video/ModalVideoContext";
+import { AuthProvider } from "./context/AuthContext";
+import { SocketProvider } from "./context/SocketContext";
 import Navbar from "./Components/Header/header";
 import Footer from "./Components/Footer/footer";
 import Sidebar from "./Components/Sidebar/sidebar";
 
+const AppContent = () => {
+    const location = useLocation();
+    const isAuthPage = ['/login', '/register'].includes(location.pathname);
+
+    return (
+        <>
+            {!isAuthPage && <Navbar />}
+            {!isAuthPage && <Sidebar />}
+            <ModalVideoProvider>
+                <AppRouters />
+            </ModalVideoProvider>
+            {!isAuthPage && <Footer />}
+        </>
+    );
+};
+
 const App = () => {
     return(
-        <Router>
-            <Navbar />
-            <Sidebar />
-                <ModalVideoProvider>
-                    <AppRouters />
-                </ModalVideoProvider>
-            <Footer/>
-        </Router>
+        <AuthProvider>
+            <SocketProvider>
+                <Router>
+                    <AppContent />
+                </Router>
+            </SocketProvider>
+        </AuthProvider>
     );
 }
 

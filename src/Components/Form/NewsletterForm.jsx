@@ -1,22 +1,34 @@
 import React, { useState } from "react";
+import { contactAPI } from "../../services/api";
 
 const NewsletterForm = () => {
     const [email, setEmail] = useState("");
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const validateEmail = (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setSuccess(false);
         setError(false);
 
         if (validateEmail(email)) {
-            setSuccess(true);
-            setError(false);
+            setLoading(true);
+            try {
+                await contactAPI.subscribeNewsletter(email);
+                setSuccess(true);
+                setError(false);
+                setEmail("");
+            } catch (err) {
+                setSuccess(false);
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
         } else {
             setSuccess(false);
             setError(true);
@@ -76,14 +88,15 @@ const NewsletterForm = () => {
                                 placeholder="Email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                disabled={loading}
                                 required
                             />
                             {error && (
                                 <p className="error-text">Message is required</p>
                             )}
                         </div>
-                        <button className="btn btn-red-accent" type="submit">
-                            Subscribe
+                        <button className="btn btn-red-accent" type="submit" disabled={loading}>
+                            {loading ? "Subscribing..." : "Subscribe"}
                         </button>
                     </div>
                 </form>

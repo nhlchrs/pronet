@@ -1,9 +1,10 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const location = useLocation();
     const pathname = location.pathname;
+    const navigate = useNavigate();
 
     const isDropdownActive = (prefixes = []) => {
         return prefixes.some((prefix) => pathname.startsWith(prefix));
@@ -125,7 +126,13 @@ const Navbar = () => {
                         </button>
 
                         <div className="navbar-cta">
-                            <a href="#" className="btn btn-accent">Get Started</a>
+                            <button 
+                                onClick={() => navigate('/login')} 
+                                className="btn btn-accent"
+                                style={{ cursor: 'pointer' }}
+                            >
+                                Get Started
+                            </button>
                         </div>
                     </div>
                 </nav>

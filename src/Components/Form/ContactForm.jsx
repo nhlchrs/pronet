@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { contactAPI } from "../../services/api";
 
 const ContactForm = () => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        phone: '',
         subject: '',
         message: ''
     });
@@ -35,7 +38,7 @@ const ContactForm = () => {
         };
     }, [showSuccess, showError]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
         setShowSuccess(false);
@@ -43,8 +46,24 @@ const ContactForm = () => {
         
         // Check if name and email are filled
         if (formData.name.trim() && formData.email.trim()) {
-            setShowSuccess(true);
-            setShowError(false);
+            setLoading(true);
+            try {
+                await contactAPI.submitContactForm(formData);
+                setShowSuccess(true);
+                setShowError(false);
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    subject: '',
+                    message: ''
+                });
+            } catch (error) {
+                setShowSuccess(false);
+                setShowError(true);
+            } finally {
+                setLoading(false);
+            }
         } else {
             setShowSuccess(false);
             setShowError(true);
@@ -110,6 +129,18 @@ const ContactForm = () => {
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     required 
+                                />
+                            </div>
+
+                            <div className="d-flex flex-column gspace-2">
+                                <label htmlFor="phone">Phone (Optional)</label>
+                                <input 
+                                    type="tel" 
+                                    name="phone" 
+                                    id="phone" 
+                                    placeholder="Phone" 
+                                    value={formData.phone}
+                                    onChange={handleInputChange}
                                 />
                             </div>
 
