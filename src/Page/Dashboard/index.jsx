@@ -35,10 +35,13 @@ export default function Dashboard() {
           console.warn("Could not fetch metrics:", err);
         }
 
-        // Fetch meetings
+        // Fetch upcoming meetings (user endpoint, not admin)
         try {
-          const meetingsRes = await meetingAPI.getAllMeetings();
-          setMeetings(Array.isArray(meetingsRes.data) ? meetingsRes.data : meetingsRes || []);
+          const meetingsRes = await meetingAPI.getUpcomingMeetings();
+          console.log("Meetings Response:", meetingsRes);
+          // Note: API returns meetings in 'message' field, not 'data'
+          const meetingData = Array.isArray(meetingsRes.message) ? meetingsRes.message : meetingsRes.data || [];
+          setMeetings(Array.isArray(meetingData) ? meetingData : []);
         } catch (err) {
           console.warn("Could not fetch meetings:", err);
         }

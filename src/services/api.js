@@ -107,28 +107,43 @@ export const userAPI = {
 
 // ===== MEETING ENDPOINTS =====
 export const meetingAPI = {
+  // Admin endpoints (for creating, updating, deleting)
   createMeeting: async (meetingData) => {
-    return apiCall('/meeting/create', 'POST', meetingData);
+    return apiCall('/admin/meeting/create', 'POST', meetingData);
   },
 
+  // USER ENDPOINTS (NO ADMIN REQUIRED)
+  // Get available meetings for the user
+  getUserAvailableMeetings: async () => {
+    return apiCall('/user/available-meetings', 'GET');
+  },
+
+  // Get upcoming meetings
+  getUpcomingMeetings: async () => {
+    return apiCall('/meeting/upcoming', 'GET');
+  },
+
+  // Get specific meeting details
   getMeeting: async (meetingId) => {
     return apiCall(`/meeting/${meetingId}`, 'GET');
   },
 
+  // Join a meeting
+  joinMeeting: async (meetingId) => {
+    return apiCall(`/meeting/${meetingId}/join`, 'GET');
+  },
+
+  // ADMIN ONLY
   getAllMeetings: async () => {
-    return apiCall('/meeting/list', 'GET');
+    return apiCall('/admin/meetings', 'GET');
   },
 
   updateMeeting: async (meetingId, data) => {
-    return apiCall(`/meeting/${meetingId}`, 'PUT', data);
+    return apiCall(`/admin/meeting/${meetingId}`, 'PUT', data);
   },
 
   deleteMeeting: async (meetingId) => {
-    return apiCall(`/meeting/${meetingId}`, 'DELETE');
-  },
-
-  scheduleMeeting: async (meetingData) => {
-    return apiCall('/meeting/schedule', 'POST', meetingData);
+    return apiCall(`/admin/meeting/${meetingId}`, 'DELETE');
   },
 };
 
