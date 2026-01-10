@@ -7,7 +7,7 @@ import AchievementSection from "../../Components/Achievement";
 import CtaSection from "../../Components/CallToAction";
 import ProcessSection from "../../Components/ProcessStep";
 import TestimonialSection from "../../Components/Testimonial/TestimonialSection";
-import WhyChooseUsSection from "../../Components/Chooseus";
+import WhyChooseUsSection from "../../Components/ChooseUs";
 import HeadTitle from "../../Components/Head/HeadTitle";
 
 const AboutPage = () => {
