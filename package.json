@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "animate.css": "^4.1.1",
+    "axios": "^1.13.2",
     "bootstrap": "^5.3.8",
     "lucide-react": "^0.562.0",
     "odometer": "^0.4.8",

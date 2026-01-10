@@ -22,6 +22,7 @@ import AnnouncementsPage from "./Page/Announcements";
 import TeamsPage from "./Page/Teams";
 import MeetingsPage from "./Page/Meetings";
 import ReferralPage from "./Page/ReferralPage";
+import SecureMedia from "./Page/SecureMedia";
 import ProtectedRoute from "./Components/ProtectedRoute";
 
 function AppRouters(){
@@ -52,6 +53,7 @@ function AppRouters(){
             <Route path="announcements" element={<ProtectedRoute><AnnouncementsPage /></ProtectedRoute>} />
             <Route path="teams" element={<ProtectedRoute><TeamsPage /></ProtectedRoute>} />
             <Route path="meetings" element={<ProtectedRoute><MeetingsPage /></ProtectedRoute>} />
+            <Route path="media" element={<ProtectedRoute><SecureMedia /></ProtectedRoute>} />
             <Route path="referral" element={<ProtectedRoute><ReferralPage /></ProtectedRoute>} />
             
             <Route path="404-page" element={<PageNotFound />}/>
