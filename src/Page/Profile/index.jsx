@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { userAPI } from "../../services/api";
+import ProfilePictureUpload from "../../Components/ProfilePictureUpload";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function ProfilePage() {
     role: "",
     dob: "",
     address: "",
+    profilePicture: null,
   });
   
   const [editData, setEditData] = useState({
@@ -65,6 +67,7 @@ export default function ProfilePage() {
           role: profileInfo.role || user?.role || "User",
           dob: profileInfo.dob ? new Date(profileInfo.dob).toISOString().split('T')[0] : "",
           address: profileInfo.address || "",
+          profilePicture: profileInfo.profilePicture || null,
         });
 
         setEditData({
@@ -88,6 +91,7 @@ export default function ProfilePage() {
           role: user?.role || "User",
           dob: "",
           address: "",
+          profilePicture: null,
         });
         setEditData({
           fname: user?.fname || "",
@@ -378,7 +382,7 @@ export default function ProfilePage() {
                 width: "100px",
                 height: "100px",
                 borderRadius: "50%",
-                backgroundColor: "#11E44F",
+                backgroundColor: profileData.profilePicture ? "transparent" : "#11E44F",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -386,9 +390,23 @@ export default function ProfilePage() {
                 fontSize: "48px",
                 fontWeight: "bold",
                 color: "#121212",
+                overflow: "hidden",
+                border: profileData.profilePicture ? "3px solid #11E44F" : "none",
               }}
             >
-              {profileData.fname?.charAt(0)?.toUpperCase() || "U"}
+              {profileData.profilePicture ? (
+                <img
+                  src={`${import.meta.env.VITE_API_URL || "http://localhost:5000"}${profileData.profilePicture}`}
+                  alt="Profile"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              ) : (
+                profileData.fname?.charAt(0)?.toUpperCase() || "U"
+              )}
             </div>
             <div>
               <h2
@@ -599,6 +617,35 @@ export default function ProfilePage() {
             </div>
           ) : (
             <form onSubmit={handleSaveProfile}>
+              {/* Profile Picture Upload Section */}
+              <div style={{ marginBottom: "30px" }}>
+                <label
+                  style={{
+                    display: "block",
+                    color: "#8AFFAC",
+                    fontSize: "12px",
+                    textTransform: "uppercase",
+                    marginBottom: "12px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Profile Picture
+                </label>
+                <ProfilePictureUpload
+                  currentPicture={profileData.profilePicture}
+                  onUploadSuccess={() => {
+                    // Refetch profile after upload
+                    userAPI.getProfile().then(response => {
+                      const profileInfo = response.data || response;
+                      setProfileData(prev => ({
+                        ...prev,
+                        profilePicture: profileInfo.profilePicture || null
+                      }));
+                    });
+                  }}
+                />
+              </div>
+
               <div style={{ marginBottom: "20px" }}>
                 <label
                   style={{

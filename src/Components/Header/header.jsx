@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { userAPI } from "../../services/api";
 
 const Navbar = () => {
     const location = useLocation();
@@ -8,6 +9,21 @@ const Navbar = () => {
     const navigate = useNavigate();
     const { user, isAuthenticated, logout } = useAuth();
     const [showUserMenu, setShowUserMenu] = useState(false);
+    const [profilePicture, setProfilePicture] = useState(null);
+
+    // Fetch profile picture when user is authenticated
+    useEffect(() => {
+        if (isAuthenticated && user) {
+            userAPI.getProfile()
+                .then(response => {
+                    const profileInfo = response.data || response;
+                    setProfilePicture(profileInfo.profilePicture || null);
+                })
+                .catch(err => {
+                    console.error('Failed to fetch profile picture:', err);
+                });
+        }
+    }, [isAuthenticated, user]);
 
     const isDropdownActive = (prefixes = []) => {
         return prefixes.some((prefix) => pathname.startsWith(prefix));
@@ -138,7 +154,7 @@ const Navbar = () => {
                                             width: '40px',
                                             height: '40px',
                                             borderRadius: '50%',
-                                            backgroundColor: '#11E44F',
+                                            backgroundColor: profilePicture ? 'transparent' : '#11E44F',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
@@ -147,17 +163,35 @@ const Navbar = () => {
                                             color: '#121212',
                                             fontSize: '18px',
                                             transition: 'all 0.3s ease',
+                                            overflow: 'hidden',
+                                            border: profilePicture ? '2px solid #11E44F' : 'none',
                                         }}
                                         onMouseEnter={(e) => {
-                                            e.target.style.backgroundColor = '#8AFFAC';
+                                            if (!profilePicture) {
+                                                e.target.style.backgroundColor = '#8AFFAC';
+                                            }
                                             e.target.style.transform = 'scale(1.1)';
                                         }}
                                         onMouseLeave={(e) => {
-                                            e.target.style.backgroundColor = '#11E44F';
+                                            if (!profilePicture) {
+                                                e.target.style.backgroundColor = '#11E44F';
+                                            }
                                             e.target.style.transform = 'scale(1)';
                                         }}
                                     >
-                                        {user.fname?.[0]?.toUpperCase() || 'U'}
+                                        {profilePicture ? (
+                                            <img
+                                                src={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${profilePicture}`}
+                                                alt="Profile"
+                                                style={{
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    objectFit: 'cover',
+                                                }}
+                                            />
+                                        ) : (
+                                            user.fname?.[0]?.toUpperCase() || 'U'
+                                        )}
                                     </div>
 
                                     {/* User Name */}
