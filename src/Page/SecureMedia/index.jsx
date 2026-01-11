@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 const SecureMedia = () => {
   const [mediaFiles, setMediaFiles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,7 +33,7 @@ const SecureMedia = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        `http://localhost:5000/api/secure-media${filterType !== 'all' ? `?type=${filterType}` : ''}`,
+        `${API_BASE_URL}/secure-media${filterType !== 'all' ? `?type=${filterType}` : ''}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -61,7 +63,7 @@ const SecureMedia = () => {
 
   const getStreamUrl = (mediaId) => {
     const token = localStorage.getItem('token');
-    return `http://localhost:5000/api/secure-media/${mediaId}/stream?token=${token}`;
+    return `${API_BASE_URL}/secure-media/${mediaId}/stream?token=${token}`;
   };
 
   const handlePlayVideo = () => {
