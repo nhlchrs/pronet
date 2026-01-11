@@ -32,15 +32,28 @@ const SecureMedia = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
+      console.log('Fetching media with token:', token ? 'Token exists' : 'No token');
+      console.log('API URL:', `${API_BASE_URL}/secure-media${filterType !== 'all' ? `?type=${filterType}` : ''}`);
+      
       const response = await axios.get(
         `${API_BASE_URL}/secure-media${filterType !== 'all' ? `?type=${filterType}` : ''}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
       );
-      setMediaFiles(response.data);
+      
+      console.log('Full response:', response);
+      console.log('Response data:', response.data);
+      console.log('Media array:', response.data?.data?.media);
+      
+      // Backend returns { success: true, message: "...", data: { media: [...], pagination: {...} } }
+      const mediaArray = response.data?.data?.media || [];
+      console.log('Setting media files:', mediaArray.length, 'items');
+      setMediaFiles(mediaArray);
     } catch (error) {
       console.error('Error fetching media:', error);
+      console.error('Error response:', error.response);
+      console.error('Error message:', error.response?.data?.message);
       toast.error(error.response?.data?.message || 'Failed to load media');
     } finally {
       setLoading(false);
