@@ -7,6 +7,11 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
   const [isUploading, setIsUploading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -20,14 +25,16 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
     const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
     
     if (!allowedTypes.includes(file.type) || !allowedExtensions.includes(fileExtension)) {
-      alert("Invalid file type. Only JPG, PNG, and GIF images are allowed.");
+      setErrorMessage("Invalid file type. Only JPG, PNG, and GIF images are allowed.");
+      setShowErrorModal(true);
       return;
     }
 
     // Validate file size (max 5MB)
     const maxSize = 5 * 1024 * 1024;
     if (file.size > maxSize) {
-      alert("File too large. Maximum size is 5MB.");
+      setErrorMessage("File too large. Maximum size is 5MB.");
+      setShowErrorModal(true);
       return;
     }
 
@@ -45,43 +52,46 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
       const formData = new FormData();
       formData.append("profilePicture", selectedFile);
 
-      await axios.post(`${API_URL}/api/user/upload-profile-picture`, formData, {
+      await axios.post(`${API_URL}/user/upload-profile-picture`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       });
 
-      alert("Profile picture uploaded successfully!");
       setShowModal(false);
       setSelectedFile(null);
       setPreview(null);
+      setSuccessMessage("Profile picture uploaded successfully!");
+      setShowSuccessModal(true);
       onUploadSuccess();
     } catch (error) {
       console.error("Upload error:", error);
-      alert(error.response?.data?.message || "Failed to upload profile picture");
+      setErrorMessage(error.response?.data?.message || "Failed to upload profile picture");
+      setShowErrorModal(true);
     } finally {
       setIsUploading(false);
     }
   };
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete your profile picture?")) return;
-
+    setShowDeleteModal(false);
     setIsDeleting(true);
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`${API_URL}/api/user/delete-profile-picture`, {
+      await axios.delete(`${API_URL}/user/delete-profile-picture`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      alert("Profile picture deleted successfully!");
+      setSuccessMessage("Profile picture deleted successfully!");
+      setShowSuccessModal(true);
       onUploadSuccess();
     } catch (error) {
       console.error("Delete error:", error);
-      alert(error.response?.data?.message || "Failed to delete profile picture");
+      setErrorMessage(error.response?.data?.message || "Failed to delete profile picture");
+      setShowErrorModal(true);
     } finally {
       setIsDeleting(false);
     }
@@ -99,7 +109,9 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
   const getImageUrl = (path) => {
     if (!path) return null;
     if (path.startsWith("http")) return path;
-    return `${API_URL}${path}`;
+    // Remove /api from URL for uploads (static files are served at root level)
+    const baseUrl = API_URL.replace(/\/api$/, '');
+    return `${baseUrl}${path}`;
   };
 
   return (
@@ -181,7 +193,7 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
 
           {currentPicture && (
             <button
-              onClick={handleDelete}
+              onClick={() => setShowDeleteModal(true)}
               disabled={isDeleting}
               style={{
                 padding: "10px 20px",
@@ -329,6 +341,186 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
                 {isUploading ? "Uploading..." : "Upload"}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+          }}
+          onClick={() => setShowDeleteModal(false)}
+        >
+          <div
+            style={{
+              backgroundColor: "#1E1E1E",
+              borderRadius: "16px",
+              padding: "30px",
+              maxWidth: "400px",
+              width: "90%",
+              border: "2px solid #FF4444",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 style={{ color: "#DAFAF4", marginBottom: "15px", fontSize: "20px" }}>
+              Delete Profile Picture
+            </h3>
+            <p style={{ color: "#888", marginBottom: "25px" }}>
+              Are you sure you want to delete your profile picture? This action cannot be undone.
+            </p>
+            <div style={{ display: "flex", gap: "10px" }}>
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                style={{
+                  flex: 1,
+                  padding: "12px",
+                  backgroundColor: "#2A2A2A",
+                  color: "#DAFAF4",
+                  border: "1px solid #11E44F",
+                  borderRadius: "8px",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                style={{
+                  flex: 1,
+                  padding: "12px",
+                  backgroundColor: "#FF4444",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "8px",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+          }}
+          onClick={() => setShowSuccessModal(false)}
+        >
+          <div
+            style={{
+              backgroundColor: "#1E1E1E",
+              borderRadius: "16px",
+              padding: "30px",
+              maxWidth: "400px",
+              width: "90%",
+              border: "2px solid #11E44F",
+              textAlign: "center",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ fontSize: "48px", marginBottom: "15px" }}>✓</div>
+            <h3 style={{ color: "#11E44F", marginBottom: "10px", fontSize: "20px" }}>
+              Success!
+            </h3>
+            <p style={{ color: "#888", marginBottom: "25px" }}>
+              {successMessage}
+            </p>
+            <button
+              onClick={() => setShowSuccessModal(false)}
+              style={{
+                width: "100%",
+                padding: "12px",
+                backgroundColor: "#11E44F",
+                color: "#121212",
+                border: "none",
+                borderRadius: "8px",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Error Modal */}
+      {showErrorModal && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+          }}
+          onClick={() => setShowErrorModal(false)}
+        >
+          <div
+            style={{
+              backgroundColor: "#1E1E1E",
+              borderRadius: "16px",
+              padding: "30px",
+              maxWidth: "400px",
+              width: "90%",
+              border: "2px solid #FF4444",
+              textAlign: "center",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ fontSize: "48px", marginBottom: "15px" }}>⚠</div>
+            <h3 style={{ color: "#FF4444", marginBottom: "10px", fontSize: "20px" }}>
+              Error
+            </h3>
+            <p style={{ color: "#888", marginBottom: "25px" }}>
+              {errorMessage}
+            </p>
+            <button
+              onClick={() => setShowErrorModal(false)}
+              style={{
+                width: "100%",
+                padding: "12px",
+                backgroundColor: "#FF4444",
+                color: "#fff",
+                border: "none",
+                borderRadius: "8px",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+            >
+              OK
+            </button>
           </div>
         </div>
       )}

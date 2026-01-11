@@ -181,7 +181,7 @@ const Navbar = () => {
                                     >
                                         {profilePicture ? (
                                             <img
-                                                src={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${profilePicture}`}
+                                                src={`${(import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/api$/, '')}${profilePicture}`}
                                                 alt="Profile"
                                                 style={{
                                                     width: '100%',

@@ -396,7 +396,7 @@ export default function ProfilePage() {
             >
               {profileData.profilePicture ? (
                 <img
-                  src={`${import.meta.env.VITE_API_URL || "http://localhost:5000"}${profileData.profilePicture}`}
+                  src={`${(import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/api$/, '')}${profileData.profilePicture}`}
                   alt="Profile"
                   style={{
                     width: "100%",
