@@ -1,0 +1,562 @@
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import axios from "axios";
+
+const ResetPasswordPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const emailFromState = location.state?.email || "";
+  const otpFromState = location.state?.otp || "";
+  
+  const [formData, setFormData] = useState({
+    email: emailFromState,
+    otp: otpFromState,
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validation
+    if (!formData.email || !formData.otp || !formData.newPassword || !formData.confirmPassword) {
+      toast.error("All fields are required");
+      return;
+    }
+
+    if (formData.newPassword !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    if (formData.newPassword.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+      
+      const response = await axios.post(`${API_URL}/reset-password`, {
+        email: formData.email.toLowerCase().trim(),
+        otp: formData.otp.trim(),
+        newPassword: formData.newPassword,
+        confirmPassword: formData.confirmPassword,
+      });
+
+      if (response.data.success) {
+        toast.success("Password reset successfully! Redirecting to login...");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      } else {
+        toast.error(response.data.message || "Failed to reset password");
+      }
+    } catch (error) {
+      console.error("Reset password error:", error);
+      toast.error(
+        error.response?.data?.message || 
+        "Failed to reset password. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '16px',
+      backgroundColor: '#121212',
+      position: 'relative',
+      overflow: 'hidden',
+      fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif"
+    }}>
+      {/* Decorative Background Elements */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '384px',
+        height: '384px',
+        opacity: 0.05,
+        borderRadius: '50%',
+        backgroundColor: '#11E44F',
+        transform: 'translate(-50%, -50%)',
+      }}></div>
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        width: '320px',
+        height: '320px',
+        opacity: 0.05,
+        borderRadius: '50%',
+        backgroundColor: '#11E44F',
+        transform: 'translate(33%, 33%)',
+      }}></div>
+
+      <div style={{
+        width: '100%',
+        maxWidth: '450px',
+        position: 'relative',
+        zIndex: 10,
+      }}>
+        {/* Main Card */}
+        <div style={{
+          borderRadius: '24px',
+          boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)',
+          padding: '48px',
+          backgroundColor: '#1a1a1a',
+          border: '1px solid #313131',
+        }}>
+          {/* Header */}
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <div style={{
+              width: '64px',
+              height: '64px',
+              backgroundColor: 'rgba(17, 228, 79, 0.1)',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 16px',
+              border: '2px solid rgba(17, 228, 79, 0.2)',
+            }}>
+              <i className="fa-solid fa-key" style={{
+                fontSize: '28px',
+                color: '#11E44F',
+              }}></i>
+            </div>
+            
+            <h1 style={{
+              fontSize: '32px',
+              fontWeight: 'bold',
+              color: '#DAFAF4',
+              margin: '0 0 8px 0',
+              letterSpacing: '-0.5px',
+            }}>Reset Password</h1>
+            
+            <p style={{
+              fontSize: '14px',
+              color: '#8AFFAC',
+              margin: 0,
+              fontWeight: '500',
+              lineHeight: '1.5',
+            }}>
+              Enter the OTP sent to your email and set a new password
+            </p>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} style={{ marginBottom: '24px' }}>
+            {/* Email Field */}
+            <div style={{ marginBottom: '20px' }}>
+              <label htmlFor="email" style={{
+                display: 'block',
+                fontSize: '13px',
+                fontWeight: '600',
+                color: '#DAFAF4',
+                marginBottom: '8px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Email Address
+              </label>
+              <div style={{ position: 'relative' }}>
+                <i style={{
+                  position: 'absolute',
+                  left: '16px',
+                  top: '12px',
+                  color: '#8AFFAC',
+                  fontSize: '16px',
+                }} className="fa-solid fa-envelope"></i>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="your@email.com"
+                  disabled={loading}
+                  required
+                  style={{
+                    width: '100%',
+                    paddingLeft: '44px',
+                    paddingRight: '16px',
+                    paddingTop: '12px',
+                    paddingBottom: '12px',
+                    borderRadius: '10px',
+                    border: '2px solid #313131',
+                    backgroundColor: '#0f0f0f',
+                    color: '#DAFAF4',
+                    fontSize: '15px',
+                    outline: 'none',
+                    transition: 'all 0.3s ease',
+                    cursor: loading ? 'not-allowed' : 'text',
+                    opacity: loading ? 0.6 : 1,
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#11E44F';
+                    e.target.style.backgroundColor = '#1a1a1a';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(17, 228, 79, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#313131';
+                    e.target.style.backgroundColor = '#0f0f0f';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* OTP Field */}
+            <div style={{ marginBottom: '20px' }}>
+              <label htmlFor="otp" style={{
+                display: 'block',
+                fontSize: '13px',
+                fontWeight: '600',
+                color: '#DAFAF4',
+                marginBottom: '8px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                OTP Code
+              </label>
+              <div style={{ position: 'relative' }}>
+                <i style={{
+                  position: 'absolute',
+                  left: '16px',
+                  top: '12px',
+                  color: '#8AFFAC',
+                  fontSize: '16px',
+                }} className="fa-solid fa-shield-halved"></i>
+                <input
+                  type="text"
+                  id="otp"
+                  name="otp"
+                  value={formData.otp}
+                  onChange={handleChange}
+                  placeholder="Enter 6-digit OTP"
+                  maxLength="6"
+                  disabled={loading}
+                  required
+                  style={{
+                    width: '100%',
+                    paddingLeft: '44px',
+                    paddingRight: '16px',
+                    paddingTop: '12px',
+                    paddingBottom: '12px',
+                    borderRadius: '10px',
+                    border: '2px solid #313131',
+                    backgroundColor: '#0f0f0f',
+                    color: '#DAFAF4',
+                    fontSize: '15px',
+                    outline: 'none',
+                    transition: 'all 0.3s ease',
+                    cursor: loading ? 'not-allowed' : 'text',
+                    opacity: loading ? 0.6 : 1,
+                    letterSpacing: '0.3em',
+                    textAlign: 'center',
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#11E44F';
+                    e.target.style.backgroundColor = '#1a1a1a';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(17, 228, 79, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#313131';
+                    e.target.style.backgroundColor = '#0f0f0f';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* New Password Field */}
+            <div style={{ marginBottom: '20px' }}>
+              <label htmlFor="newPassword" style={{
+                display: 'block',
+                fontSize: '13px',
+                fontWeight: '600',
+                color: '#DAFAF4',
+                marginBottom: '8px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                New Password
+              </label>
+              <div style={{ position: 'relative' }}>
+                <i style={{
+                  position: 'absolute',
+                  left: '16px',
+                  top: '12px',
+                  color: '#8AFFAC',
+                  fontSize: '16px',
+                }} className="fa-solid fa-lock"></i>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="newPassword"
+                  name="newPassword"
+                  value={formData.newPassword}
+                  onChange={handleChange}
+                  placeholder="••••••••"
+                  disabled={loading}
+                  required
+                  style={{
+                    width: '100%',
+                    paddingLeft: '44px',
+                    paddingRight: '44px',
+                    paddingTop: '12px',
+                    paddingBottom: '12px',
+                    borderRadius: '10px',
+                    border: '2px solid #313131',
+                    backgroundColor: '#0f0f0f',
+                    color: '#DAFAF4',
+                    fontSize: '15px',
+                    outline: 'none',
+                    transition: 'all 0.3s ease',
+                    cursor: loading ? 'not-allowed' : 'text',
+                    opacity: loading ? 0.6 : 1,
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#11E44F';
+                    e.target.style.backgroundColor = '#1a1a1a';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(17, 228, 79, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#313131';
+                    e.target.style.backgroundColor = '#0f0f0f';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  disabled={loading}
+                  style={{
+                    position: 'absolute',
+                    right: '12px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    color: '#8AFFAC',
+                    fontSize: '16px',
+                    background: 'none',
+                    border: 'none',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    padding: '4px',
+                  }}
+                >
+                  <i className={showPassword ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}></i>
+                </button>
+              </div>
+            </div>
+
+            {/* Confirm Password Field */}
+            <div style={{ marginBottom: '24px' }}>
+              <label htmlFor="confirmPassword" style={{
+                display: 'block',
+                fontSize: '13px',
+                fontWeight: '600',
+                color: '#DAFAF4',
+                marginBottom: '8px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Confirm Password
+              </label>
+              <div style={{ position: 'relative' }}>
+                <i style={{
+                  position: 'absolute',
+                  left: '16px',
+                  top: '12px',
+                  color: '#8AFFAC',
+                  fontSize: '16px',
+                }} className="fa-solid fa-lock"></i>
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  placeholder="••••••••"
+                  disabled={loading}
+                  required
+                  style={{
+                    width: '100%',
+                    paddingLeft: '44px',
+                    paddingRight: '44px',
+                    paddingTop: '12px',
+                    paddingBottom: '12px',
+                    borderRadius: '10px',
+                    border: '2px solid #313131',
+                    backgroundColor: '#0f0f0f',
+                    color: '#DAFAF4',
+                    fontSize: '15px',
+                    outline: 'none',
+                    transition: 'all 0.3s ease',
+                    cursor: loading ? 'not-allowed' : 'text',
+                    opacity: loading ? 0.6 : 1,
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#11E44F';
+                    e.target.style.backgroundColor = '#1a1a1a';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(17, 228, 79, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#313131';
+                    e.target.style.backgroundColor = '#0f0f0f';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  disabled={loading}
+                  style={{
+                    position: 'absolute',
+                    right: '12px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    color: '#8AFFAC',
+                    fontSize: '16px',
+                    background: 'none',
+                    border: 'none',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    padding: '4px',
+                  }}
+                >
+                  <i className={showConfirmPassword ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}></i>
+                </button>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                width: '100%',
+                padding: '14px 24px',
+                borderRadius: '10px',
+                border: 'none',
+                background: 'linear-gradient(135deg, #11E44F 0%, #0BA639 100%)',
+                color: '#121212',
+                fontSize: '15px',
+                fontWeight: '700',
+                cursor: loading ? 'not-allowed' : 'pointer',
+                transition: 'all 0.3s ease',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                boxShadow: '0 4px 14px rgba(17, 228, 79, 0.4)',
+                opacity: loading ? 0.7 : 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+              }}
+              onMouseEnter={(e) => {
+                if (!loading) {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 20px rgba(17, 228, 79, 0.5)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!loading) {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 4px 14px rgba(17, 228, 79, 0.4)';
+                }
+              }}
+            >
+              {loading ? (
+                <>
+                  <i className="fa-solid fa-circle-notch fa-spin"></i>
+                  Resetting Password...
+                </>
+              ) : (
+                <>
+                  <i className="fa-solid fa-check"></i>
+                  Reset Password
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div style={{
+            borderTop: '1px solid #313131',
+            marginBottom: '24px',
+          }}></div>
+
+          {/* Links */}
+          <div style={{ textAlign: 'center' }}>
+            <Link
+              to="/login"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                color: '#11E44F',
+                fontSize: '14px',
+                fontWeight: '600',
+                textDecoration: 'none',
+                transition: 'all 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.color = '#8AFFAC';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.color = '#11E44F';
+              }}
+            >
+              <i className="fa-solid fa-arrow-left"></i>
+              Back to Login
+            </Link>
+          </div>
+        </div>
+
+        {/* Footer Text */}
+        <div style={{ marginTop: '24px', textAlign: 'center' }}>
+          <p style={{ fontSize: '14px', color: '#8AFFAC', margin: 0 }}>
+            Didn't receive OTP?{" "}
+            <Link
+              to="/forgot-password"
+              style={{
+                color: '#11E44F',
+                fontWeight: '600',
+                textDecoration: 'none',
+                transition: 'color 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.color = '#DAFAF4';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.color = '#11E44F';
+              }}
+            >
+              Request new one
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ResetPasswordPage;

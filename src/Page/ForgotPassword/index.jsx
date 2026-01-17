@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
 
 const ForgotPasswordPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [emailSent, setEmailSent] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,166 +26,50 @@ const ForgotPasswordPage = () => {
       setLoading(true);
       const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
       
+      console.log("Sending forgot password request to:", `${API_URL}/forgot-password`);
       const response = await axios.post(`${API_URL}/forgot-password`, {
         email: email.toLowerCase().trim(),
       });
 
+      console.log("Response received:", response.data);
+
       if (response.data.success) {
-        setEmailSent(true);
-        toast.success("Password reset link sent! Check your email.");
+        const otpValue = response.data.data?.otp;
+        console.log("OTP received:", otpValue);
+        
+        setLoading(false); // Reset loading before navigation
+        
+        if (otpValue) {
+          toast.success(`OTP: ${otpValue} (Valid for 5 minutes)`, {
+            duration: 5000
+          });
+        } else {
+          toast.success("OTP sent to your email! Check your inbox.");
+        }
+        
+        console.log("Navigating to reset-password page immediately");
+        // Navigate immediately
+        navigate("/reset-password", {
+          state: { 
+            email: email.toLowerCase().trim(),
+            otp: otpValue 
+          },
+          replace: true
+        });
       } else {
-        toast.error(response.data.message || "Failed to send reset link");
+        console.error("Request failed:", response.data.message);
+        toast.error(response.data.message || "Failed to send OTP");
+        setLoading(false);
       }
     } catch (error) {
       console.error("Forgot password error:", error);
       toast.error(
         error.response?.data?.message || 
-        "Failed to send reset link. Please try again."
+        "Failed to send OTP. Please try again."
       );
-    } finally {
       setLoading(false);
     }
   };
-
-  if (emailSent) {
-    return (
-      <div style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '16px',
-        backgroundColor: '#121212',
-        position: 'relative',
-        overflow: 'hidden',
-        fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif"
-      }}>
-        {/* Decorative Background */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          width: '384px',
-          height: '384px',
-          opacity: 0.05,
-          borderRadius: '50%',
-          backgroundColor: '#11E44F',
-          transform: 'translate(33%, -33%)',
-        }}></div>
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          width: '320px',
-          height: '320px',
-          opacity: 0.05,
-          borderRadius: '50%',
-          backgroundColor: '#11E44F',
-          transform: 'translate(-33%, 33%)',
-        }}></div>
-
-        <div style={{
-          width: '100%',
-          maxWidth: '450px',
-          position: 'relative',
-          zIndex: 10,
-        }}>
-          <div style={{
-            borderRadius: '24px',
-            boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)',
-            padding: '48px',
-            backgroundColor: '#1a1a1a',
-            border: '1px solid #313131',
-            textAlign: 'center',
-          }}>
-            {/* Success Icon */}
-            <div style={{
-              width: '80px',
-              height: '80px',
-              backgroundColor: 'rgba(17, 228, 79, 0.1)',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 24px',
-              border: '2px solid rgba(17, 228, 79, 0.2)',
-            }}>
-              <i className="fa-solid fa-check" style={{
-                fontSize: '36px',
-                color: '#11E44F',
-              }}></i>
-            </div>
-
-            <h2 style={{
-              fontSize: '28px',
-              fontWeight: 'bold',
-              color: '#DAFAF4',
-              margin: '0 0 12px 0',
-            }}>Check Your Email</h2>
-            
-            <p style={{
-              fontSize: '15px',
-              color: '#8AFFAC',
-              marginBottom: '8px',
-            }}>
-              We've sent a password reset link to
-            </p>
-            <p style={{
-              fontSize: '16px',
-              color: '#11E44F',
-              fontWeight: '600',
-              marginBottom: '24px',
-              wordBreak: 'break-word',
-            }}>{email}</p>
-
-            {/* Info Box */}
-            <div style={{
-              padding: '16px',
-              borderRadius: '12px',
-              backgroundColor: 'rgba(17, 228, 79, 0.05)',
-              border: '1px solid rgba(17, 228, 79, 0.2)',
-              marginBottom: '32px',
-            }}>
-              <p style={{
-                fontSize: '13px',
-                color: '#8AFFAC',
-                margin: 0,
-                lineHeight: '1.6',
-              }}>
-                <strong style={{ color: '#DAFAF4' }}>Didn't receive the email?</strong>
-                <br />
-                Check your spam folder or try again in a few minutes.
-              </p>
-            </div>
-
-            {/* Back to Login */}
-            <Link
-              to="/login"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                color: '#11E44F',
-                fontSize: '14px',
-                fontWeight: '600',
-                textDecoration: 'none',
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.color = '#8AFFAC';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.color = '#11E44F';
-              }}
-            >
-              <i className="fa-solid fa-arrow-left"></i>
-              Back to Login
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div style={{
