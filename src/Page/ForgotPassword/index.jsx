@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
@@ -7,6 +7,19 @@ const ForgotPasswordPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [navigationData, setNavigationData] = useState(null);
+  const navigationRef = useRef(false);
+
+  useEffect(() => {
+    if (navigationData && !navigationRef.current) {
+      navigationRef.current = true;
+      console.log("Executing navigation with data:", navigationData);
+      navigate("/reset-password", {
+        state: navigationData,
+        replace: true
+      });
+    }
+  }, [navigationData, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,8 +50,6 @@ const ForgotPasswordPage = () => {
         const otpValue = response.data.data?.otp;
         console.log("OTP received:", otpValue);
         
-        setLoading(false); // Reset loading before navigation
-        
         if (otpValue) {
           toast.success(`OTP: ${otpValue} (Valid for 5 minutes)`, {
             duration: 5000
@@ -47,14 +58,12 @@ const ForgotPasswordPage = () => {
           toast.success("OTP sent to your email! Check your inbox.");
         }
         
-        console.log("Navigating to reset-password page immediately");
-        // Navigate immediately
-        navigate("/reset-password", {
-          state: { 
-            email: email.toLowerCase().trim(),
-            otp: otpValue 
-          },
-          replace: true
+        console.log("Setting navigation data to trigger useEffect");
+        setLoading(false);
+        // Trigger navigation via state update
+        setNavigationData({ 
+          email: email.toLowerCase().trim(),
+          otp: otpValue 
         });
       } else {
         console.error("Request failed:", response.data.message);
