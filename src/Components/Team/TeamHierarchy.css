@@ -1,10 +1,10 @@
 .hierarchy-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  background: linear-gradient(135deg, rgba(17, 228, 79, 0.05) 0%, rgba(18, 18, 18, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
   border-radius: 12px;
-  border: 1px solid rgba(17, 228, 79, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
 .loading {
@@ -14,7 +14,7 @@
   justify-content: center;
   padding: 3rem;
   gap: 1rem;
-  color: #11E44F;
+  color: #667eea;
 }
 
 .spinner {
@@ -61,58 +61,63 @@
 }
 
 .stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   background: white;
-  border: 1px solid rgba(17, 228, 79, 0.2);
-  border-radius: 10px;
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
   padding: 1.5rem;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(17, 228, 79, 0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
 }
 
 .stat-card:hover {
-  box-shadow: 0 8px 24px rgba(17, 228, 79, 0.2);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
   transform: translateY(-4px);
-  border-color: rgba(17, 228, 79, 0.4);
-  background: linear-gradient(135deg, rgba(17, 228, 79, 0.02) 0%, rgba(18, 18, 18, 0.02) 100%);
+  border-color: #667eea;
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.stat-content {
+  flex: 1;
 }
 
 .stat-label {
   font-size: 0.85rem;
   color: #666;
   font-weight: 500;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .stat-value {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #11E44F 0%, #121212 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #667eea;
+  line-height: 1;
 }
 
 /* Legend */
 .legend {
   background: white;
-  border: 1px solid rgba(17, 228, 79, 0.2);
+  border: 1px solid rgba(102, 126, 234, 0.2);
   border-radius: 10px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(17, 228, 79, 0.1);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
 }
 
 .legend h4 {
   margin: 0 0 1rem 0;
   font-size: 1rem;
   font-weight: 600;
-  background: linear-gradient(135deg, #11E44F 0%, #121212 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #667eea;
 }
 
 .legend-items {
@@ -139,27 +144,24 @@
 /* Hierarchy Tree */
 .hierarchy-tree {
   background: white;
-  border: 1px solid rgba(17, 228, 79, 0.2);
+  border: 1px solid rgba(102, 126, 234, 0.2);
   border-radius: 10px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(17, 228, 79, 0.1);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
 }
 
 .hierarchy-tree h3 {
   margin: 0 0 1.5rem 0;
   font-size: 1.25rem;
   font-weight: 600;
-  background: linear-gradient(135deg, #11E44F 0%, #121212 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #667eea;
 }
 
 .tree-content {
   overflow-x: auto;
   padding: 1rem;
-  background: linear-gradient(135deg, rgba(17, 228, 79, 0.02) 0%, rgba(18, 18, 18, 0.02) 100%);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.02) 0%, rgba(118, 75, 162, 0.02) 100%);
   border-radius: 8px;
 }
 
@@ -187,7 +189,7 @@
   border: none;
   padding: 0.25rem;
   cursor: pointer;
-  color: #11E44F;
+  color: #667eea;
   display: flex;
   align-items: center;
   justify-content: center;

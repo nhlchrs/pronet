@@ -13,15 +13,19 @@ const HierarchyNode = ({ member, depth = 0, maxDepth = 5 }) => {
 
   const getLevelColor = (level) => {
     const colors = {
-      0: '#11E44F',
-      1: '#121212',
-      2: '#8AFFAC',
-      3: '#11E44F',
-      4: '#121212',
-      5: '#8AFFAC',
+      0: '#667eea',
+      1: '#764ba2',
+      2: '#f093fb',
+      3: '#4facfe',
+      4: '#00f2fe',
+      5: '#43e97b',
     };
-    return colors[level] || '#11E44F';
+    return colors[level] || '#667eea';
   };
+
+  const userName = member.userId?.fname && member.userId?.lname 
+    ? `${member.userId.fname} ${member.userId.lname}` 
+    : member.userId?.name || 'Unknown';
 
   return (
     <div className="hierarchy-node" style={{ marginLeft: `${depth * 24}px` }}>
@@ -46,7 +50,7 @@ const HierarchyNode = ({ member, depth = 0, maxDepth = 5 }) => {
           style={{ borderLeftColor: getLevelColor(member.level) }}
         >
           <div className="member-header">
-            <div className="member-name">{member.userId?.name || 'Unknown'}</div>
+            <div className="member-name">{userName}</div>
             <span className="level-badge" style={{ backgroundColor: getLevelColor(member.level) }}>
               L{member.level}
             </span>
@@ -66,15 +70,20 @@ const HierarchyNode = ({ member, depth = 0, maxDepth = 5 }) => {
                 💰 ${member.totalEarnings.toFixed(2)}
               </span>
             )}
+            {member.referralCode && (
+              <span className="detail-item code">
+                🔑 {member.referralCode}
+              </span>
+            )}
           </div>
         </div>
       </div>
 
       {hasChildren && isExpanded && (
         <div className="children-list">
-          {member.teamMembers.map((child) => (
+          {member.teamMembers.map((child, index) => (
             <HierarchyNode
-              key={child._id}
+              key={child._id || index}
               member={child}
               depth={depth + 1}
               maxDepth={maxDepth}
@@ -119,6 +128,7 @@ export const TeamHierarchy = ({ isActive }) => {
   const fetchHierarchy = async () => {
     try {
       const response = await teamAPI.getDownlineStructure();
+      console.log('Hierarchy API Response:', response);
 
       if (response.success) {
         setHierarchyData(response.data);
@@ -160,26 +170,51 @@ export const TeamHierarchy = ({ isActive }) => {
     return null;
   }
 
+  // Calculate total team members recursively
+  const countTeamMembers = (member) => {
+    if (!member || !member.teamMembers) return 0;
+    let count = member.teamMembers.length;
+    member.teamMembers.forEach(child => {
+      count += countTeamMembers(child);
+    });
+    return count;
+  };
+
+  const totalTeamCount = hierarchyData ? countTeamMembers(hierarchyData) : 0;
+  const directCount = hierarchyData?.directCount || 0;
+  const currentLevel = hierarchyData?.level || 0;
+  const totalEarnings = hierarchyData?.totalEarnings || 0;
+
   return (
     <div className="hierarchy-container">
       {/* Stats Cards */}
       <div className="hierarchy-stats">
         <div className="stat-card">
-          <div className="stat-label">Total Team Members</div>
-          <div className="stat-value">{hierarchyData.totalMembers || 0}</div>
+          <div className="stat-icon">👥</div>
+          <div className="stat-content">
+            <div className="stat-label">Total Team Members</div>
+            <div className="stat-value">{totalTeamCount}</div>
+          </div>
         </div>
         <div className="stat-card">
-          <div className="stat-label">Direct Referrals</div>
-          <div className="stat-value">{hierarchyData.member?.directCount || 0}</div>
+          <div className="stat-icon">⭐</div>
+          <div className="stat-content">
+            <div className="stat-label">Direct Referrals</div>
+            <div className="stat-value">{directCount}</div>
+          </div>
         </div>
         <div className="stat-card">
-          <div className="stat-label">Your Level</div>
-          <div className="stat-value">L{hierarchyData.member?.level || 0}</div>
+          <div className="stat-icon">🏆</div>
+          <div className="stat-content">
+            <div className="stat-label">Your Level</div>
+            <div className="stat-value">Level {currentLevel}</div>
+          </div>
         </div>
         <div className="stat-card">
-          <div className="stat-label">Total Earnings</div>
-          <div className="stat-value">
-            ${(hierarchyData.member?.totalEarnings || 0).toFixed(2)}
+          <div className="stat-icon">💰</div>
+          <div className="stat-content">
+            <div className="stat-label">Total Earnings</div>
+            <div className="stat-value">${totalEarnings.toFixed(2)}</div>
           </div>
         </div>
       </div>
@@ -189,23 +224,23 @@ export const TeamHierarchy = ({ isActive }) => {
         <h4>Level Legend</h4>
         <div className="legend-items">
           <div className="legend-item">
-            <span className="legend-color" style={{ backgroundColor: '#11E44F' }}></span>
+            <span className="legend-color" style={{ backgroundColor: '#667eea' }}></span>
             <span>Level 0 - Starter</span>
           </div>
           <div className="legend-item">
-            <span className="legend-color" style={{ backgroundColor: '#121212' }}></span>
-            <span>Level 1 - 10+ Direct (Unlock L2 income)</span>
+            <span className="legend-color" style={{ backgroundColor: '#764ba2' }}></span>
+            <span>Level 1 - 10+ Direct (Unlock Level Income)</span>
           </div>
           <div className="legend-item">
-            <span className="legend-color" style={{ backgroundColor: '#8AFFAC' }}></span>
-            <span>Level 2 - 10+ L1 members</span>
+            <span className="legend-color" style={{ backgroundColor: '#f093fb' }}></span>
+            <span>Level 2 - Advanced Builder</span>
           </div>
           <div className="legend-item">
-            <span className="legend-color" style={{ backgroundColor: '#11E44F' }}></span>
-            <span>Level 3 - 10+ L2 members</span>
+            <span className="legend-color" style={{ backgroundColor: '#4facfe' }}></span>
+            <span>Level 3 - Team Leader</span>
           </div>
           <div className="legend-item">
-            <span className="legend-color" style={{ backgroundColor: '#121212' }}></span>
+            <span className="legend-color" style={{ backgroundColor: '#00f2fe' }}></span>
             <span>Level 4+ - Elite Status</span>
           </div>
         </div>
@@ -214,13 +249,16 @@ export const TeamHierarchy = ({ isActive }) => {
       {/* Hierarchy Tree */}
       <div className="hierarchy-tree">
         <h3>Your Team Network</h3>
-        <div className="tree-content">
-          {hierarchyData.member ? (
-            <HierarchyNode member={hierarchyData.member} depth={0} />
-          ) : (
-            <p className="no-data">No team members yet. Share your referral code to build your network!</p>
-          )}
-        </div>
+        {hierarchyData && (directCount > 0 || totalTeamCount > 0) ? (
+          <div className="tree-content">
+            <HierarchyNode member={hierarchyData} depth={0} />
+          </div>
+        ) : (
+          <div className="no-data">
+            <p>📋 No team members yet.</p>
+            <p>Share your referral code to build your network!</p>
+          </div>
+        )}
       </div>
 
       {/* Info Box */}
