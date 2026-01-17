@@ -16,6 +16,7 @@ import PageNotFound from "./Page/NotFoundPage/NotFound";
 import LoginPage from "./Page/Login";
 import RegisterPage from "./Page/Register";
 import VerifyOTPPage from "./Page/VerifyOTP";
+import ForgotPasswordPage from "./Page/ForgotPassword";
 import Dashboard from "./Page/Dashboard";
 import ProfilePage from "./Page/Profile";
 import AnnouncementsPage from "./Page/Announcements";
@@ -47,6 +48,7 @@ function AppRouters(){
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="verify-otp" element={<VerifyOTPPage />} />
+            <Route path="forgot-password" element={<ForgotPasswordPage />} />
             
             {/* Protected Routes */}
             <Route path="dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
