@@ -3,9 +3,10 @@ import { ChevronDown, ChevronRight, AlertCircle, Loader } from 'lucide-react';
 import { teamAPI } from '../../services/api';
 import './TeamHierarchy.css';
 
-const HierarchyNode = ({ member, depth = 0, maxDepth = 5 }) => {
+const HierarchyNode = ({ member, depth = 0, maxDepth = 5, currentUserId }) => {
   const [isExpanded, setIsExpanded] = useState(depth < 2);
   const hasChildren = member.teamMembers && member.teamMembers.length > 0;
+  const isCurrentUser = member.userId?._id === currentUserId || member.isCurrentUser;
 
   if (depth > maxDepth) {
     return null;
@@ -46,11 +47,14 @@ const HierarchyNode = ({ member, depth = 0, maxDepth = 5 }) => {
         {!hasChildren && <div className="expand-placeholder" />}
 
         <div
-          className="member-info"
+          className={`member-info ${isCurrentUser ? 'current-user' : ''}`}
           style={{ borderLeftColor: getLevelColor(member.level) }}
         >
           <div className="member-header">
-            <div className="member-name">{userName}</div>
+            <div className="member-name">
+              {userName}
+              {isCurrentUser && <span className="you-badge"> (You)</span>}
+            </div>
             <span className="level-badge" style={{ backgroundColor: getLevelColor(member.level) }}>
               L{member.level}
             </span>
@@ -87,6 +91,7 @@ const HierarchyNode = ({ member, depth = 0, maxDepth = 5 }) => {
               member={child}
               depth={depth + 1}
               maxDepth={maxDepth}
+              currentUserId={currentUserId}
             />
           ))}
         </div>
@@ -97,6 +102,7 @@ const HierarchyNode = ({ member, depth = 0, maxDepth = 5 }) => {
 
 export const TeamHierarchy = ({ isActive }) => {
   const [hierarchyData, setHierarchyData] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -132,6 +138,7 @@ export const TeamHierarchy = ({ isActive }) => {
 
       if (response.success) {
         setHierarchyData(response.data);
+        setCurrentUserId(response.currentUserId);
         setError('');
       } else {
         setError(response.message || 'Could not load team hierarchy');
@@ -248,10 +255,10 @@ export const TeamHierarchy = ({ isActive }) => {
 
       {/* Hierarchy Tree */}
       <div className="hierarchy-tree">
-        <h3>Your Team Network</h3>
+        <h3>Complete Team Network</h3>
         {hierarchyData && (directCount > 0 || totalTeamCount > 0) ? (
           <div className="tree-content">
-            <HierarchyNode member={hierarchyData} depth={0} />
+            <HierarchyNode member={hierarchyData} depth={0} currentUserId={currentUserId} />
           </div>
         ) : (
           <div className="no-data">

@@ -225,6 +225,35 @@
   border-color: rgba(17, 228, 79, 0.3);
 }
 
+.member-info.current-user {
+  background: linear-gradient(135deg, #f0fff4 0%, #d1fae5 100%);
+  border-left: 5px solid #11E44F;
+  box-shadow: 0 4px 16px rgba(17, 228, 79, 0.3);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 4px 16px rgba(17, 228, 79, 0.3);
+  }
+  50% {
+    box-shadow: 0 6px 24px rgba(17, 228, 79, 0.5);
+  }
+}
+
+.you-badge {
+  background: linear-gradient(135deg, #11E44F 0%, #0ea839 100%);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-left: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(17, 228, 79, 0.3);
+}
+
 .member-header {
   display: flex;
   align-items: center;
