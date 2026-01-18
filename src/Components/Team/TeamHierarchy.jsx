@@ -4,6 +4,103 @@ import { teamAPI } from '../../services/api';
 import './TeamHierarchy.css';
 import './OrgChart.css';
 
+const HierarchyNode = ({ member, depth = 0, maxDepth = 5, currentUserId }) => {
+  const [isExpanded, setIsExpanded] = useState(depth < 2);
+  const hasChildren = member.teamMembers && member.teamMembers.length > 0;
+  const isCurrentUser = member.userId?._id === currentUserId || member.isCurrentUser;
+
+  if (depth > maxDepth) {
+    return null;
+  }
+
+  const getLevelColor = (level) => {
+    const colors = {
+      0: '#667eea',
+      1: '#764ba2',
+      2: '#f093fb',
+      3: '#4facfe',
+      4: '#00f2fe',
+      5: '#43e97b',
+    };
+    return colors[level] || '#667eea';
+  };
+
+  const userName = member.userId?.fname && member.userId?.lname 
+    ? `${member.userId.fname} ${member.userId.lname}` 
+    : member.userId?.name || 'Unknown';
+
+  return (
+    <div className="hierarchy-node" style={{ marginLeft: `${depth * 24}px` }}>
+      <div className="node-header">
+        {hasChildren && (
+          <button
+            className="expand-btn"
+            onClick={() => setIsExpanded(!isExpanded)}
+            title={isExpanded ? 'Collapse' : 'Expand'}
+          >
+            {isExpanded ? (
+              <ChevronDown size={18} />
+            ) : (
+              <ChevronRight size={18} />
+            )}
+          </button>
+        )}
+        {!hasChildren && <div className="expand-placeholder" />}
+
+        <div
+          className={`member-info ${isCurrentUser ? 'current-user' : ''}`}
+          style={{ borderLeftColor: getLevelColor(member.level) }}
+        >
+          <div className="member-header">
+            <div className="member-name">
+              {userName}
+              {isCurrentUser && <span className="you-badge"> (You)</span>}
+            </div>
+            <span className="level-badge" style={{ backgroundColor: getLevelColor(member.level) }}>
+              L{member.level}
+            </span>
+          </div>
+          <div className="member-details">
+            <span className="detail-item">
+              📧 {member.userId?.email || 'N/A'}
+            </span>
+            <span className="detail-item">
+              👥 {member.directCount || 0} Direct
+            </span>
+            <span className="detail-item">
+              🌳 {member.totalDownline || 0} Total
+            </span>
+            {member.totalEarnings > 0 && (
+              <span className="detail-item earnings">
+                💰 ${member.totalEarnings.toFixed(2)}
+              </span>
+            )}
+            {member.referralCode && (
+              <span className="detail-item code">
+                🔑 {member.referralCode}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {hasChildren && isExpanded && (
+        <div className="children-list">
+          {member.teamMembers.map((child, index) => (
+            <HierarchyNode
+              key={child._id || index}
+              member={child}
+              depth={depth + 1}
+              maxDepth={maxDepth}
+              currentUserId={currentUserId}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const OrgChartNode = ({ member, currentUserId, maxDepth = 5, currentDepth = 0 }) => {
   const hasChildren = member.teamMembers && member.teamMembers.length > 0;
   const isCurrentUser = member.userId?._id === currentUserId || member.isCurrentUser;
@@ -70,6 +167,7 @@ export const TeamHierarchy = ({ isActive }) => {
   const [currentUserId, setCurrentUserId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [viewMode, setViewMode] = useState('org-chart'); // 'tree' or 'org-chart'
 
   // Trigger API call when tab becomes active
   useEffect(() => {
@@ -220,13 +318,55 @@ export const TeamHierarchy = ({ isActive }) => {
 
       {/* Hierarchy Tree */}
       <div className="hierarchy-tree">
-        <h3>Complete Team Network</h3>
-        {hierarchyData && (directCount > 0 || totalTeamCount > 0) ? (
-          <div className="org-chart-container">
-            <div className="org-tree">
-              <OrgChartNode member={hierarchyData} currentUserId={currentUserId} maxDepth={5} />
-            </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+          <h3 style={{ margin: 0 }}>Complete Team Network</h3>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <button
+              onClick={() => setViewMode('tree')}
+              style={{
+                padding: '0.5rem 1rem',
+                borderRadius: '8px',
+                border: '2px solid',
+                borderColor: viewMode === 'tree' ? '#667eea' : '#e5e7eb',
+                background: viewMode === 'tree' ? '#667eea' : 'white',
+                color: viewMode === 'tree' ? 'white' : '#667eea',
+                cursor: 'pointer',
+                fontWeight: '600',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              📋 List View
+            </button>
+            <button
+              onClick={() => setViewMode('org-chart')}
+              style={{
+                padding: '0.5rem 1rem',
+                borderRadius: '8px',
+                border: '2px solid',
+                borderColor: viewMode === 'org-chart' ? '#667eea' : '#e5e7eb',
+                background: viewMode === 'org-chart' ? '#667eea' : 'white',
+                color: viewMode === 'org-chart' ? 'white' : '#667eea',
+                cursor: 'pointer',
+                fontWeight: '600',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              🏢 Org Chart
+            </button>
           </div>
+        </div>
+        {hierarchyData && (directCount > 0 || totalTeamCount > 0) ? (
+          viewMode === 'org-chart' ? (
+            <div className="org-chart-container">
+              <div className="org-tree">
+                <OrgChartNode member={hierarchyData} currentUserId={currentUserId} maxDepth={5} />
+              </div>
+            </div>
+          ) : (
+            <div className="tree-content">
+              <HierarchyNode member={hierarchyData} depth={0} currentUserId={currentUserId} />
+            </div>
+          )
         ) : (
           <div className="no-data">
             <p>📋 No team members yet.</p>
