@@ -147,8 +147,8 @@ export const JoinTeam = ({ isActive }) => {
                 <span className="value level">Level {referrerInfo.referrerLevel}</span>
               </div>
               <div className="info-row">
-                <span className="label">Network Size:</span>
-                <span className="value">{referrerInfo.referrerTeamSize} members</span>
+                <span className="label">Direct Referrals:</span>
+                <span className="value">{referrerInfo.directCount || 0} members</span>
               </div>
               <div className="info-row">
                 <span className="label">Status:</span>
