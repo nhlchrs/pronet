@@ -2,96 +2,61 @@ import { useState, useEffect } from 'react';
 import { ChevronDown, ChevronRight, AlertCircle, Loader } from 'lucide-react';
 import { teamAPI } from '../../services/api';
 import './TeamHierarchy.css';
+import './OrgChart.css';
 
-const HierarchyNode = ({ member, depth = 0, maxDepth = 5, currentUserId }) => {
-  const [isExpanded, setIsExpanded] = useState(depth < 2);
+const OrgChartNode = ({ member, currentUserId, maxDepth = 5, currentDepth = 0 }) => {
   const hasChildren = member.teamMembers && member.teamMembers.length > 0;
   const isCurrentUser = member.userId?._id === currentUserId || member.isCurrentUser;
 
-  if (depth > maxDepth) {
+  if (currentDepth > maxDepth) {
     return null;
   }
-
-  const getLevelColor = (level) => {
-    const colors = {
-      0: '#667eea',
-      1: '#764ba2',
-      2: '#f093fb',
-      3: '#4facfe',
-      4: '#00f2fe',
-      5: '#43e97b',
-    };
-    return colors[level] || '#667eea';
-  };
 
   const userName = member.userId?.fname && member.userId?.lname 
     ? `${member.userId.fname} ${member.userId.lname}` 
     : member.userId?.name || 'Unknown';
 
   return (
-    <div className="hierarchy-node" style={{ marginLeft: `${depth * 24}px` }}>
-      <div className="node-header">
-        {hasChildren && (
-          <button
-            className="expand-btn"
-            onClick={() => setIsExpanded(!isExpanded)}
-            title={isExpanded ? 'Collapse' : 'Expand'}
-          >
-            {isExpanded ? (
-              <ChevronDown size={18} />
-            ) : (
-              <ChevronRight size={18} />
-            )}
-          </button>
+    <div className="org-node">
+      <div className={`org-node-content ${isCurrentUser ? 'current-user' : ''}`}>
+        <div className="org-node-name">
+          {userName}
+          {isCurrentUser && <span className="you-badge-org">YOU</span>}
+          <span className="level-badge-org">L{member.level}</span>
+        </div>
+        {member.userId?.email && (
+          <div className="org-node-email">{member.userId.email}</div>
         )}
-        {!hasChildren && <div className="expand-placeholder" />}
-
-        <div
-          className={`member-info ${isCurrentUser ? 'current-user' : ''}`}
-          style={{ borderLeftColor: getLevelColor(member.level) }}
-        >
-          <div className="member-header">
-            <div className="member-name">
-              {userName}
-              {isCurrentUser && <span className="you-badge"> (You)</span>}
+        {member.referralCode && (
+          <div className="referral-code-org">🔑 {member.referralCode}</div>
+        )}
+        <div className="org-node-stats">
+          <div className="org-stat">
+            <div className="org-stat-value">{member.directCount || 0}</div>
+            <div className="org-stat-label">Direct</div>
+          </div>
+          <div className="org-stat">
+            <div className="org-stat-value">{member.totalDownline || 0}</div>
+            <div className="org-stat-label">Team</div>
+          </div>
+          {member.totalEarnings > 0 && (
+            <div className="org-stat">
+              <div className="org-stat-value">${(member.totalEarnings || 0).toFixed(0)}</div>
+              <div className="org-stat-label">Earned</div>
             </div>
-            <span className="level-badge" style={{ backgroundColor: getLevelColor(member.level) }}>
-              L{member.level}
-            </span>
-          </div>
-          <div className="member-details">
-            <span className="detail-item">
-              📧 {member.userId?.email || 'N/A'}
-            </span>
-            <span className="detail-item">
-              👥 {member.directCount || 0} Direct
-            </span>
-            <span className="detail-item">
-              🌳 {member.totalDownline || 0} Total
-            </span>
-            {member.totalEarnings > 0 && (
-              <span className="detail-item earnings">
-                💰 ${member.totalEarnings.toFixed(2)}
-              </span>
-            )}
-            {member.referralCode && (
-              <span className="detail-item code">
-                🔑 {member.referralCode}
-              </span>
-            )}
-          </div>
+          )}
         </div>
       </div>
 
-      {hasChildren && isExpanded && (
-        <div className="children-list">
+      {hasChildren && (
+        <div className={`org-children ${member.teamMembers.length === 1 ? 'single-child' : ''}`}>
           {member.teamMembers.map((child, index) => (
-            <HierarchyNode
+            <OrgChartNode
               key={child._id || index}
               member={child}
-              depth={depth + 1}
-              maxDepth={maxDepth}
               currentUserId={currentUserId}
+              maxDepth={maxDepth}
+              currentDepth={currentDepth + 1}
             />
           ))}
         </div>
@@ -257,8 +222,10 @@ export const TeamHierarchy = ({ isActive }) => {
       <div className="hierarchy-tree">
         <h3>Complete Team Network</h3>
         {hierarchyData && (directCount > 0 || totalTeamCount > 0) ? (
-          <div className="tree-content">
-            <HierarchyNode member={hierarchyData} depth={0} currentUserId={currentUserId} />
+          <div className="org-chart-container">
+            <div className="org-tree">
+              <OrgChartNode member={hierarchyData} currentUserId={currentUserId} maxDepth={5} />
+            </div>
           </div>
         ) : (
           <div className="no-data">
