@@ -66,15 +66,54 @@
   }
 }
 
+/* Payment Recommendation */
+.payment-recommendation {
+  background: linear-gradient(135deg, #fff9e6 0%, #fff4d4 100%);
+  border: 2px solid #ffc107;
+  border-radius: 16px;
+  padding: 20px 25px;
+  margin-bottom: 30px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.15);
+}
+
+.recommendation-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.recommendation-content h4 {
+  color: #121212;
+  font-size: 1.1rem;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.recommendation-content p {
+  color: #555;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.recommendation-content strong {
+  color: #11E44F;
+  font-weight: 700;
+}
+
 /* Currency Selector */
 .currency-selector {
   background: white;
-  padding: 25px;
+  padding: 20px 25px;
   border-radius: 16px;
   margin-bottom: 30px;
   box-shadow: 0 4px 20px rgba(17, 228, 79, 0.15);
   border: 1px solid rgba(17, 228, 79, 0.1);
   transition: all 0.3s ease;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .currency-selector:hover {
@@ -87,16 +126,18 @@
   font-weight: 600;
   color: #333;
   margin-bottom: 10px;
+  font-size: 0.95rem;
 }
 
 .currency-selector select {
   width: 100%;
-  padding: 12px;
+  padding: 12px 15px;
   border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: border-color 0.3s;
+  background: white;
 }
 
 .currency-selector select:focus {
@@ -112,15 +153,32 @@
   margin-bottom: 40px;
 }
 
+/* Single Plan Layout */
+.plans-grid.single-plan {
+  display: flex;
+  justify-content: center;
+  max-width: 550px;
+  margin: 0 auto 40px;
+}
+
+.plans-grid.single-plan .plan-card {
+  width: 100%;
+}
+
 .plan-card {
   background: white;
   border-radius: 20px;
-  padding: 35px;
+  padding: 40px 35px;
   position: relative;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 20px rgba(17, 228, 79, 0.1);
   border: 2px solid rgba(17, 228, 79, 0.1);
   overflow: hidden;
+}
+
+.plan-card.featured {
+  border: 3px solid #11E44F;
+  box-shadow: 0 8px 30px rgba(17, 228, 79, 0.25);
 }
 
 .plan-card::before {

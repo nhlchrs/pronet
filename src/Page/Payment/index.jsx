@@ -18,38 +18,15 @@ const PaymentPage = () => {
   // Subscription plans
   const plans = [
     {
-      id: 'monthly',
-      name: 'Monthly Plan',
-      price: 29.99,
-      duration: 30,
+      id: 'annual',
+      name: 'Annual Package',
+      price: 135,
+      duration: 360,
       features: [
         'Access to all courses',
         'Live meetings and webinars',
         'Premium support',
         'Downloadable resources',
-      ]
-    },
-    {
-      id: 'quarterly',
-      name: 'Quarterly Plan',
-      price: 79.99,
-      duration: 90,
-      features: [
-        'All Monthly Plan features',
-        '15% discount',
-        'Priority support',
-        'Exclusive content',
-      ],
-      popular: true
-    },
-    {
-      id: 'yearly',
-      name: 'Annual Plan',
-      price: 299.99,
-      duration: 365,
-      features: [
-        'All Quarterly Plan features',
-        '30% discount',
         'One-on-one mentorship',
         'Lifetime resource access',
       ]
@@ -285,12 +262,6 @@ const PaymentPage = () => {
             Subscribe
           </button>
           <button
-            className={`tab-btn ${activeTab === 'custom' ? 'active' : ''}`}
-            onClick={() => setActiveTab('custom')}
-          >
-            Custom Payment
-          </button>
-          <button
             className={`tab-btn ${activeTab === 'history' ? 'active' : ''}`}
             onClick={() => setActiveTab('history')}
           >
@@ -301,6 +272,15 @@ const PaymentPage = () => {
         {/* Subscribe Tab */}
         {activeTab === 'subscribe' && (
           <div className="tab-content">
+            {/* Payment Method Recommendation */}
+            <div className="payment-recommendation">
+              <div className="recommendation-icon">💡</div>
+              <div className="recommendation-content">
+                <h4>Recommended Payment Methods</h4>
+                <p>For faster and lower fee transactions, we recommend using <strong>BEP-20 (BSC)</strong> or <strong>TRC-20 (TRON)</strong> networks. Other payment methods are also available below.</p>
+              </div>
+            </div>
+
             {/* Currency Selector */}
             <div className="currency-selector">
               <label>Pay with Cryptocurrency:</label>
@@ -308,11 +288,15 @@ const PaymentPage = () => {
                 value={selectedCurrency}
                 onChange={(e) => setSelectedCurrency(e.target.value)}
               >
+                <option value="bnbbsc">BNB (BEP-20) - Recommended ⭐</option>
+                <option value="usdtbsc">USDT (BEP-20) - Recommended ⭐</option>
+                <option value="usdttrc20">USDT (TRC-20) - Recommended ⭐</option>
+                <option value="trx">TRX (TRC-20) - Recommended ⭐</option>
+                <option disabled>──────────</option>
                 <option value="btc">Bitcoin (BTC)</option>
                 <option value="eth">Ethereum (ETH)</option>
                 <option value="ltc">Litecoin (LTC)</option>
-                <option value="usdt">Tether (USDT)</option>
-                <option value="usdttrc20">USDT TRC20</option>
+                <option value="usdt">Tether (USDT ERC-20)</option>
                 {currencies.map((currency) => (
                   <option key={currency} value={currency}>
                     {currency.toUpperCase()}
@@ -322,10 +306,10 @@ const PaymentPage = () => {
             </div>
 
             {/* Subscription Plans */}
-            <div className="plans-grid">
+            <div className="plans-grid single-plan">
               {plans.map((plan) => (
-                <div key={plan.id} className={`plan-card ${plan.popular ? 'popular' : ''}`}>
-                  {plan.popular && <div className="popular-badge">Most Popular</div>}
+                <div key={plan.id} className="plan-card featured">
+                  <div className="popular-badge">Best Value - 360 Days</div>
                   <h3>{plan.name}</h3>
                   <div className="plan-price">
                     <span className="currency">$</span>
@@ -347,59 +331,8 @@ const PaymentPage = () => {
                   >
                     {loading ? 'Processing...' : 'Subscribe Now'}
                   </button>
-                  <button
-                    className="estimate-btn"
-                    onClick={() => handleGetEstimate(plan.price)}
-                  >
-                    Get {selectedCurrency.toUpperCase()} Estimate
-                  </button>
-                  {estimate && (
-                    <div className="estimate-result">
-                      ≈ {estimate.estimated_amount} {estimate.currency_to.toUpperCase()}
-                    </div>
-                  )}
                 </div>
               ))}
-            </div>
-          </div>
-        )}
-
-        {/* Custom Payment Tab */}
-        {activeTab === 'custom' && (
-          <div className="tab-content custom-payment">
-            <div className="custom-payment-form">
-              <h3>Make a Custom Payment</h3>
-              <div className="form-group">
-                <label>Amount (USD)</label>
-                <input
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(parseFloat(e.target.value))}
-                  min="1"
-                  step="0.01"
-                  placeholder="Enter amount"
-                />
-              </div>
-              <div className="form-group">
-                <label>Payment Currency</label>
-                <select
-                  value={selectedCurrency}
-                  onChange={(e) => setSelectedCurrency(e.target.value)}
-                >
-                  <option value="btc">Bitcoin (BTC)</option>
-                  <option value="eth">Ethereum (ETH)</option>
-                  <option value="ltc">Litecoin (LTC)</option>
-                  <option value="usdt">Tether (USDT)</option>
-                  <option value="usdttrc20">USDT TRC20</option>
-                </select>
-              </div>
-              <button
-                className="pay-btn"
-                onClick={handleCustomPayment}
-                disabled={loading}
-              >
-                {loading ? 'Processing...' : `Pay $${amount}`}
-              </button>
             </div>
           </div>
         )}
