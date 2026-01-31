@@ -11,10 +11,16 @@ const TermsAgreementModal = ({ user, onClose }) => {
 
     try {
       // Call API to save agreement
-      await authAPI.agreeToTerms();
+      const response = await authAPI.agreeToTerms();
+      console.log("Agreement saved:", response);
       
-      // Close modal on success
-      onClose();
+      // Verify the response indicates success
+      if (response.status === 1 || response.data) {
+        // Close modal on success
+        onClose();
+      } else {
+        throw new Error("Failed to save agreement");
+      }
     } catch (err) {
       console.error("Error saving agreement:", err);
       setError(err.message || "Failed to save agreement. Please try again.");

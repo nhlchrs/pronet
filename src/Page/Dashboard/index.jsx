@@ -25,9 +25,12 @@ export default function Dashboard() {
     const checkTermsAgreement = async () => {
       try {
         const response = await authAPI.checkTermsAgreement();
+        console.log("Terms agreement response:", response);
         // If user hasn't agreed, show modal
-        if (!response.agreed) {
+        if (!response.data || !response.data.termsAgreed) {
           setShowTermsModal(true);
+        } else {
+          setShowTermsModal(false);
         }
       } catch (err) {
         console.warn("Could not check terms agreement:", err);
