@@ -20,8 +20,8 @@ export const blogdata = [
     {
         id: 3,
         image: "https://plus.unsplash.com/premium_photo-1663040328859-48bddaa9dfeb?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        title: "Winning Strategies in Fantasy Gaming & eSports",
-        content: "Explore top tactics for success in fantasy gaming, sports betting, and eSports competitions.",
+        title: "Understanding Technical Analysis in Financial Markets",
+        content: "Learn the fundamentals of technical analysis, chart patterns, and market indicators for better trading decisions.",
         link: "#",
         date: "August 11, 2024",
         comment: 0,

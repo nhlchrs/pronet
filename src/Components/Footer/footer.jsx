@@ -17,8 +17,7 @@ const Footer = () => {
                                         className="logo"
                                     />
                                     <p className="accent-color-2">
-                                        Quam lacus suspendisse faucibus interdum posuere lorem
-                                        ipsum dolor sit. Vel quam elementum pulvinar etiam.
+                                        ProNet Solutions is an education-driven platform focused on financial markets and fintech learning. We simplify complex trading concepts for learners at every level.
                                     </p>
                                     <ul className="footer-list">
                                         <li>
@@ -30,13 +29,13 @@ const Footer = () => {
                                         <li>
                                             <div className="d-flex flex-row align-items-center gspace-2 secondary-accent">
                                                 <i className="fa-solid fa-envelope-open-text"></i>
-                                                <span>pro-net@dummy.com</span>
+                                                <span>support@pronetsolutions.com</span>
                                             </div>
                                         </li>
                                         <li>
                                             <div className="d-flex flex-row align-items-center gspace-2 secondary-accent">
                                                 <i className="fa-solid fa-phone"></i>
-                                                <span>+123 123 123</span>
+                                                <span>Contact us for inquiries</span>
                                             </div>
                                             </li>
                                     </ul>
@@ -48,6 +47,10 @@ const Footer = () => {
                                         <li><a href="#">Contact</a></li>
                                         <li><a href="/team">Team</a></li>
                                         <li><a href="/faq">FAQs</a></li>
+                                        <li><a href="/learn-more">Learn More</a></li>
+                                        <li><a href="/terms">Terms & Conditions</a></li>
+                                        <li><a href="/agreement">User Agreement</a></li>
+                                        <li><a href="/disclaimer">Disclaimer</a></li>
                                     </ul>
                                 </div>
                                 {/* <div className="footer-services">
@@ -62,10 +65,9 @@ const Footer = () => {
                                     </ul>
                                 </div> */}
                                 <div className="footer-cta">
-                                    <h4 className="accent-color">Work Days</h4>
+                                    <h4 className="accent-color">Support Hours</h4>
                                     <p>
-                                        Euismod elementum nisi quis eleifend quam adipiscing
-                                        vitae proin sagittis.
+                                        Our support team is available to assist you with any questions or concerns about our educational programs.
                                     </p>
                                     <div className="d-flex gspace-2">
                                         <i className="fa-solid accent-color-2 fa-clock"></i>
@@ -81,7 +83,7 @@ const Footer = () => {
                         </div>
                         <div className="copyright-container">
                             <span className="copyright-text">
-                                Pro-net © 2025 All Rights Reserved
+                                ProNet Solutions © 2026 All Rights Reserved | <a href="/terms" style={{ color: 'inherit', textDecoration: 'underline' }}>Terms & Conditions</a> | <a href="/agreement" style={{ color: 'inherit', textDecoration: 'underline' }}>User Agreement</a> | <a href="/disclaimer" style={{ color: 'inherit', textDecoration: 'underline' }}>Disclaimer</a>
                             </span>
                             <div className="social-footer">
                                 <a href="#" className="social-item accent-color">

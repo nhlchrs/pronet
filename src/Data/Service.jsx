@@ -8,9 +8,9 @@ export const servicedata = [
     },
     {
         id: 2,
-        icon: "fa-solid fa-gamepad",
-        title: "Fantasy Gaming & eSports",
-        content: "Enjoy casino games, live sports betting, and eSports competitions—all in one gaming hub.",
+        icon: "fa-solid fa-book-open",
+        title: "Financial Literacy",
+        content: "Learn essential financial concepts, market analysis, and trading strategies through structured education.",
         link: "#",
     },
     {

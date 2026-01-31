@@ -14,9 +14,28 @@ const AboutSection = () => {
                                     <i className="fa-solid fa-circle-notch"></i>
                                     <h6 className="font-family-1 accent-color">About Us</h6>
                                 </div>
-                                <h2 className="animate-box animated animate__animated" data-animate="animate__fadeInUp">Empowering Your Journey to Financial Freedom</h2>
-                                <p>Empowering Your Journey to Financial Freedom
-                                    At Pro Net Solutions, we’re dedicated to helping you unlock your potential with a multi-service platform designed for your success. From expert insights in financial markets to innovative fantasy gaming and seamless e-commerce solutions, our ecosystem is built to support sustainable growth for everyone. Discover how knowledge, community, and diversified opportunities can guide you toward a more secure financial future.</p>
+                                <h2 className="animate-box animated animate__animated" data-animate="animate__fadeInUp">About Us</h2>
+                                <p>
+                                    ProNet Solutions is an education-driven platform focused on financial markets and fintech learning.
+                                </p>
+                                <p>
+                                    We aim to simplify complex trading and market concepts for learners at every level.
+                                </p>
+                                <p>
+                                    Our programs are designed to be practical, structured, and beginner-friendly.
+                                </p>
+                                <p>
+                                    We believe in skill-based learning, not shortcuts or guarantees.
+                                </p>
+                                <p>
+                                    Through live sessions and expert guidance, we help learners build confidence and discipline.
+                                </p>
+                                <p>
+                                    Our focus is on understanding markets, managing risk, and growing responsibly.
+                                </p>
+                                <p style={{ fontWeight: '600' }}>
+                                    ProNet Solutions is where knowledge meets real-world application
+                                </p>
                                 <div>
                                     <a href="#" className="btn btn-accent">Learn More</a>
                                 </div>

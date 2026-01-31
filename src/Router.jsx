@@ -26,6 +26,10 @@ import MeetingsPage from "./Page/Meetings";
 import ReferralPage from "./Page/ReferralPage";
 import SecureMedia from "./Page/SecureMedia";
 import PaymentPage from "./Page/Payment";
+import AgreementPage from "./Page/Agreement";
+import DisclaimerPage from "./Page/Disclaimer";
+import LearnMorePage from "./Page/LearnMore";
+import TermsPage from "./Page/Terms";
 import ProtectedRoute from "./Components/ProtectedRoute";
 
 function AppRouters(){
@@ -44,6 +48,10 @@ function AppRouters(){
             <Route path="blog" element={<BlogPage/>} />
             <Route path="single-post" element={<SinglePostPage />} />
             <Route path="contact" element={<ContactPage />}/>
+            <Route path="agreement" element={<AgreementPage />} />
+            <Route path="disclaimer" element={<DisclaimerPage />} />
+            <Route path="learn-more" element={<LearnMorePage />} />
+            <Route path="terms" element={<TermsPage />} />
             
             {/* Authentication Routes */}
             <Route path="login" element={<LoginPage />} />

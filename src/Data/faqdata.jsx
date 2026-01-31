@@ -17,7 +17,7 @@ export const faqdata = [
   {
     id: 4,
     question: "Can I access multiple services?",
-    answer: "Absolutely! You can subscribe to multiple services and take advantage of our comprehensive platform that includes trading, gaming, and e-commerce solutions."
+    answer: "Absolutely! You can subscribe to multiple services and take advantage of our comprehensive platform that includes market education, affiliate programs, and learning resources."
   },
   {
     id: 5,

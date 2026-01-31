@@ -17,7 +17,6 @@ const HomePage = () => {
         <>
             <BannerHome />
             <ModalVideoSection />
-            <PartnersipSection />
             <AboutSection />
             <ServiceSection />
             <AchievementSection />

@@ -43,12 +43,17 @@ const NewsletterForm = () => {
     return (
         <div className="newsletter-bg">
             <div className="card newsletter-card">
-                <h2 className="secondary-accent">Subscribe Our Newsletter</h2>
+                <h2 className="secondary-accent">Subscribe to our newsletter</h2>
                 <p className="secondary-accent">
-                    A diam maecenas sed enim ut sem viverra. Vulputate ut pharetra
-                    sit amet aliquam id diam maecenas ultricies. Ultricies mi quis
-                    hendrerit dolor. Convallis a cras semper auctor neque vitae
-                    tempus quam.
+                    Subscribe to our newsletter and become part of our learning community.
+                </p>
+                <ul className="secondary-accent" style={{ listStyleType: 'disc', paddingLeft: '20px', marginTop: '10px', marginBottom: '10px' }}>
+                    <li>Get updates on live classes, market education, and fintech trends.</li>
+                    <li>Access exclusive tips and platform announcements.</li>
+                    <li>Simple, useful, and learner-focused content.</li>
+                </ul>
+                <p className="secondary-accent" style={{ fontWeight: '600', marginTop: '10px' }}>
+                    Stay connected. Stay informed
                 </p>
 
                 {success && (

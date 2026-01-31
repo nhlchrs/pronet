@@ -21,10 +21,10 @@ const SingleServiceSection = () => {
 
                             <div>
                                 <p>
-                                    Discover how Pro Net Solutions helps you unlock financial opportunities. Our platform connects you to powerful tools for trading, gaming, and e-commerce—no experience required!
+                                    Discover how Pro Net Solutions helps you unlock financial opportunities. Our platform connects you to powerful tools for market education and skill development—no experience required!
                                 </p>
                                 <p>
-                                    Whether you’re aspiring to trade in financial markets, win big in fantasy gaming, or build your own online store, you’ll find tailored solutions, expert guidance, and a vibrant community behind you.
+                                    Whether you're aspiring to learn about financial markets, build digital skills, or explore affiliate opportunities, you'll find tailored solutions, expert guidance, and a vibrant community behind you.
                                 </p>
                             </div>
 
@@ -45,9 +45,9 @@ const SingleServiceSection = () => {
                                             Explore our key features:
                                         </p>
                                         <ul className="circle-notch-list">
-                                            <li>Premium trading signals for forex, crypto, and stocks</li>
-                                            <li>Live sports and eSports betting with fast payouts</li>
-                                            <li>Curated product catalog and Shopify integration</li>
+                                            <li>Comprehensive market education and learning resources</li>
+                                            <li>Live webinars and expert-led training sessions</li>
+                                            <li>Affiliate commission and earning opportunities</li>
                                             <li>Mentorship & community-driven support</li>
                                             <li>Affiliate commissions and direct bonuses</li>
                                             <li>Beginner-friendly onboarding—no prior knowledge needed!</li>

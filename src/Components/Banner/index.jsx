@@ -25,7 +25,7 @@ const BannerHome =() => {
                                 </div>
                             </div>
                             <div className="banner-text-description">
-                                <p>Choose from our diverse range of services - Financial Markets, Fantasy Gaming, and Dropshipping Solutions.</p>
+                                <p>Choose from our diverse range of services - Financial Markets Education, Affiliate Earnings, and Digital Learning Solutions.</p>
                             </div>
                         </div>
                         <div className="banner-home animate-box animated animate__animated" data-animate="animate__fadeIn">
