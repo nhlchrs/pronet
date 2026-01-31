@@ -356,6 +356,184 @@
   font-weight: bold;
 }
 
+/* Position Info Card */
+.position-info-card {
+  background: white;
+  border: 2px solid #11E44F;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(17, 228, 79, 0.15);
+}
+
+.position-info-card h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #11E44F 0%, #121212 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.position-display {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.position-badge {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.position-badge.position-main {
+  background: rgba(17, 228, 79, 0.1);
+  border: 2px solid #11E44F;
+  color: #11E44F;
+}
+
+.position-badge.position-left {
+  background: rgba(59, 130, 246, 0.1);
+  border: 2px solid #3b82f6;
+  color: #3b82f6;
+}
+
+.position-badge.position-right {
+  background: rgba(245, 158, 11, 0.1);
+  border: 2px solid #f59e0b;
+  color: #f59e0b;
+}
+
+.position-badge span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.position-note {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+  text-align: center;
+}
+
+/* Team Breakdown */
+.team-breakdown {
+  background: white;
+  border: 2px solid #11E44F;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(17, 228, 79, 0.15);
+}
+
+.team-breakdown h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #11E44F 0%, #121212 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.breakdown-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.breakdown-card {
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 2px solid;
+  transition: all 0.3s ease;
+}
+
+.breakdown-card:hover {
+  transform: translateY(-2px);
+}
+
+.breakdown-card.breakdown-main {
+  border-color: #11E44F;
+  background: rgba(17, 228, 79, 0.05);
+}
+
+.breakdown-card.breakdown-left {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.breakdown-card.breakdown-right {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.breakdown-emoji {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.breakdown-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.breakdown-count {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.breakdown-card.breakdown-main .breakdown-count {
+  color: #11E44F;
+}
+
+.breakdown-card.breakdown-left .breakdown-count {
+  color: #3b82f6;
+}
+
+.breakdown-card.breakdown-right .breakdown-count {
+  color: #f59e0b;
+}
+
+.breakdown-percent {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.breakdown-card.breakdown-main .breakdown-percent {
+  background: rgba(17, 228, 79, 0.2);
+  color: #11E44F;
+}
+
+.breakdown-card.breakdown-left .breakdown-percent {
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+}
+
+.breakdown-card.breakdown-right .breakdown-percent {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+}
+
 /* Responsive Design */
 @media (max-width: 640px) {
   .referral-code-container {
@@ -377,6 +555,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .breakdown-grid {
+    grid-template-columns: 1fr;
+  }
+
   .code-text {
     font-size: 1rem;
     letter-spacing: 1px;
@@ -384,5 +566,9 @@
 
   .stat-value {
     font-size: 1.5rem;
+  }
+
+  .position-display {
+    flex-direction: column;
   }
 }

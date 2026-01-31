@@ -215,6 +215,33 @@ export const ReferralCode = ({ isActive }) => {
         </div>
       </div>
 
+      {/* Position Information Card */}
+      {referralData.stats.userPosition && (
+        <div className="position-info-card">
+          <h3>📍 Your Position</h3>
+          <div className="position-display">
+            {referralData.stats.userPosition === 'left' && (
+              <div className="position-badge position-left">
+                <span>⬅️ Left Position (Lpro)</span>
+              </div>
+            )}
+            {referralData.stats.userPosition === 'right' && (
+              <div className="position-badge position-right">
+                <span>➡️ Right Position (Rpro)</span>
+              </div>
+            )}
+            {referralData.stats.userPosition === 'main' && (
+              <div className="position-badge position-main">
+                <span>🔑 Main Position</span>
+              </div>
+            )}
+          </div>
+          <p className="position-note">
+            You joined the team through the {referralData.stats.userPosition === 'left' ? 'Left (Lpro)' : referralData.stats.userPosition === 'right' ? 'Right (Rpro)' : 'Main'} referral code
+          </p>
+        </div>
+      )}
+
       {/* Stats Grid */}
       <div className="stats-grid">
         <div className="stat-card">
@@ -236,6 +263,51 @@ export const ReferralCode = ({ isActive }) => {
           </div>
         </div>
       </div>
+
+      {/* Team Position Breakdown */}
+      {(referralData.stats.mainTeamCount || referralData.stats.leftTeamCount || referralData.stats.rightTeamCount) > 0 && (
+        <div className="team-breakdown">
+          <h3>👥 Your Team Breakdown</h3>
+          <div className="breakdown-grid">
+            {referralData.stats.mainTeamCount > 0 && (
+              <div className="breakdown-card breakdown-main">
+                <div className="breakdown-emoji">🔑</div>
+                <div className="breakdown-label">Main Team</div>
+                <div className="breakdown-count">{referralData.stats.mainTeamCount}</div>
+                <div className="breakdown-percent">
+                  {referralData.stats.directCount > 0 
+                    ? Math.round((referralData.stats.mainTeamCount / referralData.stats.directCount) * 100) 
+                    : 0}%
+                </div>
+              </div>
+            )}
+            {referralData.stats.leftTeamCount > 0 && (
+              <div className="breakdown-card breakdown-left">
+                <div className="breakdown-emoji">⬅️</div>
+                <div className="breakdown-label">Left Team (Lpro)</div>
+                <div className="breakdown-count">{referralData.stats.leftTeamCount}</div>
+                <div className="breakdown-percent">
+                  {referralData.stats.directCount > 0 
+                    ? Math.round((referralData.stats.leftTeamCount / referralData.stats.directCount) * 100) 
+                    : 0}%
+                </div>
+              </div>
+            )}
+            {referralData.stats.rightTeamCount > 0 && (
+              <div className="breakdown-card breakdown-right">
+                <div className="breakdown-emoji">➡️</div>
+                <div className="breakdown-label">Right Team (Rpro)</div>
+                <div className="breakdown-count">{referralData.stats.rightTeamCount}</div>
+                <div className="breakdown-percent">
+                  {referralData.stats.directCount > 0 
+                    ? Math.round((referralData.stats.rightTeamCount / referralData.stats.directCount) * 100) 
+                    : 0}%
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Sponsor Info */}
       {referralData.sponsor && (
