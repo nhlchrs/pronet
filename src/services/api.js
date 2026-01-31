@@ -69,6 +69,14 @@ export const authAPI = {
   getDashboardVisualizations: async () => {
     return apiCall('/getDashboardVisualizations', 'GET');
   },
+
+  agreeToTerms: async () => {
+    return apiCall('/user/agree-to-terms', 'POST');
+  },
+
+  checkTermsAgreement: async () => {
+    return apiCall('/user/check-terms-agreement', 'GET');
+  },
 };
 
 // ===== SESSION ENDPOINTS =====

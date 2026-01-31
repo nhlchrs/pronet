@@ -3,6 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useSocket } from "../../context/SocketContext";
 import { useNavigate } from "react-router-dom";
 import { authAPI, meetingAPI, announcementAPI, paymentAPI, teamAPI } from "../../services/api";
+import TermsAgreementModal from "../../Components/TermsAgreementModal";
 
 export default function Dashboard() {
   const { user, isAuthenticated } = useAuth();
@@ -17,6 +18,28 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
+  const [showTermsModal, setShowTermsModal] = useState(false);
+
+  // Check if user has agreed to terms
+  useEffect(() => {
+    const checkTermsAgreement = async () => {
+      try {
+        const response = await authAPI.checkTermsAgreement();
+        // If user hasn't agreed, show modal
+        if (!response.agreed) {
+          setShowTermsModal(true);
+        }
+      } catch (err) {
+        console.warn("Could not check terms agreement:", err);
+        // Show modal if we can't verify (better safe than sorry)
+        setShowTermsModal(true);
+      }
+    };
+
+    if (isAuthenticated && user) {
+      checkTermsAgreement();
+    }
+  }, [isAuthenticated, user]);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -668,6 +691,14 @@ export default function Dashboard() {
           </div>
         )}
       </div>
+
+      {/* Terms Agreement Modal */}
+      {showTermsModal && (
+        <TermsAgreementModal
+          user={user}
+          onClose={() => setShowTermsModal(false)}
+        />
+      )}
     </div>
   );
 }
