@@ -7,7 +7,7 @@ export const ReferralCode = ({ isActive }) => {
   const [referralData, setReferralData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [copied, setCopied] = useState(false);
+  const [copiedCode, setCopiedCode] = useState(null); // Track which code was copied
 
   // Trigger API call when tab becomes active
   useEffect(() => {
@@ -51,11 +51,11 @@ export const ReferralCode = ({ isActive }) => {
     }
   };
 
-  const handleCopyCode = async (text) => {
+  const handleCopyCode = async (text, codeType) => {
     try {
       await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setCopiedCode(codeType);
+      setTimeout(() => setCopiedCode(null), 2000);
     } catch (err) {
       console.error('Failed to copy:', err);
     }
@@ -92,18 +92,19 @@ export const ReferralCode = ({ isActive }) => {
 
   return (
     <div className="referral-code-container">
-      {/* Code Display Card */}
+      {/* Main Referral Code Card */}
       <div className="code-card">
-        <h3>Your Referral Code</h3>
+        <h3>🔑 Main Referral Code</h3>
+        <p className="code-description">General team invitation code</p>
         <div className="code-display">
           <div className="code-box">
             <code className="code-text">{referralData.referralCode}</code>
           </div>
           <button
             className="copy-btn"
-            onClick={() => handleCopyCode(referralData.referralCode)}
+            onClick={() => handleCopyCode(referralData.referralCode, 'main')}
           >
-            {copied ? (
+            {copiedCode === 'main' ? (
               <>
                 <Check size={16} />
                 Copied!
@@ -111,28 +112,40 @@ export const ReferralCode = ({ isActive }) => {
             ) : (
               <>
                 <Copy size={16} />
-                Copy Code
+                Copy
               </>
             )}
           </button>
         </div>
-      </div>
-
-      {/* Referral Link Card */}
-      <div className="link-card">
-        <h3>Referral Link</h3>
-        <div className="link-display">
+        <div className="link-display-small">
           <input
             type="text"
             readOnly
             value={referralData.referralLink}
-            className="link-input"
+            className="link-input-small"
           />
           <button
-            className="copy-btn"
-            onClick={() => handleCopyCode(referralData.referralLink)}
+            className="copy-btn-small"
+            onClick={() => handleCopyCode(referralData.referralLink, 'main-link')}
           >
-            {copied ? (
+            {copiedCode === 'main-link' ? <Check size={14} /> : <Copy size={14} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Left Team Code Card */}
+      <div className="code-card left-code">
+        <h3>⬅️ Left Team Code (Lpro)</h3>
+        <p className="code-description">For left position members</p>
+        <div className="code-display">
+          <div className="code-box">
+            <code className="code-text">{referralData.leftReferralCode}</code>
+          </div>
+          <button
+            className="copy-btn"
+            onClick={() => handleCopyCode(referralData.leftReferralCode, 'left')}
+          >
+            {copiedCode === 'left' ? (
               <>
                 <Check size={16} />
                 Copied!
@@ -140,9 +153,64 @@ export const ReferralCode = ({ isActive }) => {
             ) : (
               <>
                 <Copy size={16} />
-                Copy Link
+                Copy
               </>
             )}
+          </button>
+        </div>
+        <div className="link-display-small">
+          <input
+            type="text"
+            readOnly
+            value={referralData.leftReferralLink}
+            className="link-input-small"
+          />
+          <button
+            className="copy-btn-small"
+            onClick={() => handleCopyCode(referralData.leftReferralLink, 'left-link')}
+          >
+            {copiedCode === 'left-link' ? <Check size={14} /> : <Copy size={14} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Right Team Code Card */}
+      <div className="code-card right-code">
+        <h3>➡️ Right Team Code (Rpro)</h3>
+        <p className="code-description">For right position members</p>
+        <div className="code-display">
+          <div className="code-box">
+            <code className="code-text">{referralData.rightReferralCode}</code>
+          </div>
+          <button
+            className="copy-btn"
+            onClick={() => handleCopyCode(referralData.rightReferralCode, 'right')}
+          >
+            {copiedCode === 'right' ? (
+              <>
+                <Check size={16} />
+                Copied!
+              </>
+            ) : (
+              <>
+                <Copy size={16} />
+                Copy
+              </>
+            )}
+          </button>
+        </div>
+        <div className="link-display-small">
+          <input
+            type="text"
+            readOnly
+            value={referralData.rightReferralLink}
+            className="link-input-small"
+          />
+          <button
+            className="copy-btn-small"
+            onClick={() => handleCopyCode(referralData.rightReferralLink, 'right-link')}
+          >
+            {copiedCode === 'right-link' ? <Check size={14} /> : <Copy size={14} />}
           </button>
         </div>
       </div>
@@ -181,10 +249,11 @@ export const ReferralCode = ({ isActive }) => {
       <div className="instructions">
         <h4>How to Share:</h4>
         <ul>
-          <li>Share your code or link with others</li>
-          <li>They'll join your team using this code</li>
-          <li>You earn bonuses from their activity</li>
-          <li>Your team grows with every referral!</li>
+          <li>📋 <strong>Main Code:</strong> For general team invitations</li>
+          <li>⬅️ <strong>Left Code (Lpro):</strong> Place members on your left team</li>
+          <li>➡️ <strong>Right Code (Rpro):</strong> Place members on your right team</li>
+          <li>💰 You earn bonuses from their activity</li>
+          <li>🚀 Your team grows with every referral!</li>
         </ul>
       </div>
     </div>
