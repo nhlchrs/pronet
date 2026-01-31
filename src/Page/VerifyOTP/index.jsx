@@ -71,7 +71,7 @@ export default function VerifyOTPPage() {
         // Auto-login after OTP verification (for both registration and login flows)
         // The token is already stored by verifyOTP in AuthContext
         setTimeout(() => {
-          navigate("/");
+          navigate("/dashboard");
         }, 1500);
       } else {
         setLocalError("OTP verification failed. No token received.");
