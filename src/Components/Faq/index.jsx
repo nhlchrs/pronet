@@ -1,10 +1,15 @@
-﻿import React from "react";
+﻿import React, { useState } from "react";
 import { faqdata } from "../../Data/faqdata";
 import useAnimateOnScroll from "../Hooks/useAnimateOnScroll";
 
 const FaqSection = () => {
+    const [openIndex, setOpenIndex] = useState(0);
 
     useAnimateOnScroll();
+
+    const toggleAccordion = (index) => {
+        setOpenIndex(openIndex === index ? -1 : index);
+    };
 
     return(
         <>
@@ -26,24 +31,24 @@ const FaqSection = () => {
                                     <h2 className="accordion-header">
                                         <button
                                         className={`accordion-button ${
-                                            index !== 0 ? "collapsed" : ""
+                                            openIndex !== index ? "collapsed" : ""
                                         }`}
                                         type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target={`#faq${item.id}`}
+                                        onClick={() => toggleAccordion(index)}
+                                        aria-expanded={openIndex === index}
+                                        aria-controls={`faq${item.id}`}
                                         >
                                         {item.question}
                                         </button>
                                     </h2>
-                                    <div
-                                        id={`faq${item.id}`}
-                                        className={`accordion-collapse collapse ${
-                                        index === 0 ? "show" : ""
-                                        }`}
-                                        data-bs-parent="#faqAccordion"
-                                    >
-                                        <div className="accordion-body">{item.answer}</div>
-                                    </div>
+                                    {openIndex === index && (
+                                        <div
+                                            id={`faq${item.id}`}
+                                            className="accordion-collapse"
+                                        >
+                                            <div className="accordion-body">{item.answer}</div>
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                             </div>
