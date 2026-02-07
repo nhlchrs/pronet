@@ -12,7 +12,7 @@ const Footer = () => {
                             <div className="footer-info-container">    
                                 <div className="footer-info">
                                     <img
-                                        src="/assets/images/logo2.png"
+                                        src="/assets/images/logo2.svg"
                                         alt="Footer Logo"
                                         className="logo"
                                     />

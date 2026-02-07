@@ -36,7 +36,7 @@ const Navbar = () => {
                     <div className="container-fluid flex-nowrap">
 
                         <NavLink className="navbar-brand" to="/">
-                            <img src="/assets/images/logo2.png" className="logo" alt="Logo" />
+                            <img src="/assets/images/logo2.svg" className="logo" alt="Logo" />
                         </NavLink>
 
                         <div className="nav-link-container">

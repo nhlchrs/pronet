@@ -71,7 +71,7 @@ function Sidebar() {
                 <div className="sidebar-header">
                     <div className="logo">
                         <img
-                        src="/assets/images/logo2.png"
+                        src="/assets/images/logo2.svg"
                         className="img-fluid logo"
                         alt="Logo"
                         />
