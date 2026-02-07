@@ -690,8 +690,8 @@ textarea.error-border{
 }
 
 .sidebar-header .logo {
-    max-width: 75%;
-    width: 315px;
+    max-width: 50%;
+    width: 180px;
     height: auto;
 }
 
@@ -1576,14 +1576,16 @@ textarea.error-border{
 /* 17. Branding Styles */
 
 .navbar-brand .logo{
-    max-width: 50%;
+    max-width: 35%;
+    max-height: 50px;
     display: inline-block;
     vertical-align: middle;
     width: 100%;
     height: auto;
 }
 .footer-info .logo{
-    max-width: 35%;
+    max-width: 25%;
+    max-height: 45px;
     display: inline-block;
     vertical-align: middle;
     width: 100%;
