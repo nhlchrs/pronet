@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Copy, Check, AlertCircle, Loader } from 'lucide-react';
 import { teamAPI } from '../../services/api';
 import './ReferralCode.css';
@@ -135,7 +135,7 @@ export const ReferralCode = ({ isActive }) => {
 
       {/* Left Team Code Card */}
       <div className="code-card left-code">
-        <h3>⬅️ Left Team Code (Lpro)</h3>
+        <h3>â¬…ï¸ Left Team Code (Lpro)</h3>
         <p className="code-description">For left position members</p>
         <div className="code-display">
           <div className="code-box">
@@ -176,7 +176,7 @@ export const ReferralCode = ({ isActive }) => {
 
       {/* Right Team Code Card */}
       <div className="code-card right-code">
-        <h3>➡️ Right Team Code (Rpro)</h3>
+        <h3>âž¡ï¸ Right Team Code (Rpro)</h3>
         <p className="code-description">For right position members</p>
         <div className="code-display">
           <div className="code-box">
@@ -218,16 +218,16 @@ export const ReferralCode = ({ isActive }) => {
       {/* Position Information Card */}
       {referralData.stats.userPosition && (
         <div className="position-info-card">
-          <h3>📍 Your Position</h3>
+          <h3>🔍 Your Position</h3>
           <div className="position-display">
             {referralData.stats.userPosition === 'left' && (
               <div className="position-badge position-left">
-                <span>⬅️ Left Position (Lpro)</span>
+                <span>â¬…ï¸ Left Position (Lpro)</span>
               </div>
             )}
             {referralData.stats.userPosition === 'right' && (
               <div className="position-badge position-right">
-                <span>➡️ Right Position (Rpro)</span>
+                <span>âž¡ï¸ Right Position (Rpro)</span>
               </div>
             )}
             {referralData.stats.userPosition === 'main' && (
@@ -283,7 +283,7 @@ export const ReferralCode = ({ isActive }) => {
             )}
             {referralData.stats.leftTeamCount > 0 && (
               <div className="breakdown-card breakdown-left">
-                <div className="breakdown-emoji">⬅️</div>
+                <div className="breakdown-emoji">â¬…ï¸</div>
                 <div className="breakdown-label">Left Team (Lpro)</div>
                 <div className="breakdown-count">{referralData.stats.leftTeamCount}</div>
                 <div className="breakdown-percent">
@@ -295,7 +295,7 @@ export const ReferralCode = ({ isActive }) => {
             )}
             {referralData.stats.rightTeamCount > 0 && (
               <div className="breakdown-card breakdown-right">
-                <div className="breakdown-emoji">➡️</div>
+                <div className="breakdown-emoji">âž¡ï¸</div>
                 <div className="breakdown-label">Right Team (Rpro)</div>
                 <div className="breakdown-count">{referralData.stats.rightTeamCount}</div>
                 <div className="breakdown-percent">
@@ -333,3 +333,5 @@ export const ReferralCode = ({ isActive }) => {
 };
 
 export default ReferralCode;
+
+

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { useEffect } from "react";
 
 const useAnimateOnScroll = (selector = "[data-animate]") => {
@@ -31,3 +31,4 @@ const useAnimateOnScroll = (selector = "[data-animate]") => {
 }
 
 export default useAnimateOnScroll;
+

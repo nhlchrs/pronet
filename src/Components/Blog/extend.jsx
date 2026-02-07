@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { blogdata } from "../../Data/Blog";
 import BlogCard from "../Card/BlogCard";
 import useAnimateOnScroll from "../Hooks/useAnimateOnScroll";
@@ -40,3 +40,4 @@ const BlogSectionExtend =() => {
 }
 
 export default BlogSectionExtend;
+

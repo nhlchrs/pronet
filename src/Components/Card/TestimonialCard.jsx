@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 const TestimonialCard = ({image, name, designation, content, variant, speed = ""}) => {
     const getClassName = () => {
@@ -37,3 +37,4 @@ const TestimonialCard = ({image, name, designation, content, variant, speed = ""
 }
 
 export default TestimonialCard;
+

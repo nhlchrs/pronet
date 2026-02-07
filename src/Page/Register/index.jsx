@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
@@ -105,7 +105,7 @@ export default function RegisterPage() {
       alignItems: "center",
       justifyContent: "center",
       padding: "16px",
-      backgroundColor: "#121212",
+      backgroundColor: "#0B1929",
       position: "relative",
       overflow: "hidden",
       fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif"
@@ -118,7 +118,7 @@ export default function RegisterPage() {
         height: "384px",
         opacity: 0.05,
         borderRadius: "50%",
-        backgroundColor: "#11E44F",
+        backgroundColor: "#4CD3C8",
         transform: "translate(-50%, -50%)",
       }}></div>
       <div style={{
@@ -129,7 +129,7 @@ export default function RegisterPage() {
         height: "320px",
         opacity: 0.05,
         borderRadius: "50%",
-        backgroundColor: "#11E44F",
+        backgroundColor: "#4CD3C8",
         transform: "translate(33%, 33%)",
       }}></div>
       <div style={{
@@ -140,7 +140,7 @@ export default function RegisterPage() {
         height: "256px",
         opacity: 0.05,
         borderRadius: "50%",
-        backgroundColor: "#11E44F",
+        backgroundColor: "#4CD3C8",
         transform: "translate(50%, -50%)",
       }}></div>
 
@@ -154,8 +154,8 @@ export default function RegisterPage() {
           borderRadius: "24px",
           boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5)",
           padding: "48px",
-          backgroundColor: "#1a1a1a",
-          border: "1px solid #313131",
+          backgroundColor: "#1A2A3A",
+          border: "1px solid #2A4A5A",
         }}>
           <div style={{ textAlign: "center", marginBottom: "32px" }}>
             <h1 style={{
@@ -167,10 +167,10 @@ export default function RegisterPage() {
             }}>Create Account</h1>
             <p style={{
               fontSize: "14px",
-              color: "#8AFFAC",
+              color: "#5DDDD2",
               margin: 0,
               fontWeight: "500",
-            }}>Join ProNext today</p>
+            }}>Join ProNet today</p>
           </div>
 
           {(localError || error) && (
@@ -218,7 +218,7 @@ export default function RegisterPage() {
                   width: "100%",
                   padding: "12px 16px",
                   borderRadius: "10px",
-                  border: "2px solid #313131",
+                  border: "2px solid #2A4A5A",
                   backgroundColor: "#0f0f0f",
                   color: "#DAFAF4",
                   fontSize: "15px",
@@ -227,11 +227,11 @@ export default function RegisterPage() {
                   boxSizing: "border-box",
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = "#11E44F";
-                  e.target.style.backgroundColor = "#1a1a1a";
+                  e.target.style.borderColor = "#4CD3C8";
+                  e.target.style.backgroundColor = "#1A2A3A";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "#313131";
+                  e.target.style.borderColor = "#2A4A5A";
                   e.target.style.backgroundColor = "#0f0f0f";
                 }}
               />
@@ -258,7 +258,7 @@ export default function RegisterPage() {
                   width: "100%",
                   padding: "12px 16px",
                   borderRadius: "10px",
-                  border: "2px solid #313131",
+                  border: "2px solid #2A4A5A",
                   backgroundColor: "#0f0f0f",
                   color: "#DAFAF4",
                   fontSize: "15px",
@@ -267,11 +267,11 @@ export default function RegisterPage() {
                   boxSizing: "border-box",
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = "#11E44F";
-                  e.target.style.backgroundColor = "#1a1a1a";
+                  e.target.style.borderColor = "#4CD3C8";
+                  e.target.style.backgroundColor = "#1A2A3A";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "#313131";
+                  e.target.style.borderColor = "#2A4A5A";
                   e.target.style.backgroundColor = "#0f0f0f";
                 }}
               />
@@ -298,7 +298,7 @@ export default function RegisterPage() {
                   width: "100%",
                   padding: "12px 16px",
                   borderRadius: "10px",
-                  border: "2px solid #313131",
+                  border: "2px solid #2A4A5A",
                   backgroundColor: "#0f0f0f",
                   color: "#DAFAF4",
                   fontSize: "15px",
@@ -307,11 +307,11 @@ export default function RegisterPage() {
                   boxSizing: "border-box",
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = "#11E44F";
-                  e.target.style.backgroundColor = "#1a1a1a";
+                  e.target.style.borderColor = "#4CD3C8";
+                  e.target.style.backgroundColor = "#1A2A3A";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "#313131";
+                  e.target.style.borderColor = "#2A4A5A";
                   e.target.style.backgroundColor = "#0f0f0f";
                 }}
               />
@@ -338,7 +338,7 @@ export default function RegisterPage() {
                   width: "100%",
                   padding: "12px 16px",
                   borderRadius: "10px",
-                  border: "2px solid #313131",
+                  border: "2px solid #2A4A5A",
                   backgroundColor: "#0f0f0f",
                   color: "#DAFAF4",
                   fontSize: "15px",
@@ -347,11 +347,11 @@ export default function RegisterPage() {
                   boxSizing: "border-box",
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = "#11E44F";
-                  e.target.style.backgroundColor = "#1a1a1a";
+                  e.target.style.borderColor = "#4CD3C8";
+                  e.target.style.backgroundColor = "#1A2A3A";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "#313131";
+                  e.target.style.borderColor = "#2A4A5A";
                   e.target.style.backgroundColor = "#0f0f0f";
                 }}
               />
@@ -379,7 +379,7 @@ export default function RegisterPage() {
                     flex: 1,
                     padding: "12px 16px",
                     borderRadius: "10px",
-                    border: "2px solid #313131",
+                    border: "2px solid #2A4A5A",
                     backgroundColor: "#0f0f0f",
                     color: "#DAFAF4",
                     fontSize: "15px",
@@ -388,11 +388,11 @@ export default function RegisterPage() {
                     boxSizing: "border-box",
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = "#11E44F";
-                    e.target.style.backgroundColor = "#1a1a1a";
+                    e.target.style.borderColor = "#4CD3C8";
+                    e.target.style.backgroundColor = "#1A2A3A";
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = "#313131";
+                    e.target.style.borderColor = "#2A4A5A";
                     e.target.style.backgroundColor = "#0f0f0f";
                   }}
                 />
@@ -401,8 +401,8 @@ export default function RegisterPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   style={{
                     padding: "12px 16px",
-                    background: "#11E44F",
-                    color: "#121212",
+                    background: "#4CD3C8",
+                    color: "#0B1929",
                     border: "none",
                     borderRadius: "8px",
                     cursor: "pointer",
@@ -436,7 +436,7 @@ export default function RegisterPage() {
                     flex: 1,
                     padding: "12px 16px",
                     borderRadius: "10px",
-                    border: "2px solid #313131",
+                    border: "2px solid #2A4A5A",
                     backgroundColor: "#0f0f0f",
                     color: "#DAFAF4",
                     fontSize: "15px",
@@ -445,11 +445,11 @@ export default function RegisterPage() {
                     boxSizing: "border-box",
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = "#11E44F";
-                    e.target.style.backgroundColor = "#1a1a1a";
+                    e.target.style.borderColor = "#4CD3C8";
+                    e.target.style.backgroundColor = "#1A2A3A";
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = "#313131";
+                    e.target.style.borderColor = "#2A4A5A";
                     e.target.style.backgroundColor = "#0f0f0f";
                   }}
                 />
@@ -458,8 +458,8 @@ export default function RegisterPage() {
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   style={{
                     padding: "12px 16px",
-                    background: "#11E44F",
-                    color: "#121212",
+                    background: "#4CD3C8",
+                    color: "#0B1929",
                     border: "none",
                     borderRadius: "8px",
                     cursor: "pointer",
@@ -490,7 +490,7 @@ export default function RegisterPage() {
                     width: "16px",
                     height: "16px",
                     cursor: "pointer",
-                    accentColor: "#11E44F",
+                    accentColor: "#4CD3C8",
                   }}
                 />
                 <span>I agree to Terms & Conditions</span>
@@ -504,8 +504,8 @@ export default function RegisterPage() {
               style={{
                 width: "100%",
                 padding: "14px 24px",
-                backgroundColor: "#11E44F",
-                color: "#121212",
+                backgroundColor: "#4CD3C8",
+                color: "#0B1929",
                 fontWeight: "600",
                 fontSize: "16px",
                 border: "none",
@@ -518,8 +518,8 @@ export default function RegisterPage() {
                 gap: "10px",
                 opacity: loading ? 0.7 : 1,
               }}
-              onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = "#8AFFAC")}
-              onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = "#11E44F")}
+              onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = "#5DDDD2")}
+              onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = "#4CD3C8")}
             >
               {loading ? (
                 <>
@@ -537,7 +537,7 @@ export default function RegisterPage() {
 
           <div style={{
             paddingTop: "24px",
-            borderTop: "1px solid #313131",
+            borderTop: "1px solid #2A4A5A",
             textAlign: "center",
           }}>
             <p style={{
@@ -549,7 +549,7 @@ export default function RegisterPage() {
               <Link
                 to="/login"
                 style={{
-                  color: "#11E44F",
+                  color: "#4CD3C8",
                   textDecoration: "none",
                   fontWeight: "700",
                 }}
@@ -563,10 +563,10 @@ export default function RegisterPage() {
         <div style={{
           marginTop: "24px",
           textAlign: "center",
-          color: "#8AFFAC",
+          color: "#5DDDD2",
           fontSize: "12px",
         }}>
-          <p style={{ margin: 0 }}>ProNext © 2025 | All rights reserved</p>
+          <p style={{ margin: 0 }}>ProNet © 2025 | All rights reserved</p>
         </div>
       </div>
 
@@ -579,3 +579,5 @@ export default function RegisterPage() {
     </div>
   );
 }
+
+

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import useAnimateOnScroll from "../Hooks/useAnimateOnScroll";
 
 const WhyChooseUsSection = () => {
@@ -86,3 +86,5 @@ const WhyChooseUsSection = () => {
 }
 
 export default WhyChooseUsSection;
+
+

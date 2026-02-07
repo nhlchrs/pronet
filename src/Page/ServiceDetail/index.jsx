@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import BannerInnerSection from "../../Components/Banner/inner";
 import SingleServiceSection from "../../Components/Service/SingleService";
 import AchievementSection from "../../Components/Achievement";
@@ -20,3 +20,4 @@ const SingleServicePage = () => {
 }
 
 export default SingleServicePage;
+

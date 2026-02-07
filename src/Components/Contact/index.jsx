@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import ContactForm from "../Form/ContactForm";
 import useAnimateOnScroll from "../Hooks/useAnimateOnScroll";
 
@@ -61,3 +61,4 @@ const ContactSection = () =>{
 }
 
 export default ContactSection;
+

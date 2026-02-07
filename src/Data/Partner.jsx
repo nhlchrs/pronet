@@ -1,4 +1,4 @@
-export const partnershipdata = [
+﻿export const partnershipdata = [
     {
         id: 1,
         logo: "/assets/images/partner-4-65f90f1a4e273.webp"
@@ -28,3 +28,4 @@ export const partnershipdata = [
         logo: "/assets/images/partner-10-65f90f3519911.webp"
     },
 ];
+

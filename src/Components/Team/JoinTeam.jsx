@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { AlertCircle, CheckCircle, Loader } from 'lucide-react';
 import { teamAPI } from '../../services/api';
 import './JoinTeam.css';
@@ -261,3 +261,5 @@ export const JoinTeam = ({ isActive }) => {
 };
 
 export default JoinTeam;
+
+

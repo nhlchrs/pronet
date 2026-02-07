@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import BannerInnerSection from "../../Components/Banner/inner";
 import TeamSectionExtend from "../../Components/Team/extend";
 import CtaSection from "../../Components/CallToAction";
@@ -20,3 +20,4 @@ const TeamPage = () => {
 }
 
 export default TeamPage;
+

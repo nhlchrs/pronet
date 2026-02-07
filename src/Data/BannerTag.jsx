@@ -1,4 +1,4 @@
-export const BannerTag = [
+﻿export const BannerTag = [
     {
         id: 1,
         title: "Forex Signals",
@@ -24,3 +24,4 @@ export const BannerTag = [
         title: "Performance Bonuses",
     },
 ];
+

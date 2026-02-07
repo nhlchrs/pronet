@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { authAPI } from "../../services/api";
 
 const TermsAgreementModal = ({ user, onClose }) => {
@@ -44,20 +44,20 @@ const TermsAgreementModal = ({ user, onClose }) => {
       fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif"
     }}>
       <div style={{
-        backgroundColor: '#1a1a1a',
+        backgroundColor: '#1A2A3A',
         borderRadius: '16px',
         maxWidth: '800px',
         width: '100%',
         maxHeight: '90vh',
         display: 'flex',
         flexDirection: 'column',
-        border: '1px solid #313131',
+        border: '1px solid #2A4A5A',
         boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)'
       }}>
         {/* Header */}
         <div style={{
           padding: '24px',
-          borderBottom: '1px solid #313131'
+          borderBottom: '1px solid #2A4A5A'
         }}>
           <h2 style={{
             margin: 0,
@@ -70,7 +70,7 @@ const TermsAgreementModal = ({ user, onClose }) => {
           <p style={{
             margin: '8px 0 0 0',
             fontSize: '14px',
-            color: '#8AFFAC'
+            color: '#5DDDD2'
           }}>
             Please read and accept our terms to continue
           </p>
@@ -88,35 +88,35 @@ const TermsAgreementModal = ({ user, onClose }) => {
               Welcome to ProNet Solutions! By accessing and using our platform, you agree to comply with and be bound by the following terms and conditions.
             </p>
 
-            <h3 style={{ color: '#11E44F', fontSize: '16px', marginTop: '20px', marginBottom: '12px' }}>
+            <h3 style={{ color: '#4CD3C8', fontSize: '16px', marginTop: '20px', marginBottom: '12px' }}>
               1. Educational Purpose Only
             </h3>
             <p style={{ marginBottom: '16px' }}>
               ProNet Solutions provides educational content for financial markets and fintech learning. We do not provide financial advice, investment recommendations, or guaranteed returns.
             </p>
 
-            <h3 style={{ color: '#11E44F', fontSize: '16px', marginTop: '20px', marginBottom: '12px' }}>
+            <h3 style={{ color: '#4CD3C8', fontSize: '16px', marginTop: '20px', marginBottom: '12px' }}>
               2. User Responsibilities
             </h3>
             <p style={{ marginBottom: '16px' }}>
               You agree to use our services lawfully, maintain respectful conduct, and accept full responsibility for any financial decisions made based on our educational content.
             </p>
 
-            <h3 style={{ color: '#11E44F', fontSize: '16px', marginTop: '20px', marginBottom: '12px' }}>
+            <h3 style={{ color: '#4CD3C8', fontSize: '16px', marginTop: '20px', marginBottom: '12px' }}>
               3. Risk Acknowledgment
             </h3>
             <p style={{ marginBottom: '16px' }}>
               Trading and investing involve substantial financial risk. You acknowledge that losses can occur, and ProNet Solutions is not liable for any financial outcomes.
             </p>
 
-            <h3 style={{ color: '#11E44F', fontSize: '16px', marginTop: '20px', marginBottom: '12px' }}>
+            <h3 style={{ color: '#4CD3C8', fontSize: '16px', marginTop: '20px', marginBottom: '12px' }}>
               4. Intellectual Property
             </h3>
             <p style={{ marginBottom: '16px' }}>
               All content provided is the exclusive property of ProNet Solutions. Unauthorized reproduction, distribution, or sharing is prohibited.
             </p>
 
-            <h3 style={{ color: '#11E44F', fontSize: '16px', marginTop: '20px', marginBottom: '12px' }}>
+            <h3 style={{ color: '#4CD3C8', fontSize: '16px', marginTop: '20px', marginBottom: '12px' }}>
               5. Payments & Refunds
             </h3>
             <p style={{ marginBottom: '16px' }}>
@@ -128,10 +128,10 @@ const TermsAgreementModal = ({ user, onClose }) => {
               padding: '16px',
               backgroundColor: '#2a2a2a',
               borderRadius: '8px',
-              border: '1px solid #313131'
+              border: '1px solid #2A4A5A'
             }}>
-              <p style={{ margin: 0, fontSize: '13px', color: '#8AFFAC' }}>
-                For complete terms, please visit: <a href="/terms" target="_blank" style={{ color: '#11E44F', textDecoration: 'underline' }}>Terms & Conditions</a>, <a href="/disclaimer" target="_blank" style={{ color: '#11E44F', textDecoration: 'underline' }}>Disclaimer</a>, and <a href="/agreement" target="_blank" style={{ color: '#11E44F', textDecoration: 'underline' }}>User Agreement</a>
+              <p style={{ margin: 0, fontSize: '13px', color: '#5DDDD2' }}>
+                For complete terms, please visit: <a href="/terms" target="_blank" style={{ color: '#4CD3C8', textDecoration: 'underline' }}>Terms & Conditions</a>, <a href="/disclaimer" target="_blank" style={{ color: '#4CD3C8', textDecoration: 'underline' }}>Disclaimer</a>, and <a href="/agreement" target="_blank" style={{ color: '#4CD3C8', textDecoration: 'underline' }}>User Agreement</a>
               </p>
             </div>
           </div>
@@ -154,7 +154,7 @@ const TermsAgreementModal = ({ user, onClose }) => {
         {/* Footer */}
         <div style={{
           padding: '24px',
-          borderTop: '1px solid #313131',
+          borderTop: '1px solid #2A4A5A',
           display: 'flex',
           gap: '12px',
           justifyContent: 'flex-end'
@@ -164,7 +164,7 @@ const TermsAgreementModal = ({ user, onClose }) => {
             disabled={loading}
             style={{
               padding: '12px 32px',
-              backgroundColor: '#11E44F',
+              backgroundColor: '#4CD3C8',
               color: '#000',
               border: 'none',
               borderRadius: '8px',
@@ -174,8 +174,8 @@ const TermsAgreementModal = ({ user, onClose }) => {
               opacity: loading ? 0.7 : 1,
               transition: 'all 0.2s ease'
             }}
-            onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = '#0fc944')}
-            onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = '#11E44F')}
+            onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = '#4CD3C8')}
+            onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = '#4CD3C8')}
           >
             {loading ? 'Saving...' : 'I Agree to Terms & Conditions'}
           </button>
@@ -186,3 +186,5 @@ const TermsAgreementModal = ({ user, onClose }) => {
 };
 
 export default TermsAgreementModal;
+
+

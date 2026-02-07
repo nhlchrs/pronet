@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 import {
   PlayCircle,
@@ -109,7 +109,7 @@ const SecureMedia = () => {
     const badges = {
       public: { 
         bg: 'rgba(17, 228, 79, 0.1)',
-        color: '#11E44F',
+        color: '#4CD3C8',
         icon: <Eye style={{ width: '12px', height: '12px' }} />, 
         text: 'PUBLIC' 
       },
@@ -159,8 +159,8 @@ const SecureMedia = () => {
           borderRadius: '16px',
           overflow: 'hidden',
           boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
-          backgroundColor: '#1a1a1a',
-          border: '1px solid #313131',
+          backgroundColor: '#1A2A3A',
+          border: '1px solid #2A4A5A',
           cursor: hasAccess ? 'pointer' : 'not-allowed',
           opacity: hasAccess ? 1 : 0.6,
           transition: 'all 0.3s ease',
@@ -169,14 +169,14 @@ const SecureMedia = () => {
           if (hasAccess) {
             e.currentTarget.style.transform = 'translateY(-4px)';
             e.currentTarget.style.boxShadow = '0 20px 40px rgba(17, 228, 79, 0.2)';
-            e.currentTarget.style.borderColor = '#11E44F';
+            e.currentTarget.style.borderColor = '#4CD3C8';
           }
         }}
         onMouseLeave={(e) => {
           if (hasAccess) {
             e.currentTarget.style.transform = 'translateY(0)';
             e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.5)';
-            e.currentTarget.style.borderColor = '#313131';
+            e.currentTarget.style.borderColor = '#2A4A5A';
           }
         }}
       >
@@ -191,9 +191,9 @@ const SecureMedia = () => {
           overflow: 'hidden',
         }}>
           {isVideo ? (
-            <PlayCircle style={{ width: '64px', height: '64px', color: '#11E44F', opacity: 0.8 }} />
+            <PlayCircle style={{ width: '64px', height: '64px', color: '#4CD3C8', opacity: 0.8 }} />
           ) : (
-            <FileText style={{ width: '64px', height: '64px', color: '#11E44F', opacity: 0.8 }} />
+            <FileText style={{ width: '64px', height: '64px', color: '#4CD3C8', opacity: 0.8 }} />
           )}
           
           {!hasAccess && (
@@ -220,7 +220,7 @@ const SecureMedia = () => {
               top: '12px',
               right: '12px',
               background: 'linear-gradient(135deg, #FFA500, #FF6B00)',
-              color: '#121212',
+              color: '#0B1929',
               padding: '6px 12px',
               borderRadius: '8px',
               fontSize: '11px',
@@ -251,7 +251,7 @@ const SecureMedia = () => {
           
           <p style={{
             fontSize: '13px',
-            color: '#8AFFAC',
+            color: '#5DDDD2',
             marginBottom: '16px',
             lineHeight: '1.5',
             display: '-webkit-box',
@@ -265,7 +265,7 @@ const SecureMedia = () => {
             <span style={{
               fontSize: '11px',
               fontWeight: 'bold',
-              color: '#8AFFAC',
+              color: '#5DDDD2',
               backgroundColor: '#0f0f0f',
               padding: '4px 10px',
               borderRadius: '6px',
@@ -278,11 +278,11 @@ const SecureMedia = () => {
               alignItems: 'center',
               gap: '6px',
               fontSize: '12px',
-              color: '#8AFFAC',
+              color: '#5DDDD2',
               paddingTop: '12px',
-              borderTop: '1px solid #313131',
+              borderTop: '1px solid #2A4A5A',
             }}>
-              <Eye style={{ width: '14px', height: '14px', color: '#11E44F' }} />
+              <Eye style={{ width: '14px', height: '14px', color: '#4CD3C8' }} />
               <span style={{ fontWeight: '600' }}>{media.viewCount} views</span>
             </div>
           )}
@@ -311,16 +311,16 @@ const SecureMedia = () => {
           position: 'relative',
           width: '100%',
           maxWidth: '1200px',
-          backgroundColor: '#1a1a1a',
+          backgroundColor: '#1A2A3A',
           borderRadius: '24px',
           overflow: 'hidden',
           boxShadow: '0 20px 60px rgba(17, 228, 79, 0.3)',
-          border: '1px solid #313131',
+          border: '1px solid #2A4A5A',
         }}>
           {/* Enhanced Header */}
           <div style={{
-            backgroundColor: '#1a1a1a',
-            borderBottom: '2px solid #313131',
+            backgroundColor: '#1A2A3A',
+            borderBottom: '2px solid #2A4A5A',
             color: '#DAFAF4',
             padding: '24px',
             display: 'flex',
@@ -335,9 +335,9 @@ const SecureMedia = () => {
                 border: '2px solid rgba(17, 228, 79, 0.3)',
               }}>
                 {isVideo ? (
-                  <PlayCircle style={{ width: '24px', height: '24px', color: '#11E44F' }} />
+                  <PlayCircle style={{ width: '24px', height: '24px', color: '#4CD3C8' }} />
                 ) : (
-                  <FileText style={{ width: '24px', height: '24px', color: '#11E44F' }} />
+                  <FileText style={{ width: '24px', height: '24px', color: '#4CD3C8' }} />
                 )}
               </div>
               <div style={{ flex: 1 }}>
@@ -350,7 +350,7 @@ const SecureMedia = () => {
                 {selectedMedia.description && (
                   <p style={{
                     fontSize: '14px',
-                    color: '#8AFFAC',
+                    color: '#5DDDD2',
                   }}>{selectedMedia.description}</p>
                 )}
               </div>
@@ -361,7 +361,7 @@ const SecureMedia = () => {
               style={{
                 padding: '10px',
                 backgroundColor: 'transparent',
-                border: '2px solid #313131',
+                border: '2px solid #2A4A5A',
                 borderRadius: '12px',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
@@ -369,11 +369,11 @@ const SecureMedia = () => {
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(17, 228, 79, 0.1)';
-                e.currentTarget.style.borderColor = '#11E44F';
+                e.currentTarget.style.borderColor = '#4CD3C8';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.borderColor = '#313131';
+                e.currentTarget.style.borderColor = '#2A4A5A';
               }}
             >
               <ChevronLeft style={{ width: '24px', height: '24px' }} />
@@ -438,8 +438,8 @@ const SecureMedia = () => {
                       }}
                     >
                       <div data-play-btn style={{
-                        background: 'linear-gradient(135deg, #11E44F 0%, #0BA639 100%)',
-                        color: '#121212',
+                        background: 'linear-gradient(135deg, #4CD3C8 0%, #2A7A75 100%)',
+                        color: '#0B1929',
                         borderRadius: '50%',
                         padding: '32px',
                         transition: 'all 0.3s ease',
@@ -476,8 +476,8 @@ const SecureMedia = () => {
           {/* Enhanced Footer */}
           <div style={{
             padding: '24px',
-            backgroundColor: '#1a1a1a',
-            borderTop: '2px solid #313131',
+            backgroundColor: '#1A2A3A',
+            borderTop: '2px solid #2A4A5A',
           }}>
             <div style={{
               display: 'flex',
@@ -495,18 +495,18 @@ const SecureMedia = () => {
                   backgroundColor: '#0f0f0f',
                   padding: '10px 16px',
                   borderRadius: '12px',
-                  border: '1px solid #313131',
+                  border: '1px solid #2A4A5A',
                 }}>
                   <div style={{
                     width: '8px',
                     height: '8px',
-                    background: 'linear-gradient(135deg, #11E44F, #0BA639)',
+                    background: 'linear-gradient(135deg, #4CD3C8, #2A7A75)',
                     borderRadius: '50%',
                   }}></div>
                   <span style={{
                     fontSize: '13px',
                     fontWeight: '700',
-                    color: '#8AFFAC',
+                    color: '#5DDDD2',
                     letterSpacing: '0.5px',
                   }}>SIZE:</span>
                   <span style={{
@@ -522,13 +522,13 @@ const SecureMedia = () => {
                   backgroundColor: '#0f0f0f',
                   padding: '10px 16px',
                   borderRadius: '12px',
-                  border: '1px solid #313131',
+                  border: '1px solid #2A4A5A',
                 }}>
-                  <Eye style={{ width: '16px', height: '16px', color: '#11E44F' }} />
+                  <Eye style={{ width: '16px', height: '16px', color: '#4CD3C8' }} />
                   <span style={{
                     fontSize: '13px',
                     fontWeight: '700',
-                    color: '#8AFFAC',
+                    color: '#5DDDD2',
                     letterSpacing: '0.5px',
                   }}>VIEWS:</span>
                   <span style={{
@@ -589,7 +589,7 @@ const SecureMedia = () => {
     <div style={{
       minHeight: '100vh',
       padding: '80px 16px 40px',
-      backgroundColor: '#121212',
+      backgroundColor: '#0B1929',
       position: 'relative',
       overflow: 'hidden',
       fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif"
@@ -603,7 +603,7 @@ const SecureMedia = () => {
         height: '400px',
         opacity: 0.05,
         borderRadius: '50%',
-        backgroundColor: '#11E44F',
+        backgroundColor: '#4CD3C8',
       }}></div>
       <div style={{
         position: 'absolute',
@@ -613,7 +613,7 @@ const SecureMedia = () => {
         height: '350px',
         opacity: 0.05,
         borderRadius: '50%',
-        backgroundColor: '#11E44F',
+        backgroundColor: '#4CD3C8',
       }}></div>
 
       {/* Page Container */}
@@ -635,7 +635,7 @@ const SecureMedia = () => {
             margin: '0 auto 24px',
             border: '2px solid rgba(17, 228, 79, 0.2)',
           }}>
-            <FileText style={{ width: '40px', height: '40px', color: '#11E44F' }} />
+            <FileText style={{ width: '40px', height: '40px', color: '#4CD3C8' }} />
           </div>
           
           <h1 style={{
@@ -648,7 +648,7 @@ const SecureMedia = () => {
           
           <p style={{
             fontSize: '16px',
-            color: '#8AFFAC',
+            color: '#5DDDD2',
             margin: 0,
             fontWeight: '500',
           }}>
@@ -663,9 +663,9 @@ const SecureMedia = () => {
             style={{
               padding: '14px 24px',
               borderRadius: '10px',
-              border: filterType === 'all' ? 'none' : '2px solid #313131',
-              background: filterType === 'all' ? 'linear-gradient(135deg, #11E44F 0%, #0BA639 100%)' : '#1a1a1a',
-              color: filterType === 'all' ? '#121212' : '#DAFAF4',
+              border: filterType === 'all' ? 'none' : '2px solid #2A4A5A',
+              background: filterType === 'all' ? 'linear-gradient(135deg, #4CD3C8 0%, #2A7A75 100%)' : '#1A2A3A',
+              color: filterType === 'all' ? '#0B1929' : '#DAFAF4',
               fontSize: '14px',
               fontWeight: '700',
               cursor: 'pointer',
@@ -679,7 +679,7 @@ const SecureMedia = () => {
             }}
             onMouseEnter={(e) => {
               if (filterType !== 'all') {
-                e.currentTarget.style.borderColor = '#11E44F';
+                e.currentTarget.style.borderColor = '#4CD3C8';
                 e.currentTarget.style.backgroundColor = '#0f0f0f';
               } else {
                 e.currentTarget.style.transform = 'translateY(-2px)';
@@ -688,8 +688,8 @@ const SecureMedia = () => {
             }}
             onMouseLeave={(e) => {
               if (filterType !== 'all') {
-                e.currentTarget.style.borderColor = '#313131';
-                e.currentTarget.style.backgroundColor = '#1a1a1a';
+                e.currentTarget.style.borderColor = '#2A4A5A';
+                e.currentTarget.style.backgroundColor = '#1A2A3A';
               } else {
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.boxShadow = '0 4px 14px rgba(17, 228, 79, 0.4)';
@@ -703,7 +703,7 @@ const SecureMedia = () => {
               fontSize: '11px',
               fontWeight: 'bold',
               backgroundColor: filterType === 'all' ? 'rgba(0,0,0,0.2)' : 'rgba(17, 228, 79, 0.1)',
-              color: filterType === 'all' ? '#121212' : '#11E44F',
+              color: filterType === 'all' ? '#0B1929' : '#4CD3C8',
             }}>
               {mediaFiles.length}
             </span>
@@ -713,9 +713,9 @@ const SecureMedia = () => {
             style={{
               padding: '14px 24px',
               borderRadius: '10px',
-              border: filterType === 'video' ? 'none' : '2px solid #313131',
-              background: filterType === 'video' ? 'linear-gradient(135deg, #11E44F 0%, #0BA639 100%)' : '#1a1a1a',
-              color: filterType === 'video' ? '#121212' : '#DAFAF4',
+              border: filterType === 'video' ? 'none' : '2px solid #2A4A5A',
+              background: filterType === 'video' ? 'linear-gradient(135deg, #4CD3C8 0%, #2A7A75 100%)' : '#1A2A3A',
+              color: filterType === 'video' ? '#0B1929' : '#DAFAF4',
               fontSize: '14px',
               fontWeight: '700',
               cursor: 'pointer',
@@ -729,7 +729,7 @@ const SecureMedia = () => {
             }}
             onMouseEnter={(e) => {
               if (filterType !== 'video') {
-                e.currentTarget.style.borderColor = '#11E44F';
+                e.currentTarget.style.borderColor = '#4CD3C8';
                 e.currentTarget.style.backgroundColor = '#0f0f0f';
               } else {
                 e.currentTarget.style.transform = 'translateY(-2px)';
@@ -738,8 +738,8 @@ const SecureMedia = () => {
             }}
             onMouseLeave={(e) => {
               if (filterType !== 'video') {
-                e.currentTarget.style.borderColor = '#313131';
-                e.currentTarget.style.backgroundColor = '#1a1a1a';
+                e.currentTarget.style.borderColor = '#2A4A5A';
+                e.currentTarget.style.backgroundColor = '#1A2A3A';
               } else {
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.boxShadow = '0 4px 14px rgba(17, 228, 79, 0.4)';
@@ -754,9 +754,9 @@ const SecureMedia = () => {
             style={{
               padding: '14px 24px',
               borderRadius: '10px',
-              border: filterType === 'pdf' ? 'none' : '2px solid #313131',
-              background: filterType === 'pdf' ? 'linear-gradient(135deg, #11E44F 0%, #0BA639 100%)' : '#1a1a1a',
-              color: filterType === 'pdf' ? '#121212' : '#DAFAF4',
+              border: filterType === 'pdf' ? 'none' : '2px solid #2A4A5A',
+              background: filterType === 'pdf' ? 'linear-gradient(135deg, #4CD3C8 0%, #2A7A75 100%)' : '#1A2A3A',
+              color: filterType === 'pdf' ? '#0B1929' : '#DAFAF4',
               fontSize: '14px',
               fontWeight: '700',
               cursor: 'pointer',
@@ -770,7 +770,7 @@ const SecureMedia = () => {
             }}
             onMouseEnter={(e) => {
               if (filterType !== 'pdf') {
-                e.currentTarget.style.borderColor = '#11E44F';
+                e.currentTarget.style.borderColor = '#4CD3C8';
                 e.currentTarget.style.backgroundColor = '#0f0f0f';
               } else {
                 e.currentTarget.style.transform = 'translateY(-2px)';
@@ -779,8 +779,8 @@ const SecureMedia = () => {
             }}
             onMouseLeave={(e) => {
               if (filterType !== 'pdf') {
-                e.currentTarget.style.borderColor = '#313131';
-                e.currentTarget.style.backgroundColor = '#1a1a1a';
+                e.currentTarget.style.borderColor = '#2A4A5A';
+                e.currentTarget.style.backgroundColor = '#1A2A3A';
               } else {
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.boxShadow = '0 4px 14px rgba(17, 228, 79, 0.4)';
@@ -800,15 +800,15 @@ const SecureMedia = () => {
             alignItems: 'center',
             justifyContent: 'center',
             minHeight: '400px',
-            backgroundColor: '#1a1a1a',
+            backgroundColor: '#1A2A3A',
             borderRadius: '24px',
-            border: '1px solid #313131',
+            border: '1px solid #2A4A5A',
             padding: '40px',
           }}>
             <Loader2 style={{ 
               width: '48px', 
               height: '48px', 
-              color: '#11E44F', 
+              color: '#4CD3C8', 
               marginBottom: '20px',
               animation: 'spin 1s linear infinite',
             }} />
@@ -818,9 +818,9 @@ const SecureMedia = () => {
           <div style={{
             textAlign: 'center',
             padding: '80px 24px',
-            backgroundColor: '#1a1a1a',
+            backgroundColor: '#1A2A3A',
             borderRadius: '24px',
-            border: '2px dashed #313131',
+            border: '2px dashed #2A4A5A',
           }}>
             <div style={{
               width: '100px',
@@ -833,7 +833,7 @@ const SecureMedia = () => {
               margin: '0 auto 24px',
               border: '2px solid rgba(17, 228, 79, 0.2)',
             }}>
-              <AlertCircle style={{ width: '50px', height: '50px', color: '#11E44F' }} />
+              <AlertCircle style={{ width: '50px', height: '50px', color: '#4CD3C8' }} />
             </div>
             <h3 style={{
               fontSize: '28px',
@@ -843,7 +843,7 @@ const SecureMedia = () => {
             }}>No Media Found</h3>
             <p style={{
               fontSize: '16px',
-              color: '#8AFFAC',
+              color: '#5DDDD2',
               marginBottom: '32px',
               maxWidth: '500px',
               margin: '0 auto 32px',
@@ -863,8 +863,8 @@ const SecureMedia = () => {
                   padding: '14px 28px',
                   borderRadius: '10px',
                   border: 'none',
-                  background: 'linear-gradient(135deg, #11E44F 0%, #0BA639 100%)',
-                  color: '#121212',
+                  background: 'linear-gradient(135deg, #4CD3C8 0%, #2A7A75 100%)',
+                  color: '#0B1929',
                   fontSize: '15px',
                   fontWeight: '700',
                   cursor: 'pointer',
@@ -895,16 +895,16 @@ const SecureMedia = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              backgroundColor: '#1a1a1a',
+              backgroundColor: '#1A2A3A',
               borderRadius: '12px',
               padding: '16px 24px',
-              border: '1px solid #313131',
+              border: '1px solid #2A4A5A',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{
                   width: '8px',
                   height: '8px',
-                  background: 'linear-gradient(135deg, #11E44F, #0BA639)',
+                  background: 'linear-gradient(135deg, #4CD3C8, #2A7A75)',
                   borderRadius: '50%',
                   animation: 'pulse 2s ease-in-out infinite',
                 }}></div>
@@ -920,7 +920,7 @@ const SecureMedia = () => {
               {filterType !== 'all' && (
                 <span style={{
                   fontSize: '13px',
-                  color: '#11E44F',
+                  color: '#4CD3C8',
                   backgroundColor: 'rgba(17, 228, 79, 0.1)',
                   padding: '6px 14px',
                   borderRadius: '8px',
@@ -953,3 +953,5 @@ const SecureMedia = () => {
 };
 
 export default SecureMedia;
+
+

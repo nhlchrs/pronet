@@ -1,4 +1,4 @@
-/* Organizational Chart Styles */
+﻿/* Organizational Chart Styles */
 .org-chart-container {
   display: flex;
   justify-content: center;
@@ -42,17 +42,17 @@
 }
 
 .org-node-content.current-user {
-  background: linear-gradient(135deg, #11E44F 0%, #0ea839 100%);
-  box-shadow: 0 6px 20px rgba(17, 228, 79, 0.4);
+  background: linear-gradient(135deg, #4CD3C8 0%, #2A7A75 100%);
+  box-shadow: 0 6px 20px rgba(76, 211, 200, 0.4);
   animation: pulse-box 2s ease-in-out infinite;
 }
 
 @keyframes pulse-box {
   0%, 100% {
-    box-shadow: 0 6px 20px rgba(17, 228, 79, 0.4);
+    box-shadow: 0 6px 20px rgba(76, 211, 200, 0.4);
   }
   50% {
-    box-shadow: 0 8px 28px rgba(17, 228, 79, 0.6);
+    box-shadow: 0 8px 28px rgba(76, 211, 200, 0.6);
   }
 }
 
@@ -210,3 +210,6 @@
     font-size: 13px;
   }
 }
+
+
+

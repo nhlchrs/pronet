@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { faqdata } from "../../Data/faqdata";
 import useAnimateOnScroll from "../Hooks/useAnimateOnScroll";
 
@@ -56,3 +56,4 @@ const FaqSection = () => {
 }
 
 export default FaqSection;
+

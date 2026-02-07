@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { teamAPI } from "../../services/api";
@@ -41,7 +41,7 @@ export default function TeamsPage() {
       <div
         style={{
           minHeight: "100vh",
-          backgroundColor: "#121212",
+          backgroundColor: "#0B1929",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -53,7 +53,7 @@ export default function TeamsPage() {
             style={{
               width: "50px",
               height: "50px",
-              border: "3px solid #11E44F",
+              border: "3px solid #4CD3C8",
               borderTop: "3px solid transparent",
               borderRadius: "50%",
               margin: "0 auto 20px",
@@ -71,7 +71,7 @@ export default function TeamsPage() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#121212",
+        backgroundColor: "#0B1929",
         padding: "40px 20px",
         fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif",
       }}
@@ -89,7 +89,7 @@ export default function TeamsPage() {
           >
             👥 Teams
           </h1>
-          <p style={{ color: "#8AFFAC", margin: 0 }}>
+          <p style={{ color: "#5DDDD2", margin: 0 }}>
             Browse all available teams ({teams.length})
           </p>
         </div>
@@ -125,20 +125,20 @@ export default function TeamsPage() {
                 key={team._id}
                 onClick={() => setSelectedTeam(team)}
                 style={{
-                  backgroundColor: "#1a1a1a",
-                  border: "1px solid #313131",
+                  backgroundColor: "#1A2A3A",
+                  border: "1px solid #2A4A5A",
                   borderRadius: "12px",
                   padding: "24px",
                   cursor: "pointer",
                   transition: "all 0.3s ease",
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.borderColor = "#11E44F";
+                  e.currentTarget.style.borderColor = "#4CD3C8";
                   e.currentTarget.style.boxShadow = "0 0 20px rgba(17, 228, 79, 0.1)";
                   e.currentTarget.style.transform = "translateY(-5px)";
                 }}
                 onMouseOut={(e) => {
-                  e.currentTarget.style.borderColor = "#313131";
+                  e.currentTarget.style.borderColor = "#2A4A5A";
                   e.currentTarget.style.boxShadow = "none";
                   e.currentTarget.style.transform = "translateY(0)";
                 }}
@@ -148,13 +148,13 @@ export default function TeamsPage() {
                     width: "60px",
                     height: "60px",
                     borderRadius: "50%",
-                    backgroundColor: "#11E44F",
+                    backgroundColor: "#4CD3C8",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     marginBottom: "16px",
                     fontSize: "28px",
-                    color: "#121212",
+                    color: "#0B1929",
                     fontWeight: "bold",
                   }}
                 >
@@ -174,7 +174,7 @@ export default function TeamsPage() {
 
                 <p
                   style={{
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "13px",
                     margin: "0 0 12px 0",
                     minHeight: "40px",
@@ -188,7 +188,7 @@ export default function TeamsPage() {
                     display: "flex",
                     alignItems: "center",
                     gap: "8px",
-                    color: "#11E44F",
+                    color: "#4CD3C8",
                     fontSize: "13px",
                     fontWeight: "bold",
                   }}
@@ -201,14 +201,14 @@ export default function TeamsPage() {
         ) : (
           <div
             style={{
-              backgroundColor: "#1a1a1a",
-              border: "1px solid #313131",
+              backgroundColor: "#1A2A3A",
+              border: "1px solid #2A4A5A",
               borderRadius: "12px",
               padding: "60px 40px",
               textAlign: "center",
             }}
           >
-            <p style={{ color: "#8AFFAC", fontSize: "16px", margin: 0 }}>
+            <p style={{ color: "#5DDDD2", fontSize: "16px", margin: 0 }}>
               No teams available yet
             </p>
           </div>
@@ -234,8 +234,8 @@ export default function TeamsPage() {
           >
             <div
               style={{
-                backgroundColor: "#1a1a1a",
-                border: "1px solid #313131",
+                backgroundColor: "#1A2A3A",
+                border: "1px solid #2A4A5A",
                 borderRadius: "16px",
                 padding: "40px",
                 maxWidth: "500px",
@@ -258,12 +258,12 @@ export default function TeamsPage() {
                     width: "80px",
                     height: "80px",
                     borderRadius: "50%",
-                    backgroundColor: "#11E44F",
+                    backgroundColor: "#4CD3C8",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     fontSize: "40px",
-                    color: "#121212",
+                    color: "#0B1929",
                     fontWeight: "bold",
                     flexShrink: 0,
                   }}
@@ -284,7 +284,7 @@ export default function TeamsPage() {
                   </h2>
                   <p
                     style={{
-                      color: "#8AFFAC",
+                      color: "#5DDDD2",
                       margin: 0,
                       fontSize: "13px",
                     }}
@@ -294,7 +294,7 @@ export default function TeamsPage() {
                 </div>
               </div>
 
-              <div style={{ marginBottom: "30px", paddingBottom: "30px", borderBottom: "1px solid #313131" }}>
+              <div style={{ marginBottom: "30px", paddingBottom: "30px", borderBottom: "1px solid #2A4A5A" }}>
                 <h3 style={{ color: "#DAFAF4", margin: "0 0 12px 0" }}>About</h3>
                 <p
                   style={{
@@ -334,8 +334,8 @@ export default function TeamsPage() {
                 onClick={() => setSelectedTeam(null)}
                 style={{
                   width: "100%",
-                  backgroundColor: "#11E44F",
-                  color: "#121212",
+                  backgroundColor: "#4CD3C8",
+                  color: "#0B1929",
                   border: "none",
                   padding: "12px 24px",
                   borderRadius: "8px",
@@ -345,10 +345,10 @@ export default function TeamsPage() {
                   transition: "all 0.3s ease",
                 }}
                 onMouseOver={(e) => {
-                  e.target.style.backgroundColor = "#0FCC41";
+                  e.target.style.backgroundColor = "#4CD3C8";
                 }}
                 onMouseOut={(e) => {
-                  e.target.style.backgroundColor = "#11E44F";
+                  e.target.style.backgroundColor = "#4CD3C8";
                 }}
               >
                 Close
@@ -360,3 +360,5 @@ export default function TeamsPage() {
     </div>
   );
 }
+
+

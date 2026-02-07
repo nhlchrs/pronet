@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import useAnimateOnScroll from "../Hooks/useAnimateOnScroll";
 
 const CtaSection =() => {
@@ -26,3 +26,4 @@ const CtaSection =() => {
 }
 
 export default CtaSection;
+

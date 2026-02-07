@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 const BlogCard = ({image, title, content, link, date, comment}) => {
     return(
@@ -26,3 +26,4 @@ const BlogCard = ({image, title, content, link, date, comment}) => {
 }
 
 export default BlogCard;
+

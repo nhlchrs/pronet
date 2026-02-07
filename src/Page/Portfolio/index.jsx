@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import BannerInnerSection from "../../Components/Banner/inner";
 import PortfolioSection from "../../Components/Portfolio";
 import CtaSection from "../../Components/CallToAction";
@@ -22,3 +22,4 @@ const PortfolioPage = () => {
 }
 
 export default PortfolioPage;
+

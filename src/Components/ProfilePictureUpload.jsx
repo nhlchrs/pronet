@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import axios from "axios";
 
 export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }) {
@@ -128,7 +128,7 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
                 height: "100px",
                 borderRadius: "50%",
                 objectFit: "cover",
-                border: "3px solid #11E44F",
+                border: "3px solid #4CD3C8",
               }}
             />
           ) : (
@@ -141,7 +141,7 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                border: "3px solid #11E44F",
+                border: "3px solid #4CD3C8",
               }}
             >
               <svg
@@ -149,7 +149,7 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
                 height="40"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#11E44F"
+                stroke="#4CD3C8"
                 strokeWidth="2"
               >
                 <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
@@ -171,8 +171,8 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
             <div
               style={{
                 padding: "10px 20px",
-                backgroundColor: "#11E44F",
-                color: "#121212",
+                backgroundColor: "#4CD3C8",
+                color: "#0B1929",
                 borderRadius: "8px",
                 fontWeight: "600",
                 textAlign: "center",
@@ -183,7 +183,7 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
                 e.target.style.transform = "translateY(-2px)";
               }}
               onMouseLeave={(e) => {
-                e.target.style.backgroundColor = "#11E44F";
+                e.target.style.backgroundColor = "#4CD3C8";
                 e.target.style.transform = "translateY(0)";
               }}
             >
@@ -249,7 +249,7 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
               padding: "30px",
               maxWidth: "500px",
               width: "90%",
-              border: "2px solid #11E44F",
+              border: "2px solid #4CD3C8",
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -275,7 +275,7 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
                   height: "30px",
                 }}
               >
-                ×
+                Ã—
               </button>
             </div>
 
@@ -290,7 +290,7 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
                     height: "200px",
                     borderRadius: "50%",
                     objectFit: "cover",
-                    border: "3px solid #11E44F",
+                    border: "3px solid #4CD3C8",
                   }}
                 />
               </div>
@@ -314,7 +314,7 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
                   padding: "12px",
                   backgroundColor: "#2A2A2A",
                   color: "#DAFAF4",
-                  border: "1px solid #11E44F",
+                  border: "1px solid #4CD3C8",
                   borderRadius: "8px",
                   fontWeight: "600",
                   cursor: isUploading ? "not-allowed" : "pointer",
@@ -329,8 +329,8 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
                 style={{
                   flex: 1,
                   padding: "12px",
-                  backgroundColor: "#11E44F",
-                  color: "#121212",
+                  backgroundColor: "#4CD3C8",
+                  color: "#0B1929",
                   border: "none",
                   borderRadius: "8px",
                   fontWeight: "600",
@@ -387,7 +387,7 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
                   padding: "12px",
                   backgroundColor: "#2A2A2A",
                   color: "#DAFAF4",
-                  border: "1px solid #11E44F",
+                  border: "1px solid #4CD3C8",
                   borderRadius: "8px",
                   fontWeight: "600",
                   cursor: "pointer",
@@ -439,13 +439,13 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
               padding: "30px",
               maxWidth: "400px",
               width: "90%",
-              border: "2px solid #11E44F",
+              border: "2px solid #4CD3C8",
               textAlign: "center",
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div style={{ fontSize: "48px", marginBottom: "15px" }}>✓</div>
-            <h3 style={{ color: "#11E44F", marginBottom: "10px", fontSize: "20px" }}>
+            <div style={{ fontSize: "48px", marginBottom: "15px" }}>âœ“</div>
+            <h3 style={{ color: "#4CD3C8", marginBottom: "10px", fontSize: "20px" }}>
               Success!
             </h3>
             <p style={{ color: "#888", marginBottom: "25px" }}>
@@ -456,8 +456,8 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
               style={{
                 width: "100%",
                 padding: "12px",
-                backgroundColor: "#11E44F",
-                color: "#121212",
+                backgroundColor: "#4CD3C8",
+                color: "#0B1929",
                 border: "none",
                 borderRadius: "8px",
                 fontWeight: "600",
@@ -499,7 +499,7 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div style={{ fontSize: "48px", marginBottom: "15px" }}>⚠</div>
+            <div style={{ fontSize: "48px", marginBottom: "15px" }}>âš </div>
             <h3 style={{ color: "#FF4444", marginBottom: "10px", fontSize: "20px" }}>
               Error
             </h3>
@@ -527,3 +527,5 @@ export default function ProfilePictureUpload({ currentPicture, onUploadSuccess }
     </div>
   );
 }
+
+

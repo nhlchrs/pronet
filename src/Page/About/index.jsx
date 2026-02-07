@@ -1,4 +1,4 @@
-
+﻿
 import BannerInnerSection from "../../Components/Banner/inner";
 import PartnersipSection from "../../Components/Partnership";
 import AboutSection from "../../Components/About/about";
@@ -29,3 +29,4 @@ const AboutPage = () => {
 }
 
 export default AboutPage;
+

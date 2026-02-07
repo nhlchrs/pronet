@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useSocket } from "../../context/SocketContext";
@@ -221,7 +221,7 @@ export default function AnnouncementsPage() {
       <div
         style={{
           minHeight: "100vh",
-          backgroundColor: "#121212",
+          backgroundColor: "#0B1929",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -233,7 +233,7 @@ export default function AnnouncementsPage() {
             style={{
               width: "50px",
               height: "50px",
-              border: "3px solid #11E44F",
+              border: "3px solid #4CD3C8",
               borderTop: "3px solid transparent",
               borderRadius: "50%",
               margin: "0 auto 20px",
@@ -251,7 +251,7 @@ export default function AnnouncementsPage() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#121212",
+        backgroundColor: "#0B1929",
         padding: "40px 20px",
         fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif",
       }}
@@ -269,7 +269,7 @@ export default function AnnouncementsPage() {
           >
             📢 Announcements
           </h1>
-          <p style={{ color: "#8AFFAC", margin: 0 }}>
+          <p style={{ color: "#5DDDD2", margin: 0 }}>
             {activeView === "list" && `Manage and view all announcements (${announcements.length})`}
             {activeView === "create" && "Create a new announcement"}
             {activeView === "detail" && "Announcement details"}
@@ -297,8 +297,8 @@ export default function AnnouncementsPage() {
             style={{
               marginBottom: "20px",
               padding: "12px 16px",
-              backgroundColor: "#11E44F",
-              color: "#121212",
+              backgroundColor: "#4CD3C8",
+              color: "#0B1929",
               borderRadius: "8px",
               fontSize: "14px",
               fontWeight: "bold",
@@ -323,8 +323,8 @@ export default function AnnouncementsPage() {
                   });
                 }}
                 style={{
-                  backgroundColor: "#11E44F",
-                  color: "#121212",
+                  backgroundColor: "#4CD3C8",
+                  color: "#0B1929",
                   border: "none",
                   padding: "12px 24px",
                   borderRadius: "8px",
@@ -335,11 +335,11 @@ export default function AnnouncementsPage() {
                   transition: "all 0.3s ease",
                 }}
                 onMouseOver={(e) => {
-                  e.target.style.backgroundColor = "#0FCC41";
+                  e.target.style.backgroundColor = "#4CD3C8";
                   e.target.style.transform = "scale(1.05)";
                 }}
                 onMouseOut={(e) => {
-                  e.target.style.backgroundColor = "#11E44F";
+                  e.target.style.backgroundColor = "#4CD3C8";
                   e.target.style.transform = "scale(1)";
                 }}
               >
@@ -351,15 +351,15 @@ export default function AnnouncementsPage() {
               <div
                 style={{
                   backgroundColor: "#252525",
-                  border: "1px solid #313131",
+                  border: "1px solid #2A4A5A",
                   borderRadius: "8px",
                   padding: "12px 16px",
                   marginBottom: "30px",
-                  color: "#8AFFAC",
+                  color: "#5DDDD2",
                   fontSize: "14px",
                 }}
               >
-                ℹ️ Only administrators can create, edit, or delete announcements
+                â„¹ï¸ Only administrators can create, edit, or delete announcements
               </div>
             )}
 
@@ -369,19 +369,19 @@ export default function AnnouncementsPage() {
                   <div
                     key={announcement._id}
                     style={{
-                      backgroundColor: "#1a1a1a",
-                      border: "1px solid #313131",
+                      backgroundColor: "#1A2A3A",
+                      border: "1px solid #2A4A5A",
                       borderRadius: "12px",
                       padding: "20px",
                       cursor: "pointer",
                       transition: "all 0.3s ease",
                     }}
                     onMouseOver={(e) => {
-                      e.currentTarget.style.borderColor = "#11E44F";
+                      e.currentTarget.style.borderColor = "#4CD3C8";
                       e.currentTarget.style.boxShadow = "0 0 20px rgba(17, 228, 79, 0.1)";
                     }}
                     onMouseOut={(e) => {
-                      e.currentTarget.style.borderColor = "#313131";
+                      e.currentTarget.style.borderColor = "#2A4A5A";
                       e.currentTarget.style.boxShadow = "none";
                     }}
                     onClick={() => handleViewAnnouncement(announcement._id)}
@@ -412,8 +412,8 @@ export default function AnnouncementsPage() {
                                   ? "#ff4444"
                                   : announcement.priority === "Medium"
                                   ? "#FFA500"
-                                  : "#8AFFAC",
-                              color: announcement.priority === "High" ? "#fff" : "#121212",
+                                  : "#5DDDD2",
+                              color: announcement.priority === "High" ? "#fff" : "#0B1929",
                               padding: "4px 8px",
                               borderRadius: "4px",
                               fontSize: "11px",
@@ -425,8 +425,8 @@ export default function AnnouncementsPage() {
                           </span>
                           <span
                             style={{
-                              backgroundColor: announcement.flag === "important" ? "#11E44F" : "#8AFFAC",
-                              color: "#121212",
+                              backgroundColor: announcement.flag === "important" ? "#4CD3C8" : "#5DDDD2",
+                              color: "#0B1929",
                               padding: "4px 8px",
                               borderRadius: "4px",
                               fontSize: "11px",
@@ -440,7 +440,7 @@ export default function AnnouncementsPage() {
                         </div>
                         <p
                           style={{
-                            color: "#8AFFAC",
+                            color: "#5DDDD2",
                             margin: "0 0 8px 0",
                             fontSize: "13px",
                           }}
@@ -450,7 +450,7 @@ export default function AnnouncementsPage() {
                         </p>
                         <p
                           style={{
-                            color: "#8AFFAC",
+                            color: "#5DDDD2",
                             margin: 0,
                             fontSize: "11px",
                           }}
@@ -492,14 +492,14 @@ export default function AnnouncementsPage() {
             ) : (
               <div
                 style={{
-                  backgroundColor: "#1a1a1a",
-                  border: "1px solid #313131",
+                  backgroundColor: "#1A2A3A",
+                  border: "1px solid #2A4A5A",
                   borderRadius: "12px",
                   padding: "40px",
                   textAlign: "center",
                 }}
               >
-                <p style={{ color: "#8AFFAC", fontSize: "16px", margin: 0 }}>
+                <p style={{ color: "#5DDDD2", fontSize: "16px", margin: 0 }}>
                   No announcements yet. Create one to get started!
                 </p>
               </div>
@@ -511,8 +511,8 @@ export default function AnnouncementsPage() {
         {(activeView === "create" || (activeView === "detail" && isEditing)) && isAdmin && (
           <div
             style={{
-              backgroundColor: "#1a1a1a",
-              border: "1px solid #313131",
+              backgroundColor: "#1A2A3A",
+              border: "1px solid #2A4A5A",
               borderRadius: "12px",
               padding: "30px",
             }}
@@ -524,7 +524,7 @@ export default function AnnouncementsPage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -543,7 +543,7 @@ export default function AnnouncementsPage() {
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #313131",
+                    border: "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
@@ -556,7 +556,7 @@ export default function AnnouncementsPage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -574,7 +574,7 @@ export default function AnnouncementsPage() {
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #313131",
+                    border: "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
@@ -598,7 +598,7 @@ export default function AnnouncementsPage() {
                   <label
                     style={{
                       display: "block",
-                      color: "#8AFFAC",
+                      color: "#5DDDD2",
                       fontSize: "12px",
                       textTransform: "uppercase",
                       marginBottom: "8px",
@@ -615,7 +615,7 @@ export default function AnnouncementsPage() {
                       width: "100%",
                       padding: "12px 16px",
                       backgroundColor: "#252525",
-                      border: "1px solid #313131",
+                      border: "1px solid #2A4A5A",
                       borderRadius: "8px",
                       color: "#DAFAF4",
                       fontSize: "14px",
@@ -633,7 +633,7 @@ export default function AnnouncementsPage() {
                   <label
                     style={{
                       display: "block",
-                      color: "#8AFFAC",
+                      color: "#5DDDD2",
                       fontSize: "12px",
                       textTransform: "uppercase",
                       marginBottom: "8px",
@@ -650,7 +650,7 @@ export default function AnnouncementsPage() {
                       width: "100%",
                       padding: "12px 16px",
                       backgroundColor: "#252525",
-                      border: "1px solid #313131",
+                      border: "1px solid #2A4A5A",
                       borderRadius: "8px",
                       color: "#DAFAF4",
                       fontSize: "14px",
@@ -666,7 +666,7 @@ export default function AnnouncementsPage() {
                   <label
                     style={{
                       display: "block",
-                      color: "#8AFFAC",
+                      color: "#5DDDD2",
                       fontSize: "12px",
                       textTransform: "uppercase",
                       marginBottom: "8px",
@@ -683,7 +683,7 @@ export default function AnnouncementsPage() {
                       width: "100%",
                       padding: "12px 16px",
                       backgroundColor: "#252525",
-                      border: "1px solid #313131",
+                      border: "1px solid #2A4A5A",
                       borderRadius: "8px",
                       color: "#DAFAF4",
                       fontSize: "14px",
@@ -704,8 +704,8 @@ export default function AnnouncementsPage() {
                   type="submit"
                   disabled={loading}
                   style={{
-                    backgroundColor: "#11E44F",
-                    color: "#121212",
+                    backgroundColor: "#4CD3C8",
+                    color: "#0B1929",
                     border: "none",
                     padding: "12px 24px",
                     borderRadius: "8px",
@@ -717,13 +717,13 @@ export default function AnnouncementsPage() {
                   }}
                   onMouseOver={(e) => {
                     if (!loading) {
-                      e.target.style.backgroundColor = "#0FCC41";
+                      e.target.style.backgroundColor = "#4CD3C8";
                       e.target.style.transform = "scale(1.05)";
                     }
                   }}
                   onMouseOut={(e) => {
                     if (!loading) {
-                      e.target.style.backgroundColor = "#11E44F";
+                      e.target.style.backgroundColor = "#4CD3C8";
                       e.target.style.transform = "scale(1)";
                     }
                   }}
@@ -748,8 +748,8 @@ export default function AnnouncementsPage() {
                   }}
                   style={{
                     backgroundColor: "transparent",
-                    color: "#8AFFAC",
-                    border: "1px solid #313131",
+                    color: "#5DDDD2",
+                    border: "1px solid #2A4A5A",
                     padding: "12px 24px",
                     borderRadius: "8px",
                     fontSize: "14px",
@@ -775,8 +775,8 @@ export default function AnnouncementsPage() {
         {activeView === "detail" && !isEditing && selectedAnnouncement && (
           <div
             style={{
-              backgroundColor: "#1a1a1a",
-              border: "1px solid #313131",
+              backgroundColor: "#1A2A3A",
+              border: "1px solid #2A4A5A",
               borderRadius: "12px",
               padding: "30px",
             }}
@@ -815,9 +815,9 @@ export default function AnnouncementsPage() {
                           ? "#ff4444"
                           : selectedAnnouncement.priority === "Medium"
                           ? "#FFA500"
-                          : "#8AFFAC",
+                          : "#5DDDD2",
                       color:
-                        selectedAnnouncement.priority === "High" ? "#fff" : "#121212",
+                        selectedAnnouncement.priority === "High" ? "#fff" : "#0B1929",
                       padding: "6px 12px",
                       borderRadius: "6px",
                       fontSize: "12px",
@@ -828,8 +828,8 @@ export default function AnnouncementsPage() {
                   </span>
                   <span
                     style={{
-                      backgroundColor: selectedAnnouncement.flag === "important" ? "#11E44F" : "#8AFFAC",
-                      color: "#121212",
+                      backgroundColor: selectedAnnouncement.flag === "important" ? "#4CD3C8" : "#5DDDD2",
+                      color: "#0B1929",
                       padding: "6px 12px",
                       borderRadius: "6px",
                       fontSize: "12px",
@@ -842,7 +842,7 @@ export default function AnnouncementsPage() {
                 </div>
                 <p
                   style={{
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     margin: 0,
                     fontSize: "13px",
                   }}
@@ -857,8 +857,8 @@ export default function AnnouncementsPage() {
                     <button
                       onClick={handleEditAnnouncement}
                       style={{
-                        backgroundColor: "#11E44F",
-                        color: "#121212",
+                        backgroundColor: "#4CD3C8",
+                        color: "#0B1929",
                         border: "none",
                         padding: "8px 16px",
                         borderRadius: "6px",
@@ -868,10 +868,10 @@ export default function AnnouncementsPage() {
                         transition: "all 0.3s",
                       }}
                       onMouseOver={(e) => {
-                        e.target.style.backgroundColor = "#0FCC41";
+                        e.target.style.backgroundColor = "#4CD3C8";
                       }}
                       onMouseOut={(e) => {
-                        e.target.style.backgroundColor = "#11E44F";
+                        e.target.style.backgroundColor = "#4CD3C8";
                       }}
                     >
                       Edit
@@ -910,7 +910,7 @@ export default function AnnouncementsPage() {
                 padding: "20px",
                 borderRadius: "8px",
                 marginBottom: "20px",
-                borderLeft: "4px solid #11E44F",
+                borderLeft: "4px solid #4CD3C8",
               }}
             >
               <p
@@ -929,8 +929,8 @@ export default function AnnouncementsPage() {
               onClick={() => setActiveView("list")}
               style={{
                 backgroundColor: "transparent",
-                color: "#8AFFAC",
-                border: "1px solid #313131",
+                color: "#5DDDD2",
+                border: "1px solid #2A4A5A",
                 padding: "12px 24px",
                 borderRadius: "8px",
                 fontSize: "14px",
@@ -945,7 +945,7 @@ export default function AnnouncementsPage() {
                 e.target.style.backgroundColor = "transparent";
               }}
             >
-              ← Back to Announcements
+              â† Back to Announcements
             </button>
           </div>
         )}
@@ -953,3 +953,5 @@ export default function AnnouncementsPage() {
     </div>
   );
 }
+
+

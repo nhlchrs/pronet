@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 const PageNotFoundSection = () => {
     return (
@@ -23,3 +23,4 @@ const PageNotFoundSection = () => {
   }
   
 export default PageNotFoundSection;
+

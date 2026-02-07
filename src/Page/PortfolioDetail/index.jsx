@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import BannerInnerSection from "../../Components/Banner/inner";
 import CtaSection from "../../Components/CallToAction";
 import WhyChooseUsSection from "../../Components/ChooseUs";
@@ -20,3 +20,4 @@ const SinglePortfolioPage = () => {
 }
 
 export default SinglePortfolioPage;
+

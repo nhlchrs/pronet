@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
@@ -83,7 +83,7 @@ const ResetPasswordPage = () => {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '16px',
-      backgroundColor: '#121212',
+      backgroundColor: '#0B1929',
       position: 'relative',
       overflow: 'hidden',
       fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif"
@@ -97,7 +97,7 @@ const ResetPasswordPage = () => {
         height: '384px',
         opacity: 0.05,
         borderRadius: '50%',
-        backgroundColor: '#11E44F',
+        backgroundColor: '#4CD3C8',
         transform: 'translate(-50%, -50%)',
       }}></div>
       <div style={{
@@ -108,7 +108,7 @@ const ResetPasswordPage = () => {
         height: '320px',
         opacity: 0.05,
         borderRadius: '50%',
-        backgroundColor: '#11E44F',
+        backgroundColor: '#4CD3C8',
         transform: 'translate(33%, 33%)',
       }}></div>
 
@@ -123,8 +123,8 @@ const ResetPasswordPage = () => {
           borderRadius: '24px',
           boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)',
           padding: '48px',
-          backgroundColor: '#1a1a1a',
-          border: '1px solid #313131',
+          backgroundColor: '#1A2A3A',
+          border: '1px solid #2A4A5A',
         }}>
           {/* Header */}
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
@@ -141,7 +141,7 @@ const ResetPasswordPage = () => {
             }}>
               <i className="fa-solid fa-key" style={{
                 fontSize: '28px',
-                color: '#11E44F',
+                color: '#4CD3C8',
               }}></i>
             </div>
             
@@ -155,7 +155,7 @@ const ResetPasswordPage = () => {
             
             <p style={{
               fontSize: '14px',
-              color: '#8AFFAC',
+              color: '#5DDDD2',
               margin: 0,
               fontWeight: '500',
               lineHeight: '1.5',
@@ -184,7 +184,7 @@ const ResetPasswordPage = () => {
                   position: 'absolute',
                   left: '16px',
                   top: '12px',
-                  color: '#8AFFAC',
+                  color: '#5DDDD2',
                   fontSize: '16px',
                 }} className="fa-solid fa-envelope"></i>
                 <input
@@ -203,7 +203,7 @@ const ResetPasswordPage = () => {
                     paddingTop: '12px',
                     paddingBottom: '12px',
                     borderRadius: '10px',
-                    border: '2px solid #313131',
+                    border: '2px solid #2A4A5A',
                     backgroundColor: '#0f0f0f',
                     color: '#DAFAF4',
                     fontSize: '15px',
@@ -213,12 +213,12 @@ const ResetPasswordPage = () => {
                     opacity: loading ? 0.6 : 1,
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = '#11E44F';
-                    e.target.style.backgroundColor = '#1a1a1a';
+                    e.target.style.borderColor = '#4CD3C8';
+                    e.target.style.backgroundColor = '#1A2A3A';
                     e.target.style.boxShadow = '0 0 0 3px rgba(17, 228, 79, 0.1)';
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = '#313131';
+                    e.target.style.borderColor = '#2A4A5A';
                     e.target.style.backgroundColor = '#0f0f0f';
                     e.target.style.boxShadow = 'none';
                   }}
@@ -244,7 +244,7 @@ const ResetPasswordPage = () => {
                   position: 'absolute',
                   left: '16px',
                   top: '12px',
-                  color: '#8AFFAC',
+                  color: '#5DDDD2',
                   fontSize: '16px',
                 }} className="fa-solid fa-shield-halved"></i>
                 <input
@@ -264,7 +264,7 @@ const ResetPasswordPage = () => {
                     paddingTop: '12px',
                     paddingBottom: '12px',
                     borderRadius: '10px',
-                    border: '2px solid #313131',
+                    border: '2px solid #2A4A5A',
                     backgroundColor: '#0f0f0f',
                     color: '#DAFAF4',
                     fontSize: '15px',
@@ -276,12 +276,12 @@ const ResetPasswordPage = () => {
                     textAlign: 'center',
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = '#11E44F';
-                    e.target.style.backgroundColor = '#1a1a1a';
+                    e.target.style.borderColor = '#4CD3C8';
+                    e.target.style.backgroundColor = '#1A2A3A';
                     e.target.style.boxShadow = '0 0 0 3px rgba(17, 228, 79, 0.1)';
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = '#313131';
+                    e.target.style.borderColor = '#2A4A5A';
                     e.target.style.backgroundColor = '#0f0f0f';
                     e.target.style.boxShadow = 'none';
                   }}
@@ -307,7 +307,7 @@ const ResetPasswordPage = () => {
                   position: 'absolute',
                   left: '16px',
                   top: '12px',
-                  color: '#8AFFAC',
+                  color: '#5DDDD2',
                   fontSize: '16px',
                 }} className="fa-solid fa-lock"></i>
                 <input
@@ -326,7 +326,7 @@ const ResetPasswordPage = () => {
                     paddingTop: '12px',
                     paddingBottom: '12px',
                     borderRadius: '10px',
-                    border: '2px solid #313131',
+                    border: '2px solid #2A4A5A',
                     backgroundColor: '#0f0f0f',
                     color: '#DAFAF4',
                     fontSize: '15px',
@@ -336,12 +336,12 @@ const ResetPasswordPage = () => {
                     opacity: loading ? 0.6 : 1,
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = '#11E44F';
-                    e.target.style.backgroundColor = '#1a1a1a';
+                    e.target.style.borderColor = '#4CD3C8';
+                    e.target.style.backgroundColor = '#1A2A3A';
                     e.target.style.boxShadow = '0 0 0 3px rgba(17, 228, 79, 0.1)';
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = '#313131';
+                    e.target.style.borderColor = '#2A4A5A';
                     e.target.style.backgroundColor = '#0f0f0f';
                     e.target.style.boxShadow = 'none';
                   }}
@@ -355,7 +355,7 @@ const ResetPasswordPage = () => {
                     right: '12px',
                     top: '50%',
                     transform: 'translateY(-50%)',
-                    color: '#8AFFAC',
+                    color: '#5DDDD2',
                     fontSize: '16px',
                     background: 'none',
                     border: 'none',
@@ -386,7 +386,7 @@ const ResetPasswordPage = () => {
                   position: 'absolute',
                   left: '16px',
                   top: '12px',
-                  color: '#8AFFAC',
+                  color: '#5DDDD2',
                   fontSize: '16px',
                 }} className="fa-solid fa-lock"></i>
                 <input
@@ -405,7 +405,7 @@ const ResetPasswordPage = () => {
                     paddingTop: '12px',
                     paddingBottom: '12px',
                     borderRadius: '10px',
-                    border: '2px solid #313131',
+                    border: '2px solid #2A4A5A',
                     backgroundColor: '#0f0f0f',
                     color: '#DAFAF4',
                     fontSize: '15px',
@@ -415,12 +415,12 @@ const ResetPasswordPage = () => {
                     opacity: loading ? 0.6 : 1,
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = '#11E44F';
-                    e.target.style.backgroundColor = '#1a1a1a';
+                    e.target.style.borderColor = '#4CD3C8';
+                    e.target.style.backgroundColor = '#1A2A3A';
                     e.target.style.boxShadow = '0 0 0 3px rgba(17, 228, 79, 0.1)';
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = '#313131';
+                    e.target.style.borderColor = '#2A4A5A';
                     e.target.style.backgroundColor = '#0f0f0f';
                     e.target.style.boxShadow = 'none';
                   }}
@@ -434,7 +434,7 @@ const ResetPasswordPage = () => {
                     right: '12px',
                     top: '50%',
                     transform: 'translateY(-50%)',
-                    color: '#8AFFAC',
+                    color: '#5DDDD2',
                     fontSize: '16px',
                     background: 'none',
                     border: 'none',
@@ -456,8 +456,8 @@ const ResetPasswordPage = () => {
                 padding: '14px 24px',
                 borderRadius: '10px',
                 border: 'none',
-                background: 'linear-gradient(135deg, #11E44F 0%, #0BA639 100%)',
-                color: '#121212',
+                background: 'linear-gradient(135deg, #4CD3C8 0%, #2A7A75 100%)',
+                color: '#0B1929',
                 fontSize: '15px',
                 fontWeight: '700',
                 cursor: loading ? 'not-allowed' : 'pointer',
@@ -500,7 +500,7 @@ const ResetPasswordPage = () => {
 
           {/* Divider */}
           <div style={{
-            borderTop: '1px solid #313131',
+            borderTop: '1px solid #2A4A5A',
             marginBottom: '24px',
           }}></div>
 
@@ -512,17 +512,17 @@ const ResetPasswordPage = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                color: '#11E44F',
+                color: '#4CD3C8',
                 fontSize: '14px',
                 fontWeight: '600',
                 textDecoration: 'none',
                 transition: 'all 0.3s ease',
               }}
               onMouseEnter={(e) => {
-                e.target.style.color = '#8AFFAC';
+                e.target.style.color = '#5DDDD2';
               }}
               onMouseLeave={(e) => {
-                e.target.style.color = '#11E44F';
+                e.target.style.color = '#4CD3C8';
               }}
             >
               <i className="fa-solid fa-arrow-left"></i>
@@ -533,12 +533,12 @@ const ResetPasswordPage = () => {
 
         {/* Footer Text */}
         <div style={{ marginTop: '24px', textAlign: 'center' }}>
-          <p style={{ fontSize: '14px', color: '#8AFFAC', margin: 0 }}>
+          <p style={{ fontSize: '14px', color: '#5DDDD2', margin: 0 }}>
             Didn't receive OTP?{" "}
             <Link
               to="/forgot-password"
               style={{
-                color: '#11E44F',
+                color: '#4CD3C8',
                 fontWeight: '600',
                 textDecoration: 'none',
                 transition: 'color 0.3s ease',
@@ -547,7 +547,7 @@ const ResetPasswordPage = () => {
                 e.target.style.color = '#DAFAF4';
               }}
               onMouseLeave={(e) => {
-                e.target.style.color = '#11E44F';
+                e.target.style.color = '#4CD3C8';
               }}
             >
               Request new one
@@ -560,3 +560,5 @@ const ResetPasswordPage = () => {
 };
 
 export default ResetPasswordPage;
+
+

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import useAnimateOnScroll from "../Hooks/useAnimateOnScroll";
 
 const AboutSection = () => {
@@ -113,3 +113,4 @@ const AboutSection = () => {
 }
 
 export default AboutSection;
+

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { servicedata } from "../../Data/Service";
 import ServiceCard from "../Card/ServiceCard";
 import useAnimateOnScroll from "../Hooks/useAnimateOnScroll";
@@ -40,3 +40,4 @@ const ServiceSection = () => {
 }
 
 export default ServiceSection;
+

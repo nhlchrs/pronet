@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import BannerInnerSection from "../../Components/Banner/inner";
 import BlogSectionExtend from "../../Components/Blog/extend";
 import HeadTitle from "../../Components/Head/HeadTitle";
@@ -14,3 +14,4 @@ const BlogPage = () => {
 }
 
 export default BlogPage;
+

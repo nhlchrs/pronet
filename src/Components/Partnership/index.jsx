@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { partnershipdata } from "../../Data/Partner";
 
@@ -43,3 +43,4 @@ const PartnersipSection = () => {
 }
 
 export default PartnersipSection;
+

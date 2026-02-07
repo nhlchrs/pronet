@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import BannerInnerSection from "../../Components/Banner/inner";
 import PartnersipSection from "../../Components/Partnership";
 import ServiceSection from "../../Components/Service";
@@ -28,3 +28,4 @@ const ServicePage = () => {
 }
 
 export default ServicePage;
+

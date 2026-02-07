@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { blogdata } from "../../Data/Blog";
 import BlogCard from "../Card/BlogCard";
 
@@ -37,3 +37,4 @@ const BlogSection = () =>{
 }
 
 export default BlogSection;
+

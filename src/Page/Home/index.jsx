@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import AboutSection from "../../Components/About/about";
 import BannerHome from "../../Components/Banner";
 import ModalVideoSection from "../../Components/Video/VideoPlayer";
@@ -31,3 +31,4 @@ const HomePage = () => {
 }
 
 export default HomePage;
+

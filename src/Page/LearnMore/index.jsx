@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import BannerInnerSection from "../../Components/Banner/inner";
 import HeadTitle from "../../Components/Head/HeadTitle";
 
@@ -44,7 +44,7 @@ const LearnMorePage = () => {
 
                                 <div style={{ padding: '15px', backgroundColor: '#fff3cd', border: '1px solid #ffc107', borderRadius: '5px' }}>
                                     <p style={{ marginBottom: '0', color: '#856404', fontWeight: '500' }}>
-                                        ⚠️ <strong>Disclaimer:</strong> We do not provide investment advice or guaranteed profits. Financial markets involve risk, and 
+                                        âš ï¸ <strong>Disclaimer:</strong> We do not provide investment advice or guaranteed profits. Financial markets involve risk, and 
                                         users are responsible for their own trading decisions.
                                     </p>
                                 </div>
@@ -82,7 +82,7 @@ const LearnMorePage = () => {
 
                                 <div style={{ padding: '15px', backgroundColor: '#fff3cd', border: '1px solid #ffc107', borderRadius: '5px' }}>
                                     <p style={{ marginBottom: '0', color: '#856404', fontWeight: '500' }}>
-                                        ⚠️ <strong>Disclaimer:</strong> Affiliate earnings depend on performance and participation. No fixed or guaranteed income is promised.
+                                        âš ï¸ <strong>Disclaimer:</strong> Affiliate earnings depend on performance and participation. No fixed or guaranteed income is promised.
                                     </p>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@ const LearnMorePage = () => {
 
                                 <div style={{ padding: '15px', backgroundColor: '#d1ecf1', border: '1px solid #17a2b8', borderRadius: '5px' }}>
                                     <p style={{ marginBottom: '0', color: '#0c5460', fontWeight: '500' }}>
-                                        ℹ️ <strong>Education Only:</strong> All content is for learning purposes and does not constitute financial or investment advice.
+                                        â„¹ï¸ <strong>Education Only:</strong> All content is for learning purposes and does not constitute financial or investment advice.
                                     </p>
                                 </div>
                             </div>
@@ -156,7 +156,7 @@ const LearnMorePage = () => {
 
                                 <div style={{ padding: '15px', backgroundColor: '#fff3cd', border: '1px solid #ffc107', borderRadius: '5px' }}>
                                     <p style={{ marginBottom: '0', color: '#856404', fontWeight: '500' }}>
-                                        ⚠️ <strong>Important:</strong> Commission earnings depend on activity, referrals, and platform policies. Terms & conditions apply.
+                                        âš ï¸ <strong>Important:</strong> Commission earnings depend on activity, referrals, and platform policies. Terms & conditions apply.
                                     </p>
                                 </div>
                             </div>
@@ -180,3 +180,5 @@ const LearnMorePage = () => {
 };
 
 export default LearnMorePage;
+
+

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+﻿import React, { createContext, useState, useContext } from "react";
 
 const ModalVideoContext = createContext();
 
@@ -24,3 +24,5 @@ export const ModalVideoProvider = ({ children }) => {
         </ModalVideoContext.Provider>
     );
 };
+
+

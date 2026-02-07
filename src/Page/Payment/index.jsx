@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import './Payment.css';
@@ -213,7 +213,7 @@ const PaymentPage = () => {
     modal.innerHTML = `
       <div class="payment-modal-content">
         <div class="payment-modal-icon ${type}">
-          ${type === 'success' ? '✓' : '✕'}
+          ${type === 'success' ? 'âœ“' : 'âœ•'}
         </div>
         <h3>${title}</h3>
         <p>${message}</p>
@@ -288,11 +288,11 @@ const PaymentPage = () => {
                 value={selectedCurrency}
                 onChange={(e) => setSelectedCurrency(e.target.value)}
               >
-                <option value="bnbbsc">BNB (BEP-20) - Recommended ⭐</option>
-                <option value="usdtbsc">USDT (BEP-20) - Recommended ⭐</option>
-                <option value="usdttrc20">USDT (TRC-20) - Recommended ⭐</option>
-                <option value="trx">TRX (TRC-20) - Recommended ⭐</option>
-                <option disabled>──────────</option>
+                <option value="bnbbsc">BNB (BEP-20) - Recommended â­</option>
+                <option value="usdtbsc">USDT (BEP-20) - Recommended â­</option>
+                <option value="usdttrc20">USDT (TRC-20) - Recommended â­</option>
+                <option value="trx">TRX (TRC-20) - Recommended â­</option>
+                <option disabled>â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€</option>
                 <option value="btc">Bitcoin (BTC)</option>
                 <option value="eth">Ethereum (ETH)</option>
                 <option value="ltc">Litecoin (LTC)</option>
@@ -319,7 +319,7 @@ const PaymentPage = () => {
                   <ul className="plan-features">
                     {plan.features.map((feature, index) => (
                       <li key={index}>
-                        <span className="check-icon">✓</span>
+                        <span className="check-icon">âœ“</span>
                         {feature}
                       </li>
                     ))}
@@ -392,3 +392,5 @@ const PaymentPage = () => {
 };
 
 export default PaymentPage;
+
+

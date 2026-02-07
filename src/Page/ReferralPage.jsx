@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../Components/shared/Tabs';
 import { ReferralCode } from '../Components/Team/ReferralCode';
 import { JoinTeam } from '../Components/Team/JoinTeam';
@@ -96,7 +96,7 @@ export const ReferralPage = () => {
                     <p>Unlock exclusive bonuses as you reach higher levels</p>
                   </div>
                   <div className="opportunity">
-                    <span className="opportunity-icon">⭐</span>
+                    <span className="opportunity-icon">â­</span>
                     <h4>Growth Rewards</h4>
                     <p>Earn additional rewards as your team grows</p>
                   </div>
@@ -219,14 +219,14 @@ export const ReferralPage = () => {
         <h2>Getting Started Guide</h2>
         <div className="steps-container">
           <div className="getting-started-step">
-            <div className="step-icon">1️⃣</div>
+            <div className="step-icon">1ï¸âƒ£</div>
             <h3>Get Your Code</h3>
             <p>
               Navigate to "My Referral Code" tab to view your unique referral code and link.
             </p>
           </div>
           <div className="getting-started-step">
-            <div className="step-icon">2️⃣</div>
+            <div className="step-icon">2ï¸âƒ£</div>
             <h3>Share & Invite</h3>
             <p>
               Copy your code or link and share it with friends, family, and colleagues. You can
@@ -234,7 +234,7 @@ export const ReferralPage = () => {
             </p>
           </div>
           <div className="getting-started-step">
-            <div className="step-icon">3️⃣</div>
+            <div className="step-icon">3ï¸âƒ£</div>
             <h3>They Join</h3>
             <p>
               When someone uses your code to sign up, they automatically become part of your
@@ -242,7 +242,7 @@ export const ReferralPage = () => {
             </p>
           </div>
           <div className="getting-started-step">
-            <div className="step-icon">4️⃣</div>
+            <div className="step-icon">4ï¸âƒ£</div>
             <h3>Earn & Grow</h3>
             <p>
               Start earning commissions from their activity. Track your growing network in the
@@ -250,7 +250,7 @@ export const ReferralPage = () => {
             </p>
           </div>
           <div className="getting-started-step">
-            <div className="step-icon">5️⃣</div>
+            <div className="step-icon">5ï¸âƒ£</div>
             <h3>Reach Higher Levels</h3>
             <p>
               As your team grows, you'll automatically advance to higher levels and unlock
@@ -258,7 +258,7 @@ export const ReferralPage = () => {
             </p>
           </div>
           <div className="getting-started-step">
-            <div className="step-icon">6️⃣</div>
+            <div className="step-icon">6ï¸âƒ£</div>
             <h3>Get Rewarded</h3>
             <p>
               Receive monthly payments, exclusive bonuses, and special recognition for your
@@ -272,3 +272,5 @@ export const ReferralPage = () => {
 };
 
 export default ReferralPage;
+
+

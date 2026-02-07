@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import BannerInnerSection from "../../Components/Banner/inner";
 import HeadTitle from "../../Components/Head/HeadTitle";
 
@@ -103,8 +103,8 @@ const AgreementPage = () => {
                                 <div style={{ marginBottom: '30px' }}>
                                     <h2 style={{ marginBottom: '15px', color: '#2c3e50' }}>6. Intellectual Property & Confidentiality</h2>
                                     <p style={{ lineHeight: '1.8', color: '#2c3e50' }}>
-                                        All content provided by ProNet Solutions—including videos, PDFs, 
-                                        strategies, indicators, presentations, recordings, and branding—is the 
+                                        All content provided by ProNet Solutionsâ€”including videos, PDFs, 
+                                        strategies, indicators, presentations, recordings, and brandingâ€”is the 
                                         <strong> exclusive intellectual property</strong> of ProNet Solutions.
                                     </p>
                                     <p style={{ lineHeight: '1.8', marginTop: '10px', color: '#2c3e50' }}>
@@ -245,3 +245,5 @@ const AgreementPage = () => {
 };
 
 export default AgreementPage;
+
+

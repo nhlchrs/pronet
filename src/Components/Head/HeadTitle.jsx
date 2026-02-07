@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+﻿import { useEffect } from "react";
 
 const HeadTitle = ({ title }) => {
     useEffect(() => {
@@ -9,3 +9,5 @@ const HeadTitle = ({ title }) => {
 }
 
 export default HeadTitle;
+
+

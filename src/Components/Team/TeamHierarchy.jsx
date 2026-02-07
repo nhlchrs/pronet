@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { ChevronDown, ChevronRight, AlertCircle, Loader } from 'lucide-react';
 import { teamAPI } from '../../services/api';
 import './TeamHierarchy.css';
@@ -391,3 +391,5 @@ export const TeamHierarchy = ({ isActive }) => {
 };
 
 export default TeamHierarchy;
+
+

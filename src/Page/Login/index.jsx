@@ -1,4 +1,4 @@
-        import React, { useState } from "react";
+﻿        import React, { useState } from "react";
         import { useNavigate, Link } from "react-router-dom";
         import { useAuth } from "../../context/AuthContext";
 
@@ -72,7 +72,7 @@
       alignItems: 'center',
       justifyContent: 'center',
       padding: '16px',
-      backgroundColor: '#121212',
+      backgroundColor: '#0B1929',
       position: 'relative',
       overflow: 'hidden',
       fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif"
@@ -86,7 +86,7 @@
         height: '384px',
         opacity: 0.05,
         borderRadius: '50%',
-        backgroundColor: '#11E44F',
+        backgroundColor: '#4CD3C8',
         transform: 'translate(-50%, -50%)',
       }}></div>
       <div style={{
@@ -97,7 +97,7 @@
         height: '320px',
         opacity: 0.05,
         borderRadius: '50%',
-        backgroundColor: '#11E44F',
+        backgroundColor: '#4CD3C8',
         transform: 'translate(33%, 33%)',
       }}></div>
       <div style={{
@@ -108,7 +108,7 @@
         height: '256px',
         opacity: 0.05,
         borderRadius: '50%',
-        backgroundColor: '#11E44F',
+        backgroundColor: '#4CD3C8',
         transform: 'translate(50%, -50%)',
       }}></div>
 
@@ -123,8 +123,8 @@
           borderRadius: '24px',
           boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)',
           padding: '48px',
-          backgroundColor: '#1a1a1a',
-          border: '1px solid #313131',
+          backgroundColor: '#1A2A3A',
+          border: '1px solid #2A4A5A',
         }}>
           {/* Logo/Branding */}
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
@@ -137,10 +137,10 @@
             }}>Welcome Back</h1>
             <p style={{
               fontSize: '14px',
-              color: '#8AFFAC',
+              color: '#5DDDD2',
               margin: 0,
               fontWeight: '500',
-            }}>Sign in to your ProNext account</p>
+            }}>Sign in to your ProNet account</p>
           </div>
 
           {/* Error Alert */}
@@ -187,7 +187,7 @@
                   position: 'absolute',
                   left: '16px',
                   top: '12px',
-                  color: '#8AFFAC',
+                  color: '#5DDDD2',
                   fontSize: '16px',
                 }} className="fa-solid fa-envelope"></i>
                 <input
@@ -206,7 +206,7 @@
                     paddingTop: '12px',
                     paddingBottom: '12px',
                     borderRadius: '10px',
-                    border: '2px solid #313131',
+                    border: '2px solid #2A4A5A',
                     backgroundColor: '#0f0f0f',
                     color: '#DAFAF4',
                     fontSize: '15px',
@@ -216,12 +216,12 @@
                     opacity: loading ? 0.6 : 1,
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = '#11E44F';
-                    e.target.style.backgroundColor = '#1a1a1a';
+                    e.target.style.borderColor = '#4CD3C8';
+                    e.target.style.backgroundColor = '#1A2A3A';
                     e.target.style.boxShadow = '0 0 0 3px rgba(17, 228, 79, 0.1)';
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = '#313131';
+                    e.target.style.borderColor = '#2A4A5A';
                     e.target.style.backgroundColor = '#0f0f0f';
                     e.target.style.boxShadow = 'none';
                   }}
@@ -247,7 +247,7 @@
                   position: 'absolute',
                   left: '16px',
                   top: '12px',
-                  color: '#8AFFAC',
+                  color: '#5DDDD2',
                   fontSize: '16px',
                   pointerEvents: 'none',
                 }} className="fa-solid fa-lock"></i>
@@ -267,7 +267,7 @@
                     paddingTop: '12px',
                     paddingBottom: '12px',
                     borderRadius: '10px',
-                    border: '2px solid #313131',
+                    border: '2px solid #2A4A5A',
                     backgroundColor: '#0f0f0f',
                     color: '#DAFAF4',
                     fontSize: '15px',
@@ -277,12 +277,12 @@
                     opacity: loading ? 0.6 : 1,
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = '#11E44F';
-                    e.target.style.backgroundColor = '#1a1a1a';
+                    e.target.style.borderColor = '#4CD3C8';
+                    e.target.style.backgroundColor = '#1A2A3A';
                     e.target.style.boxShadow = '0 0 0 3px rgba(17, 228, 79, 0.1)';
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = '#313131';
+                    e.target.style.borderColor = '#2A4A5A';
                     e.target.style.backgroundColor = '#0f0f0f';
                     e.target.style.boxShadow = 'none';
                   }}
@@ -294,7 +294,7 @@
                   style={{
                     position: 'absolute',
                     right: '12px',
-                    color: '#8AFFAC',
+                    color: '#5DDDD2',
                     fontSize: '16px',
                     background: 'none',
                     border: 'none',
@@ -303,8 +303,8 @@
                     transition: 'color 0.2s ease',
                     opacity: loading ? 0.6 : 1,
                   }}
-                  onMouseEnter={(e) => !loading && (e.target.style.color = '#11E44F')}
-                  onMouseLeave={(e) => (e.target.style.color = '#8AFFAC')}
+                  onMouseEnter={(e) => !loading && (e.target.style.color = '#4CD3C8')}
+                  onMouseLeave={(e) => (e.target.style.color = '#5DDDD2')}
                 >
                   <i className={`fa-solid fa-${showPassword ? "eye-slash" : "eye"}`}></i>
                 </button>
@@ -335,7 +335,7 @@
                     width: '16px',
                     height: '16px',
                     cursor: loading ? 'not-allowed' : 'pointer',
-                    accentColor: '#11E44F',
+                    accentColor: '#4CD3C8',
                   }}
                 />
                 <span>Remember me</span>
@@ -343,13 +343,13 @@
               <Link
                 to="/forgot-password"
                 style={{
-                  color: '#11E44F',
+                  color: '#4CD3C8',
                   textDecoration: 'none',
                   fontWeight: '600',
                   transition: 'color 0.2s ease',
                 }}
-                onMouseEnter={(e) => e.target.style.color = '#8AFFAC'}
-                onMouseLeave={(e) => e.target.style.color = '#11E44F'}
+                onMouseEnter={(e) => e.target.style.color = '#5DDDD2'}
+                onMouseLeave={(e) => e.target.style.color = '#4CD3C8'}
               >
                 Forgot password?
               </Link>
@@ -362,8 +362,8 @@
               style={{
                 width: '100%',
                 padding: '14px 24px',
-                backgroundColor: '#11E44F',
-                color: '#121212',
+                backgroundColor: '#4CD3C8',
+                color: '#0B1929',
                 fontWeight: '600',
                 fontSize: '16px',
                 border: 'none',
@@ -377,8 +377,8 @@
                 opacity: loading ? 0.8 : 1,
                 transform: loading ? 'scale(0.98)' : 'scale(1)',
               }}
-              onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = '#8AFFAC')}
-              onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = '#11E44F')}
+              onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = '#5DDDD2')}
+              onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = '#4CD3C8')}
               onMouseDown={(e) => !loading && (e.target.style.transform = 'scale(0.98)')}
               onMouseUp={(e) => !loading && (e.target.style.transform = 'scale(1)')}
             >
@@ -399,7 +399,7 @@
           {/* Footer */}
           <div style={{
             paddingTop: '24px',
-            borderTop: '1px solid #313131',
+            borderTop: '1px solid #2A4A5A',
             textAlign: 'center',
           }}>
             <p style={{
@@ -411,13 +411,13 @@
               <Link
                 to="/register"
                 style={{
-                  color: '#11E44F',
+                  color: '#4CD3C8',
                   textDecoration: 'none',
                   fontWeight: '700',
                   transition: 'color 0.2s ease',
                 }}
-                onMouseEnter={(e) => e.target.style.color = '#8AFFAC'}
-                onMouseLeave={(e) => e.target.style.color = '#11E44F'}
+                onMouseEnter={(e) => e.target.style.color = '#5DDDD2'}
+                onMouseLeave={(e) => e.target.style.color = '#4CD3C8'}
               >
                 Create account
               </Link>
@@ -429,10 +429,10 @@
         <div style={{
           marginTop: '24px',
           textAlign: 'center',
-          color: '#8AFFAC',
+          color: '#5DDDD2',
           fontSize: '12px',
         }}>
-          <p style={{ margin: 0 }}>ProNext © 2025 | All rights reserved</p>
+          <p style={{ margin: 0 }}>ProNet © 2025 | All rights reserved</p>
         </div>
       </div>
 
@@ -446,3 +446,5 @@
     </div>
   );
 }
+
+

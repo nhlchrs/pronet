@@ -1,4 +1,4 @@
-export const portfoliodata = [
+﻿export const portfoliodata = [
     {
         id: 1,
         image: "/assets/images/dummy-img-600x800.jpg",
@@ -60,3 +60,4 @@ export const portfoliodata = [
         speed: "animated-slow"
     },
 ];
+

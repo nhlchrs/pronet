@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useSocket } from "../../context/SocketContext";
 import { useNavigate } from "react-router-dom";
@@ -152,8 +152,8 @@ export default function Dashboard() {
   const StatCard = ({ title, value, icon, color }) => (
     <div
       style={{
-        backgroundColor: "#1a1a1a",
-        border: "1px solid #313131",
+        backgroundColor: "#1A2A3A",
+        border: "1px solid #2A4A5A",
         borderRadius: "12px",
         padding: "24px",
         marginBottom: "20px",
@@ -168,7 +168,7 @@ export default function Dashboard() {
         }}
       >
         <div>
-          <p style={{ color: "#8AFFAC", fontSize: "12px", margin: 0 }}>
+          <p style={{ color: "#5DDDD2", fontSize: "12px", margin: 0 }}>
             {title}
           </p>
           <h3 style={{ color: "#DAFAF4", fontSize: "28px", margin: "8px 0 0 0" }}>
@@ -193,7 +193,7 @@ export default function Dashboard() {
       onClick={onClick}
       style={{
         padding: "16px",
-        borderBottom: "1px solid #313131",
+        borderBottom: "1px solid #2A4A5A",
         cursor: onClick ? "pointer" : "default",
         transition: onClick ? "background-color 0.2s" : "none",
       }}
@@ -210,13 +210,13 @@ export default function Dashboard() {
             {title}
           </p>
           {subtitle && (
-            <p style={{ color: "#8AFFAC", margin: 0, fontSize: "12px" }}>
+            <p style={{ color: "#5DDDD2", margin: 0, fontSize: "12px" }}>
               {subtitle}
             </p>
           )}
         </div>
         {meta && (
-          <span style={{ color: "#11E44F", fontSize: "12px", fontWeight: "bold" }}>
+          <span style={{ color: "#4CD3C8", fontSize: "12px", fontWeight: "bold" }}>
             {meta}
           </span>
         )}
@@ -229,7 +229,7 @@ export default function Dashboard() {
       <div
         style={{
           minHeight: "100vh",
-          backgroundColor: "#121212",
+          backgroundColor: "#0B1929",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -241,7 +241,7 @@ export default function Dashboard() {
             style={{
               width: "50px",
               height: "50px",
-              border: "3px solid #11E44F",
+            border: "3px solid #4CD3C8",
               borderTop: "3px solid transparent",
               borderRadius: "50%",
               margin: "0 auto 20px",
@@ -259,7 +259,7 @@ export default function Dashboard() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#121212",
+        backgroundColor: "#0B1929",
         padding: "40px 20px",
         fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif",
       }}
@@ -273,13 +273,13 @@ export default function Dashboard() {
                 width: "80px",
                 height: "80px",
                 borderRadius: "50%",
-                backgroundColor: "#11E44F",
+                backgroundColor: "#4CD3C8",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize: "32px",
                 fontWeight: "bold",
-                color: "#121212",
+                color: "#0B1929",
               }}
             >
               {user?.fname?.charAt(0)?.toUpperCase() || "U"}
@@ -295,7 +295,7 @@ export default function Dashboard() {
               >
                 Welcome, {user?.fname}! 👋
               </h1>
-              <p style={{ color: "#8AFFAC", margin: 0 }}>
+              <p style={{ color: "#5DDDD2", margin: 0 }}>
                 Here's what's happening with your account today
               </p>
             </div>
@@ -322,7 +322,7 @@ export default function Dashboard() {
             display: "flex",
             gap: "12px",
             marginBottom: "30px",
-            borderBottom: "1px solid #313131",
+            borderBottom: "1px solid #2A4A5A",
             overflow: "auto",
             paddingBottom: "12px",
           }}
@@ -340,8 +340,8 @@ export default function Dashboard() {
                 onClick={() => setActiveTab(tab)}
                 style={{
                   padding: "12px 24px",
-                  backgroundColor: activeTab === tab ? "#11E44F" : "transparent",
-                  color: activeTab === tab ? "#121212" : "#8AFFAC",
+                  backgroundColor: activeTab === tab ? "#4CD3C8" : "transparent",
+                  color: activeTab === tab ? "#0B1929" : "#5DDDD2",
                   border: "none",
                   borderRadius: "8px",
                   cursor: "pointer",
@@ -357,8 +357,8 @@ export default function Dashboard() {
                 {tab !== "overview" && (
                   <span
                     style={{
-                      backgroundColor: activeTab === tab ? "#121212" : "#11E44F",
-                      color: activeTab === tab ? "#11E44F" : "#121212",
+                      backgroundColor: activeTab === tab ? "#0B1929" : "#4CD3C8",
+                      color: activeTab === tab ? "#4CD3C8" : "#0B1929",
                       padding: "2px 8px",
                       borderRadius: "12px",
                       fontSize: "12px",
@@ -384,13 +384,13 @@ export default function Dashboard() {
                 title="Total Meetings"
                 value={meetings.length}
                 icon="📅"
-                color="#11E44F"
+                color="#4CD3C8"
               />
               <StatCard
                 title="Announcements"
                 value={announcements.length}
                 icon="📢"
-                color="#8AFFAC"
+                color="#5DDDD2"
               />
               <StatCard
                 title="Teams"
@@ -402,7 +402,7 @@ export default function Dashboard() {
                 title="Transactions"
                 value={paymentHistory.length}
                 icon="💳"
-                color="#11E44F"
+                color="#4CD3C8"
               />
             </div>
 
@@ -410,8 +410,8 @@ export default function Dashboard() {
             {metrics && (
               <div
                 style={{
-                  backgroundColor: "#1a1a1a",
-                  border: "1px solid #313131",
+                  backgroundColor: "#1A2A3A",
+                  border: "1px solid #2A4A5A",
                   borderRadius: "12px",
                   padding: "24px",
                   marginBottom: "30px",
@@ -443,12 +443,12 @@ export default function Dashboard() {
                           backgroundColor: "#252525",
                           padding: "16px",
                           borderRadius: "8px",
-                          border: "1px solid #313131",
+                          border: "1px solid #2A4A5A",
                         }}
                       >
                         <p
                           style={{
-                            color: "#8AFFAC",
+                            color: "#5DDDD2",
                             fontSize: "12px",
                             textTransform: "capitalize",
                             margin: 0,
@@ -460,7 +460,7 @@ export default function Dashboard() {
                         </p>
                         <p
                           style={{
-                            color: "#11E44F",
+                            color: "#4CD3C8",
                             fontSize: "24px",
                             fontWeight: "bold",
                             margin: 0,
@@ -481,7 +481,7 @@ export default function Dashboard() {
                   ([_, value]) =>
                     typeof value === "object" && value !== null
                 ) && (
-                  <div style={{ marginTop: "20px", paddingTop: "20px", borderTop: "1px solid #313131" }}>
+                  <div style={{ marginTop: "20px", paddingTop: "20px", borderTop: "1px solid #2A4A5A" }}>
                     <h4 style={{ color: "#DAFAF4", marginTop: 0 }}>Additional Details</h4>
                     <div
                       style={{
@@ -502,12 +502,12 @@ export default function Dashboard() {
                               backgroundColor: "#252525",
                               padding: "16px",
                               borderRadius: "8px",
-                              border: "1px solid #313131",
+                              border: "1px solid #2A4A5A",
                             }}
                           >
                             <p
                               style={{
-                                color: "#8AFFAC",
+                                color: "#5DDDD2",
                                 fontSize: "12px",
                                 textTransform: "capitalize",
                                 margin: 0,
@@ -535,8 +535,8 @@ export default function Dashboard() {
             {/* Quick Summary */}
             <div
               style={{
-                backgroundColor: "#1a1a1a",
-                border: "1px solid #313131",
+                backgroundColor: "#1A2A3A",
+                border: "1px solid #2A4A5A",
                 borderRadius: "12px",
                 padding: "24px",
               }}
@@ -544,26 +544,26 @@ export default function Dashboard() {
               <h3 style={{ color: "#DAFAF4", marginTop: 0 }}>Account Summary</h3>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "20px" }}>
                 <div>
-                  <p style={{ color: "#8AFFAC", fontSize: "12px" }}>Full Name</p>
+                  <p style={{ color: "#5DDDD2", fontSize: "12px" }}>Full Name</p>
                   <p style={{ color: "#DAFAF4", fontSize: "16px", fontWeight: "bold", margin: 0 }}>
                     {user?.fname} {user?.lname}
                   </p>
                 </div>
                 <div>
-                  <p style={{ color: "#8AFFAC", fontSize: "12px" }}>Email</p>
+                  <p style={{ color: "#5DDDD2", fontSize: "12px" }}>Email</p>
                   <p style={{ color: "#DAFAF4", fontSize: "16px", fontWeight: "bold", margin: 0 }}>
                     {user?.email}
                   </p>
                 </div>
                 <div>
-                  <p style={{ color: "#8AFFAC", fontSize: "12px" }}>Role</p>
+                  <p style={{ color: "#5DDDD2", fontSize: "12px" }}>Role</p>
                   <p style={{ color: "#DAFAF4", fontSize: "16px", fontWeight: "bold", margin: 0 }}>
                     {user?.role || "User"}
                   </p>
                 </div>
                 {user?.phone && (
                   <div>
-                    <p style={{ color: "#8AFFAC", fontSize: "12px" }}>Phone</p>
+                    <p style={{ color: "#5DDDD2", fontSize: "12px" }}>Phone</p>
                     <p style={{ color: "#DAFAF4", fontSize: "16px", fontWeight: "bold", margin: 0 }}>
                       {user?.phone}
                     </p>
@@ -578,13 +578,13 @@ export default function Dashboard() {
         {activeTab === "meetings" && (
           <div
             style={{
-              backgroundColor: "#1a1a1a",
-              border: "1px solid #313131",
+              backgroundColor: "#1A2A3A",
+              border: "1px solid #2A4A5A",
               borderRadius: "12px",
               overflow: "hidden",
             }}
           >
-            <div style={{ padding: "24px", borderBottom: "1px solid #313131" }}>
+            <div style={{ padding: "24px", borderBottom: "1px solid #2A4A5A" }}>
               <h3 style={{ color: "#DAFAF4", margin: 0 }}>Meetings ({meetings.length})</h3>
             </div>
             {meetings.length > 0 ? (
@@ -597,7 +597,7 @@ export default function Dashboard() {
                 />
               ))
             ) : (
-              <div style={{ padding: "24px", textAlign: "center", color: "#8AFFAC" }}>
+              <div style={{ padding: "24px", textAlign: "center", color: "#5DDDD2" }}>
                 No meetings scheduled yet
               </div>
             )}
@@ -608,13 +608,13 @@ export default function Dashboard() {
         {activeTab === "announcements" && (
           <div
             style={{
-              backgroundColor: "#1a1a1a",
-              border: "1px solid #313131",
+              backgroundColor: "#1A2A3A",
+              border: "1px solid #2A4A5A",
               borderRadius: "12px",
               overflow: "hidden",
             }}
           >
-            <div style={{ padding: "24px", borderBottom: "1px solid #313131" }}>
+            <div style={{ padding: "24px", borderBottom: "1px solid #2A4A5A" }}>
               <h3 style={{ color: "#DAFAF4", margin: 0 }}>Announcements ({announcements.length})</h3>
             </div>
             {announcements.length > 0 ? (
@@ -627,7 +627,7 @@ export default function Dashboard() {
                 />
               ))
             ) : (
-              <div style={{ padding: "24px", textAlign: "center", color: "#8AFFAC" }}>
+              <div style={{ padding: "24px", textAlign: "center", color: "#5DDDD2" }}>
                 No announcements at the moment
               </div>
             )}
@@ -638,13 +638,13 @@ export default function Dashboard() {
         {activeTab === "payments" && (
           <div
             style={{
-              backgroundColor: "#1a1a1a",
-              border: "1px solid #313131",
+              backgroundColor: "#1A2A3A",
+              border: "1px solid #2A4A5A",
               borderRadius: "12px",
               overflow: "hidden",
             }}
           >
-            <div style={{ padding: "24px", borderBottom: "1px solid #313131" }}>
+            <div style={{ padding: "24px", borderBottom: "1px solid #2A4A5A" }}>
               <h3 style={{ color: "#DAFAF4", margin: 0 }}>Payment History ({paymentHistory.length})</h3>
             </div>
             {paymentHistory.length > 0 ? (
@@ -657,7 +657,7 @@ export default function Dashboard() {
                 />
               ))
             ) : (
-              <div style={{ padding: "24px", textAlign: "center", color: "#8AFFAC" }}>
+              <div style={{ padding: "24px", textAlign: "center", color: "#5DDDD2" }}>
                 No transactions yet
               </div>
             )}
@@ -668,13 +668,13 @@ export default function Dashboard() {
         {activeTab === "teams" && (
           <div
             style={{
-              backgroundColor: "#1a1a1a",
-              border: "1px solid #313131",
+              backgroundColor: "#1A2A3A",
+              border: "1px solid #2A4A5A",
               borderRadius: "12px",
               overflow: "hidden",
             }}
           >
-            <div style={{ padding: "24px", borderBottom: "1px solid #313131" }}>
+            <div style={{ padding: "24px", borderBottom: "1px solid #2A4A5A" }}>
               <h3 style={{ color: "#DAFAF4", margin: 0 }}>Teams ({teams.length})</h3>
             </div>
             {teams.length > 0 ? (
@@ -687,7 +687,7 @@ export default function Dashboard() {
                 />
               ))
             ) : (
-              <div style={{ padding: "24px", textAlign: "center", color: "#8AFFAC" }}>
+              <div style={{ padding: "24px", textAlign: "center", color: "#5DDDD2" }}>
                 No teams created yet
               </div>
             )}
@@ -705,3 +705,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+

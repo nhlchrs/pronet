@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 const SinglePostSection = () => {
     return (
@@ -151,3 +151,4 @@ const SinglePostSection = () => {
 }
 
 export default SinglePostSection;
+

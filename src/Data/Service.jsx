@@ -1,4 +1,4 @@
-export const servicedata = [
+﻿export const servicedata = [
     {
         id: 1,
         icon: "fa-solid fa-chart-line",
@@ -42,3 +42,5 @@ export const servicedata = [
         link: "#",
     },
 ];
+
+

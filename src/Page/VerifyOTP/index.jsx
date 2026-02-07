@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
@@ -123,7 +123,7 @@ export default function VerifyOTPPage() {
         alignItems: "center",
         justifyContent: "center",
         padding: "16px",
-        backgroundColor: "#121212",
+        backgroundColor: "#0B1929",
         position: "relative",
         overflow: "hidden",
         fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif",
@@ -139,7 +139,7 @@ export default function VerifyOTPPage() {
           height: "384px",
           opacity: 0.05,
           borderRadius: "50%",
-          backgroundColor: "#11E44F",
+          backgroundColor: "#4CD3C8",
           transform: "translate(-50%, -50%)",
         }}
       ></div>
@@ -152,7 +152,7 @@ export default function VerifyOTPPage() {
           height: "320px",
           opacity: 0.05,
           borderRadius: "50%",
-          backgroundColor: "#11E44F",
+          backgroundColor: "#4CD3C8",
           transform: "translate(33%, 33%)",
         }}
       ></div>
@@ -171,8 +171,8 @@ export default function VerifyOTPPage() {
             borderRadius: "24px",
             boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5)",
             padding: "48px",
-            backgroundColor: "#1a1a1a",
-            border: "1px solid #313131",
+            backgroundColor: "#1A2A3A",
+            border: "1px solid #2A4A5A",
           }}
         >
           {/* Header */}
@@ -181,7 +181,7 @@ export default function VerifyOTPPage() {
               style={{
                 fontSize: "40px",
                 marginBottom: "16px",
-                color: "#11E44F",
+                color: "#4CD3C8",
               }}
             >
               <i className="fa-solid fa-shield-check"></i>
@@ -199,7 +199,7 @@ export default function VerifyOTPPage() {
             <p
               style={{
                 fontSize: "14px",
-                color: "#8AFFAC",
+                color: "#5DDDD2",
                 margin: 0,
               }}
             >
@@ -208,7 +208,7 @@ export default function VerifyOTPPage() {
             <p
               style={{
                 fontSize: "14px",
-                color: "#11E44F",
+                color: "#4CD3C8",
                 margin: "8px 0 0 0",
                 fontWeight: "600",
               }}
@@ -224,8 +224,8 @@ export default function VerifyOTPPage() {
                 marginBottom: "24px",
                 padding: "12px 16px",
                 borderRadius: "8px",
-                backgroundColor: "#0f6d4612",
-                borderLeft: "4px solid #11E44F",
+                backgroundColor: "#4CD3C812",
+                borderLeft: "4px solid #4CD3C8",
                 display: "flex",
                 alignItems: "center",
                 gap: "12px",
@@ -233,13 +233,13 @@ export default function VerifyOTPPage() {
             >
               <i
                 style={{
-                  color: "#11E44F",
+                  color: "#4CD3C8",
                   fontSize: "18px",
                   flexShrink: 0,
                 }}
                 className="fa-solid fa-circle-check"
               ></i>
-              <span style={{ color: "#11E44F", fontSize: "14px" }}>
+              <span style={{ color: "#4CD3C8", fontSize: "14px" }}>
                 {successMessage}
               </span>
             </div>
@@ -304,20 +304,20 @@ export default function VerifyOTPPage() {
                   textAlign: "center",
                   letterSpacing: "12px",
                   borderRadius: "12px",
-                  border: "2px solid #313131",
+                  border: "2px solid #2A4A5A",
                   backgroundColor: "#0f0f0f",
-                  color: "#11E44F",
+                  color: "#4CD3C8",
                   outline: "none",
                   transition: "all 0.3s ease",
                   boxSizing: "border-box",
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = "#11E44F";
-                  e.target.style.backgroundColor = "#1a1a1a";
+                  e.target.style.borderColor = "#4CD3C8";
+                  e.target.style.backgroundColor = "#1A2A3A";
                   e.target.style.boxShadow = "0 0 0 3px rgba(17, 228, 79, 0.1)";
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "#313131";
+                  e.target.style.borderColor = "#2A4A5A";
                   e.target.style.backgroundColor = "#0f0f0f";
                   e.target.style.boxShadow = "none";
                 }}
@@ -325,7 +325,7 @@ export default function VerifyOTPPage() {
               <p
                 style={{
                   fontSize: "12px",
-                  color: "#8AFFAC",
+                  color: "#5DDDD2",
                   marginTop: "8px",
                   margin: "8px 0 0 0",
                 }}
@@ -342,8 +342,8 @@ export default function VerifyOTPPage() {
                 width: "100%",
                 padding: "14px 24px",
                 backgroundColor:
-                  otp.length === 6 ? "#11E44F" : "#313131",
-                color: otp.length === 6 ? "#121212" : "#8AFFAC",
+                  otp.length === 6 ? "#4CD3C8" : "#2A4A5A",
+                color: otp.length === 6 ? "#0B1929" : "#5DDDD2",
                 fontWeight: "600",
                 fontSize: "16px",
                 border: "none",
@@ -359,12 +359,12 @@ export default function VerifyOTPPage() {
               }}
               onMouseEnter={(e) => {
                 if (otp.length === 6 && !loading) {
-                  e.target.style.backgroundColor = "#8AFFAC";
+                  e.target.style.backgroundColor = "#5DDDD2";
                 }
               }}
               onMouseLeave={(e) => {
                 if (otp.length === 6 && !loading) {
-                  e.target.style.backgroundColor = "#11E44F";
+                  e.target.style.backgroundColor = "#4CD3C8";
                 }
               }}
             >
@@ -389,7 +389,7 @@ export default function VerifyOTPPage() {
           <div
             style={{
               paddingTop: "24px",
-              borderTop: "1px solid #313131",
+              borderTop: "1px solid #2A4A5A",
               textAlign: "center",
             }}
           >
@@ -408,7 +408,7 @@ export default function VerifyOTPPage() {
               style={{
                 background: "none",
                 border: "none",
-                color: resendTimer > 0 ? "#666666" : "#11E44F",
+                color: resendTimer > 0 ? "#666666" : "#4CD3C8",
                 fontSize: "14px",
                 fontWeight: "600",
                 cursor:
@@ -418,12 +418,12 @@ export default function VerifyOTPPage() {
               }}
               onMouseEnter={(e) => {
                 if (resendTimer === 0 && !loading) {
-                  e.target.style.color = "#8AFFAC";
+                  e.target.style.color = "#5DDDD2";
                 }
               }}
               onMouseLeave={(e) => {
                 if (resendTimer === 0 && !loading) {
-                  e.target.style.color = "#11E44F";
+                  e.target.style.color = "#4CD3C8";
                 }
               }}
             >
@@ -442,7 +442,7 @@ export default function VerifyOTPPage() {
           >
             <p
               style={{
-                color: "#8AFFAC",
+                color: "#5DDDD2",
                 fontSize: "12px",
                 margin: 0,
               }}
@@ -453,7 +453,7 @@ export default function VerifyOTPPage() {
                 style={{
                   background: "none",
                   border: "none",
-                  color: "#11E44F",
+                  color: "#4CD3C8",
                   fontSize: "12px",
                   fontWeight: "600",
                   cursor: "pointer",
@@ -471,12 +471,12 @@ export default function VerifyOTPPage() {
           style={{
             marginTop: "24px",
             textAlign: "center",
-            color: "#8AFFAC",
+            color: "#5DDDD2",
             fontSize: "12px",
           }}
         >
           <p style={{ margin: 0 }}>
-            ProNext © 2025 | All rights reserved
+            ProNet © 2025 | All rights reserved
           </p>
         </div>
       </div>
@@ -490,3 +490,5 @@ export default function VerifyOTPPage() {
     </div>
   );
 }
+
+

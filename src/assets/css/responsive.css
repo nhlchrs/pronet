@@ -1,4 +1,4 @@
-/* ================================ */
+﻿/* ================================ */
 /* Responsive */
 /* ================================ */
 
@@ -315,7 +315,7 @@
     }
 }
 
-/* 3. Mobile Spacing (≥768px) */
+/* 3. Mobile Spacing (â‰¥768px) */
 
 @media screen and (min-width: 768px) {
     /* Flex spacing (gap) */
@@ -448,7 +448,7 @@
     }
 }
 
-/* 4. Tablet Spacing (≥1024px) */
+/* 4. Tablet Spacing (â‰¥1024px) */
 
 @media screen and (min-width: 992px) {
     /* Flex spacing (gap) */
@@ -588,3 +588,5 @@
         --bs-gutter-y: 50px; 
     }
 }
+
+

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import useAnimateOnScroll from "../Hooks/useAnimateOnScroll";
 
 const ProcessSection = () => {
@@ -61,3 +61,4 @@ const ProcessSection = () => {
 }
 
 export default ProcessSection;
+

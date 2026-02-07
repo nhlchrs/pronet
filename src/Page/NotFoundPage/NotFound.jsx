@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import PageNotFoundSection from "../../Components/NotFound";
 
 const PageNotFound = () => {
@@ -10,3 +10,4 @@ const PageNotFound = () => {
 }
 
 export default PageNotFound;
+

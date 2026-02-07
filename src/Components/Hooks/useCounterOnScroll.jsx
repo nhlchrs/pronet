@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { useEffect, useMemo } from "react";
 import Odometer from "odometer";
 import "odometer/themes/odometer-theme-default.css";
@@ -69,3 +69,5 @@ const useCounterOnScroll = (ref, value, duration = 2000) => {
 };
 
 export default useCounterOnScroll;
+
+

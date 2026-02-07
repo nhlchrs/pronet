@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { BannerTag } from "../../Data/BannerTag";
 import VideoButton from "../Video/VideoButton";
 import useAnimateOnScroll from "../Hooks/useAnimateOnScroll";
@@ -76,3 +76,4 @@ const BannerHome =() => {
 }
 
 export default BannerHome;
+

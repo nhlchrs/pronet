@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { userAPI } from "../../services/api";
@@ -154,27 +154,27 @@ const Navbar = () => {
                                             width: '40px',
                                             height: '40px',
                                             borderRadius: '50%',
-                                            backgroundColor: profilePicture ? 'transparent' : '#11E44F',
+                                            backgroundColor: profilePicture ? 'transparent' : '#4CD3C8',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             cursor: 'pointer',
                                             fontWeight: 'bold',
-                                            color: '#121212',
+                                            color: '#0B1929',
                                             fontSize: '18px',
                                             transition: 'all 0.3s ease',
                                             overflow: 'hidden',
-                                            border: profilePicture ? '2px solid #11E44F' : 'none',
+                                            border: profilePicture ? '2px solid #4CD3C8' : 'none',
                                         }}
                                         onMouseEnter={(e) => {
                                             if (!profilePicture) {
-                                                e.target.style.backgroundColor = '#8AFFAC';
+                                                e.target.style.backgroundColor = '#5DDDD2';
                                             }
                                             e.target.style.transform = 'scale(1.1)';
                                         }}
                                         onMouseLeave={(e) => {
                                             if (!profilePicture) {
-                                                e.target.style.backgroundColor = '#11E44F';
+                                                e.target.style.backgroundColor = '#4CD3C8';
                                             }
                                             e.target.style.transform = 'scale(1)';
                                         }}
@@ -199,7 +199,7 @@ const Navbar = () => {
                                         <span style={{ fontSize: '14px', fontWeight: '600' }}>
                                             {user.fname} {user.lname}
                                         </span>
-                                        <span style={{ fontSize: '12px', color: '#8AFFAC' }}>
+                                        <span style={{ fontSize: '12px', color: '#5DDDD2' }}>
                                             {user.email}
                                         </span>
                                     </div>
@@ -212,8 +212,8 @@ const Navbar = () => {
                                                 top: '100%',
                                                 right: 0,
                                                 marginTop: '12px',
-                                                backgroundColor: '#1a1a1a',
-                                                border: '1px solid #313131',
+                                                backgroundColor: '#1A2A3A',
+                                                border: '1px solid #2A4A5A',
                                                 borderRadius: '8px',
                                                 boxShadow: '0 10px 25px rgba(0, 0, 0, 0.5)',
                                                 minWidth: '200px',
@@ -238,8 +238,8 @@ const Navbar = () => {
                                                         transition: 'all 0.2s ease',
                                                     }}
                                                     onMouseEnter={(e) => {
-                                                        e.target.style.backgroundColor = '#11E44F12';
-                                                        e.target.style.color = '#11E44F';
+                                                        e.target.style.backgroundColor = '#4CD3C812';
+                                                        e.target.style.color = '#4CD3C8';
                                                     }}
                                                     onMouseLeave={(e) => {
                                                         e.target.style.backgroundColor = 'transparent';
@@ -266,8 +266,8 @@ const Navbar = () => {
                                                         transition: 'all 0.2s ease',
                                                     }}
                                                     onMouseEnter={(e) => {
-                                                        e.target.style.backgroundColor = '#11E44F12';
-                                                        e.target.style.color = '#11E44F';
+                                                        e.target.style.backgroundColor = '#4CD3C812';
+                                                        e.target.style.color = '#4CD3C8';
                                                     }}
                                                     onMouseLeave={(e) => {
                                                         e.target.style.backgroundColor = 'transparent';
@@ -294,8 +294,8 @@ const Navbar = () => {
                                                         transition: 'all 0.2s ease',
                                                     }}
                                                     onMouseEnter={(e) => {
-                                                        e.target.style.backgroundColor = '#11E44F12';
-                                                        e.target.style.color = '#11E44F';
+                                                        e.target.style.backgroundColor = '#4CD3C812';
+                                                        e.target.style.color = '#4CD3C8';
                                                     }}
                                                     onMouseLeave={(e) => {
                                                         e.target.style.backgroundColor = 'transparent';
@@ -322,8 +322,8 @@ const Navbar = () => {
                                                         transition: 'all 0.2s ease',
                                                     }}
                                                     onMouseEnter={(e) => {
-                                                        e.target.style.backgroundColor = '#11E44F12';
-                                                        e.target.style.color = '#11E44F';
+                                                        e.target.style.backgroundColor = '#4CD3C812';
+                                                        e.target.style.color = '#4CD3C8';
                                                     }}
                                                     onMouseLeave={(e) => {
                                                         e.target.style.backgroundColor = 'transparent';
@@ -350,8 +350,8 @@ const Navbar = () => {
                                                         transition: 'all 0.2s ease',
                                                     }}
                                                     onMouseEnter={(e) => {
-                                                        e.target.style.backgroundColor = '#11E44F12';
-                                                        e.target.style.color = '#11E44F';
+                                                        e.target.style.backgroundColor = '#4CD3C812';
+                                                        e.target.style.color = '#4CD3C8';
                                                     }}
                                                     onMouseLeave={(e) => {
                                                         e.target.style.backgroundColor = 'transparent';
@@ -361,7 +361,7 @@ const Navbar = () => {
                                                     <i className="fa-solid fa-credit-card" style={{ marginRight: '8px' }}></i>
                                                     Payments
                                                 </button>
-                                                <div style={{ height: '1px', backgroundColor: '#313131', margin: '8px 0' }}></div>
+                                                <div style={{ height: '1px', backgroundColor: '#2A4A5A', margin: '8px 0' }}></div>
                                                 <button
                                                     onClick={() => {
                                                         logout();
@@ -411,3 +411,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+

@@ -1,4 +1,4 @@
-export const faqdata = [
+﻿export const faqdata = [
   {
     id: 1,
     question: "How do I get started?",
@@ -50,3 +50,5 @@ export const faqdata = [
     answer: "We treat your privacy with the highest priority. Your personal data is protected using advanced security protocols and is never shared without your consent."
   }
 ];
+
+

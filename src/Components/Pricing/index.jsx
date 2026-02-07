@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 const PricingSection = () => {
     return(
@@ -101,3 +101,4 @@ const PricingSection = () => {
 }
 
 export default PricingSection;
+

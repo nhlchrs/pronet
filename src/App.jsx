@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, useLocation } from "react-router-dom"
+﻿import { BrowserRouter as Router, useLocation } from "react-router-dom"
 import { Toaster } from "sonner";
 import AppRouters from "./Router";
 import { ModalVideoProvider } from "./Components/Video/ModalVideoContext";
@@ -38,3 +38,4 @@ const App = () => {
 }
 
 export default App
+

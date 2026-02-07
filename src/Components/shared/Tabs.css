@@ -1,4 +1,4 @@
-.tabs-root {
+﻿.tabs-root {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -86,3 +86,6 @@
     padding: 1rem 0.75rem;
   }
 }
+
+
+

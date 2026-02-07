@@ -1,4 +1,4 @@
-.hierarchy-container {
+﻿.hierarchy-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
@@ -199,8 +199,8 @@
 }
 
 .expand-btn:hover {
-  background: rgba(17, 228, 79, 0.1);
-  color: #121212;
+  background: rgba(76, 211, 200, 0.1);
+  color: #0B1929;
 }
 
 .expand-placeholder {
@@ -213,36 +213,36 @@
   flex: 1;
   padding: 0.75rem 1rem;
   background: white;
-  border: 1px solid rgba(17, 228, 79, 0.15);
+  border: 1px solid rgba(76, 211, 200, 0.15);
   border-left: 4px solid;
   border-radius: 6px;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(17, 228, 79, 0.05);
+  box-shadow: 0 2px 8px rgba(76, 211, 200, 0.05);
 }
 
 .member-info:hover {
-  box-shadow: 0 4px 12px rgba(17, 228, 79, 0.15);
-  border-color: rgba(17, 228, 79, 0.3);
+  box-shadow: 0 4px 12px rgba(76, 211, 200, 0.15);
+  border-color: rgba(76, 211, 200, 0.3);
 }
 
 .member-info.current-user {
   background: linear-gradient(135deg, #f0fff4 0%, #d1fae5 100%);
-  border-left: 5px solid #11E44F;
-  box-shadow: 0 4px 16px rgba(17, 228, 79, 0.3);
+  border-left: 5px solid #4CD3C8;
+  box-shadow: 0 4px 16px rgba(76, 211, 200, 0.3);
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 4px 16px rgba(17, 228, 79, 0.3);
+    box-shadow: 0 4px 16px rgba(76, 211, 200, 0.3);
   }
   50% {
-    box-shadow: 0 6px 24px rgba(17, 228, 79, 0.5);
+    box-shadow: 0 6px 24px rgba(76, 211, 200, 0.5);
   }
 }
 
 .you-badge {
-  background: linear-gradient(135deg, #11E44F 0%, #0ea839 100%);
+  background: linear-gradient(135deg, #4CD3C8 0%, #2A7A75 100%);
   color: white;
   padding: 2px 8px;
   border-radius: 12px;
@@ -251,7 +251,7 @@
   margin-left: 8px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(17, 228, 79, 0.3);
+  box-shadow: 0 2px 8px rgba(76, 211, 200, 0.3);
 }
 
 .member-header {
@@ -264,7 +264,7 @@
 
 .member-name {
   font-weight: 600;
-  background: linear-gradient(135deg, #11E44F 0%, #121212 100%);
+  background: linear-gradient(135deg, #4CD3C8 0%, #0B1929 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -305,8 +305,8 @@
 
 /* Info Box */
 .info-box {
-  background: linear-gradient(135deg, rgba(17, 228, 79, 0.08) 0%, rgba(18, 18, 18, 0.08) 100%);
-  border: 1px solid rgba(17, 228, 79, 0.2);
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.08) 0%, rgba(18, 18, 18, 0.08) 100%);
+  border: 1px solid rgba(76, 211, 200, 0.2);
   border-radius: 10px;
   padding: 1.5rem;
   color: #333;
@@ -314,7 +314,7 @@
 
 .info-box h4 {
   margin: 0 0 1rem 0;
-  background: linear-gradient(135deg, #11E44F 0%, #121212 100%);
+  background: linear-gradient(135deg, #4CD3C8 0%, #0B1929 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -337,10 +337,10 @@
 }
 
 .info-box li::before {
-  content: '→';
+  content: 'â†’';
   position: absolute;
   left: 0;
-  background: linear-gradient(135deg, #11E44F 0%, #121212 100%);
+  background: linear-gradient(135deg, #4CD3C8 0%, #0B1929 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -348,7 +348,7 @@
 }
 
 .info-box strong {
-  background: linear-gradient(135deg, #11E44F 0%, #121212 100%);
+  background: linear-gradient(135deg, #4CD3C8 0%, #0B1929 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -407,3 +407,6 @@
     font-size: 0.8rem;
   }
 }
+
+
+

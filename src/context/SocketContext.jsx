@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+﻿import React, { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { toast } from 'sonner';
 import { useAuth } from './AuthContext';
@@ -28,7 +28,7 @@ export const SocketProvider = ({ children }) => {
 
     // Connection events
     newSocket.on('connect', () => {
-      console.log('✅ Socket connected');
+      console.log('âœ… Socket connected');
       setIsConnected(true);
       if (user?.id) {
         newSocket.emit('user_online', user.id);
@@ -36,7 +36,7 @@ export const SocketProvider = ({ children }) => {
     });
 
     newSocket.on('disconnect', () => {
-      console.log('❌ Socket disconnected');
+      console.log('âŒ Socket disconnected');
       setIsConnected(false);
     });
 
@@ -96,7 +96,7 @@ export const SocketProvider = ({ children }) => {
         duration: 5000,
       });
       
-      console.log('✅ Toast notification displayed');
+      console.log('âœ… Toast notification displayed');
       
       // Also add to notifications array
       setNotifications((prev) => [
@@ -212,3 +212,5 @@ export const useSocket = () => {
   }
   return context;
 };
+
+

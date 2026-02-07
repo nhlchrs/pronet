@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { meetingAPI } from "../../services/api";
@@ -208,13 +208,13 @@ export default function MeetingsPage() {
   const getStatusColor = (status) => {
     switch (status) {
       case "Completed":
-        return "#8AFFAC";
+        return "#5DDDD2";
       case "Starting Soon":
         return "#FFA500";
       case "Upcoming":
-        return "#11E44F";
+        return "#4CD3C8";
       default:
-        return "#8AFFAC";
+        return "#5DDDD2";
     }
   };
 
@@ -223,7 +223,7 @@ export default function MeetingsPage() {
       <div
         style={{
           minHeight: "100vh",
-          backgroundColor: "#121212",
+          backgroundColor: "#0B1929",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -235,7 +235,7 @@ export default function MeetingsPage() {
             style={{
               width: "50px",
               height: "50px",
-              border: "3px solid #11E44F",
+              border: "3px solid #4CD3C8",
               borderTop: "3px solid transparent",
               borderRadius: "50%",
               margin: "0 auto 20px",
@@ -253,7 +253,7 @@ export default function MeetingsPage() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#121212",
+        backgroundColor: "#0B1929",
         padding: "40px 20px",
         fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif",
       }}
@@ -271,7 +271,7 @@ export default function MeetingsPage() {
           >
             📅 Meetings
           </h1>
-          <p style={{ color: "#8AFFAC", margin: 0 }}>
+          <p style={{ color: "#5DDDD2", margin: 0 }}>
             {activeView === "list" && `Schedule and manage meetings (${meetings.length})`}
             {activeView === "create" && "Schedule a new meeting"}
             {activeView === "detail" && "Meeting details"}
@@ -299,8 +299,8 @@ export default function MeetingsPage() {
             style={{
               marginBottom: "20px",
               padding: "12px 16px",
-              backgroundColor: "#11E44F",
-              color: "#121212",
+              backgroundColor: "#4CD3C8",
+              color: "#0B1929",
               borderRadius: "8px",
               fontSize: "14px",
               fontWeight: "bold",
@@ -328,10 +328,10 @@ export default function MeetingsPage() {
                   onClick={() => setFilterTab(tab)}
                   style={{
                     backgroundColor:
-                      filterTab === tab ? "#11E44F" : "#252525",
+                      filterTab === tab ? "#4CD3C8" : "#252525",
                     color:
-                      filterTab === tab ? "#121212" : "#8AFFAC",
-                    border: filterTab === tab ? "none" : "1px solid #313131",
+                      filterTab === tab ? "#0B1929" : "#5DDDD2",
+                    border: filterTab === tab ? "none" : "1px solid #2A4A5A",
                     padding: "10px 20px",
                     borderRadius: "6px",
                     fontSize: "13px",
@@ -342,7 +342,7 @@ export default function MeetingsPage() {
                   }}
                   onMouseOver={(e) => {
                     if (filterTab !== tab) {
-                      e.target.style.backgroundColor = "#313131";
+                      e.target.style.backgroundColor = "#2A4A5A";
                     }
                   }}
                   onMouseOut={(e) => {
@@ -364,18 +364,18 @@ export default function MeetingsPage() {
                     <div
                       key={meeting._id}
                       style={{
-                        backgroundColor: "#1a1a1a",
-                        border: "1px solid #313131",
+                        backgroundColor: "#1A2A3A",
+                        border: "1px solid #2A4A5A",
                         borderRadius: "12px",
                         padding: "20px",
                         transition: "all 0.3s ease",
                       }}
                       onMouseOver={(e) => {
-                        e.currentTarget.style.borderColor = "#11E44F";
+                        e.currentTarget.style.borderColor = "#4CD3C8";
                         e.currentTarget.style.boxShadow = "0 0 20px rgba(17, 228, 79, 0.1)";
                       }}
                       onMouseOut={(e) => {
-                        e.currentTarget.style.borderColor = "#313131";
+                        e.currentTarget.style.borderColor = "#2A4A5A";
                         e.currentTarget.style.boxShadow = "none";
                       }}
                     >
@@ -402,7 +402,7 @@ export default function MeetingsPage() {
                             <span
                               style={{
                                 backgroundColor: getStatusColor(status),
-                                color: "#121212",
+                                color: "#0B1929",
                                 padding: "4px 8px",
                                 borderRadius: "4px",
                                 fontSize: "11px",
@@ -415,8 +415,8 @@ export default function MeetingsPage() {
                             {meeting.isInstant && (
                               <span
                                 style={{
-                                  backgroundColor: "#11E44F",
-                                  color: "#121212",
+                                  backgroundColor: "#4CD3C8",
+                                  color: "#0B1929",
                                   padding: "4px 8px",
                                   borderRadius: "4px",
                                   fontSize: "11px",
@@ -424,7 +424,7 @@ export default function MeetingsPage() {
                                   whiteSpace: "nowrap",
                                 }}
                               >
-                                ⚡ Instant
+                                âš¡ Instant
                               </span>
                             )}
                           </div>
@@ -432,7 +432,7 @@ export default function MeetingsPage() {
                           {/* Meeting Description */}
                           <p
                             style={{
-                              color: "#8AFFAC",
+                              color: "#5DDDD2",
                               margin: "0 0 12px 0",
                               fontSize: "13px",
                               lineHeight: "1.4",
@@ -446,7 +446,7 @@ export default function MeetingsPage() {
                             <div
                               style={{
                                 backgroundColor: "rgba(17, 228, 79, 0.15)",
-                                border: "2px solid #11E44F",
+                                border: "2px solid #4CD3C8",
                                 borderRadius: "6px",
                                 padding: "12px",
                                 marginBottom: "12px",
@@ -454,7 +454,7 @@ export default function MeetingsPage() {
                                 textAlign: "center",
                               }}
                             >
-                              <span style={{ color: "#11E44F", fontWeight: "bold" }}>⚡ Starts Now</span>
+                              <span style={{ color: "#4CD3C8", fontWeight: "bold" }}>âš¡ Starts Now</span>
                               <span style={{ color: "#DAFAF4", marginLeft: "8px" }}>
                                 {meeting.duration} minutes
                               </span>
@@ -463,7 +463,7 @@ export default function MeetingsPage() {
                             <div
                               style={{
                                 backgroundColor: "rgba(17, 228, 79, 0.1)",
-                                border: "1px solid #11E44F",
+                                border: "1px solid #4CD3C8",
                                 borderRadius: "6px",
                                 padding: "8px 12px",
                                 marginBottom: "12px",
@@ -474,7 +474,7 @@ export default function MeetingsPage() {
                               }}
                             >
                               <div>
-                                <span style={{ color: "#11E44F", fontWeight: "bold" }}>📅 Date:</span>
+                                <span style={{ color: "#4CD3C8", fontWeight: "bold" }}>📅 Date:</span>
                                 <span style={{ color: "#DAFAF4", marginLeft: "6px" }}>
                                   {new Date(meeting.scheduledAt).toLocaleDateString("en-US", {
                                     weekday: "short",
@@ -485,7 +485,7 @@ export default function MeetingsPage() {
                                 </span>
                               </div>
                               <div>
-                                <span style={{ color: "#11E44F", fontWeight: "bold" }}>⏰ Time:</span>
+                                <span style={{ color: "#4CD3C8", fontWeight: "bold" }}>⏰ Time:</span>
                                 <span style={{ color: "#DAFAF4", marginLeft: "6px" }}>
                                   {new Date(meeting.scheduledAt).toLocaleTimeString("en-US", {
                                     hour: "2-digit",
@@ -495,11 +495,11 @@ export default function MeetingsPage() {
                                 </span>
                               </div>
                               <div>
-                                <span style={{ color: "#11E44F", fontWeight: "bold" }}>⏱️ Duration:</span>
+                                <span style={{ color: "#4CD3C8", fontWeight: "bold" }}>⏱️ Duration:</span>
                                 <span style={{ color: "#DAFAF4", marginLeft: "6px" }}>{meeting.duration} minutes</span>
                               </div>
                               <div>
-                                <span style={{ color: "#11E44F", fontWeight: "bold" }}>🏁 Ends:</span>
+                                <span style={{ color: "#4CD3C8", fontWeight: "bold" }}>🕐 Ends:</span>
                                 <span style={{ color: "#DAFAF4", marginLeft: "6px" }}>
                                   {new Date(new Date(meeting.scheduledAt).getTime() + meeting.duration * 60000).toLocaleTimeString("en-US", {
                                     hour: "2-digit",
@@ -522,11 +522,11 @@ export default function MeetingsPage() {
                             }}
                           >
                             <div>
-                              <span style={{ color: "#11E44F", fontWeight: "bold" }}>🏷️ Topic:</span>
+                              <span style={{ color: "#4CD3C8", fontWeight: "bold" }}>🏷️ Topic:</span>
                               <span style={{ color: "#DAFAF4", marginLeft: "6px" }}>{meeting.topic || "General"}</span>
                             </div>
                             <div>
-                              <span style={{ color: "#11E44F", fontWeight: "bold" }}>👥 Attendees:</span>
+                              <span style={{ color: "#4CD3C8", fontWeight: "bold" }}>👥 Attendees:</span>
                               <span style={{ color: "#DAFAF4", marginLeft: "6px" }}>
                                 {meeting.totalAttendees || 0}
                                 {meeting.maxAttendees ? ` / ${meeting.maxAttendees}` : ""}
@@ -534,7 +534,7 @@ export default function MeetingsPage() {
                             </div>
                             {meeting.isRecorded && (
                               <div>
-                                <span style={{ color: "#11E44F", fontWeight: "bold" }}>🎥 Recording:</span>
+                                <span style={{ color: "#4CD3C8", fontWeight: "bold" }}>🎥 Recording:</span>
                                 <span style={{ color: "#DAFAF4", marginLeft: "6px" }}>Yes</span>
                               </div>
                             )}
@@ -543,8 +543,8 @@ export default function MeetingsPage() {
                         <button
                           onClick={() => handleJoinMeeting(meeting._id)}
                           style={{
-                            backgroundColor: "#11E44F",
-                            color: "#121212",
+                            backgroundColor: "#4CD3C8",
+                            color: "#0B1929",
                             border: "none",
                             padding: "12px 24px",
                             borderRadius: "6px",
@@ -558,12 +558,12 @@ export default function MeetingsPage() {
                             alignSelf: "flex-start",
                           }}
                           onMouseOver={(e) => {
-                            e.target.style.backgroundColor = "#0FCC41";
+                            e.target.style.backgroundColor = "#4CD3C8";
                             e.target.style.transform = "scale(1.05)";
                             e.target.style.boxShadow = "0 4px 12px rgba(17, 228, 79, 0.3)";
                           }}
                           onMouseOut={(e) => {
-                            e.target.style.backgroundColor = "#11E44F";
+                            e.target.style.backgroundColor = "#4CD3C8";
                             e.target.style.transform = "scale(1)";
                             e.target.style.boxShadow = "none";
                           }}
@@ -578,14 +578,14 @@ export default function MeetingsPage() {
             ) : (
               <div
                 style={{
-                  backgroundColor: "#1a1a1a",
-                  border: "1px solid #313131",
+                  backgroundColor: "#1A2A3A",
+                  border: "1px solid #2A4A5A",
                   borderRadius: "12px",
                   padding: "40px",
                   textAlign: "center",
                 }}
               >
-                <p style={{ color: "#8AFFAC", fontSize: "16px", margin: 0 }}>
+                <p style={{ color: "#5DDDD2", fontSize: "16px", margin: 0 }}>
                   No meetings available. Check back soon!
                 </p>
               </div>
@@ -597,19 +597,19 @@ export default function MeetingsPage() {
         {(activeView === "create" || (activeView === "detail" && isEditing)) && isAdmin && (
           <div
             style={{
-              backgroundColor: "#1a1a1a",
-              border: "1px solid #313131",
+              backgroundColor: "#1A2A3A",
+              border: "1px solid #2A4A5A",
               borderRadius: "12px",
               padding: "30px",
             }}
           >
-            <p style={{ color: "#8AFFAC" }}>Admin meeting management is available in the Admin Panel.</p>
+            <p style={{ color: "#5DDDD2" }}>Admin meeting management is available in the Admin Panel.</p>
             <button
               onClick={() => setActiveView("list")}
               style={{
                 backgroundColor: "transparent",
-                color: "#8AFFAC",
-                border: "1px solid #313131",
+                color: "#5DDDD2",
+                border: "1px solid #2A4A5A",
                 padding: "12px 24px",
                 borderRadius: "8px",
                 fontSize: "14px",
@@ -633,8 +633,8 @@ export default function MeetingsPage() {
         {activeView === "detail" && !isEditing && selectedMeeting && (
           <div
             style={{
-              backgroundColor: "#1a1a1a",
-              border: "1px solid #313131",
+              backgroundColor: "#1A2A3A",
+              border: "1px solid #2A4A5A",
               borderRadius: "12px",
               padding: "30px",
             }}
@@ -669,7 +669,7 @@ export default function MeetingsPage() {
                   <span
                     style={{
                       backgroundColor: getStatusColor(getMeetingStatus(selectedMeeting.scheduledAt)),
-                      color: "#121212",
+                      color: "#0B1929",
                       padding: "6px 12px",
                       borderRadius: "6px",
                       fontSize: "12px",
@@ -685,8 +685,8 @@ export default function MeetingsPage() {
                 <button
                   onClick={() => handleJoinMeeting(selectedMeeting._id)}
                   style={{
-                    backgroundColor: "#11E44F",
-                    color: "#121212",
+                    backgroundColor: "#4CD3C8",
+                    color: "#0B1929",
                     border: "none",
                     padding: "10px 20px",
                     borderRadius: "6px",
@@ -696,10 +696,10 @@ export default function MeetingsPage() {
                     transition: "all 0.3s",
                   }}
                   onMouseOver={(e) => {
-                    e.target.style.backgroundColor = "#0FCC41";
+                    e.target.style.backgroundColor = "#4CD3C8";
                   }}
                   onMouseOut={(e) => {
-                    e.target.style.backgroundColor = "#11E44F";
+                    e.target.style.backgroundColor = "#4CD3C8";
                   }}
                 >
                   Join Meeting
@@ -721,14 +721,14 @@ export default function MeetingsPage() {
                     backgroundColor: "#252525",
                     padding: "16px",
                     borderRadius: "8px",
-                    borderLeft: "4px solid #11E44F",
+                    borderLeft: "4px solid #4CD3C8",
                     gridColumn: "1 / -1",
                   }}
                 >
-                  <p style={{ color: "#11E44F", fontSize: "12px", margin: "0 0 4px 0", textTransform: "uppercase", fontWeight: "bold" }}>
-                    ⚡ Meeting Type
+                  <p style={{ color: "#4CD3C8", fontSize: "12px", margin: "0 0 4px 0", textTransform: "uppercase", fontWeight: "bold" }}>
+                    âš¡ Meeting Type
                   </p>
-                  <p style={{ color: "#11E44F", fontSize: "16px", margin: 0, fontWeight: "bold" }}>
+                  <p style={{ color: "#4CD3C8", fontSize: "16px", margin: 0, fontWeight: "bold" }}>
                     Instant Meeting - Starts Now
                   </p>
                 </div>
@@ -739,10 +739,10 @@ export default function MeetingsPage() {
                   backgroundColor: "#252525",
                   padding: "16px",
                   borderRadius: "8px",
-                  borderLeft: "4px solid #11E44F",
+                  borderLeft: "4px solid #4CD3C8",
                 }}
               >
-                <p style={{ color: "#8AFFAC", fontSize: "12px", margin: "0 0 4px 0", textTransform: "uppercase" }}>
+                <p style={{ color: "#5DDDD2", fontSize: "12px", margin: "0 0 4px 0", textTransform: "uppercase" }}>
                   📅 Date & Time
                 </p>
                 {selectedMeeting.isInstant ? (
@@ -755,7 +755,7 @@ export default function MeetingsPage() {
                         day: "numeric",
                       })}
                     </p>
-                    <p style={{ color: "#11E44F", fontSize: "14px", margin: 0, fontWeight: "bold" }}>
+                    <p style={{ color: "#4CD3C8", fontSize: "14px", margin: 0, fontWeight: "bold" }}>
                       🕐 {new Date(selectedMeeting.scheduledAt).toLocaleTimeString("en-US", {
                         hour: "2-digit",
                         minute: "2-digit",
@@ -781,7 +781,7 @@ export default function MeetingsPage() {
                       })}
                     </p>
                     <p style={{ color: "#DAFAF4", fontSize: "14px", margin: 0 }}>
-                      🏁 End: {new Date(new Date(selectedMeeting.scheduledAt).getTime() + selectedMeeting.duration * 60000).toLocaleTimeString("en-US", {
+                      🕐 End: {new Date(new Date(selectedMeeting.scheduledAt).getTime() + selectedMeeting.duration * 60000).toLocaleTimeString("en-US", {
                         hour: "2-digit",
                         minute: "2-digit",
                         hour12: true,
@@ -796,10 +796,10 @@ export default function MeetingsPage() {
                   backgroundColor: "#252525",
                   padding: "16px",
                   borderRadius: "8px",
-                  borderLeft: "4px solid #8AFFAC",
+                  borderLeft: "4px solid #5DDDD2",
                 }}
               >
-                <p style={{ color: "#8AFFAC", fontSize: "12px", margin: "0 0 4px 0", textTransform: "uppercase" }}>
+                <p style={{ color: "#5DDDD2", fontSize: "12px", margin: "0 0 4px 0", textTransform: "uppercase" }}>
                   ⏱️ Duration
                 </p>
                 <p style={{ color: "#DAFAF4", fontSize: "16px", margin: 0, fontWeight: "bold" }}>
@@ -812,10 +812,10 @@ export default function MeetingsPage() {
                   backgroundColor: "#252525",
                   padding: "16px",
                   borderRadius: "8px",
-                  borderLeft: "4px solid #11E44F",
+                  borderLeft: "4px solid #4CD3C8",
                 }}
               >
-                <p style={{ color: "#8AFFAC", fontSize: "12px", margin: "0 0 4px 0", textTransform: "uppercase" }}>
+                <p style={{ color: "#5DDDD2", fontSize: "12px", margin: "0 0 4px 0", textTransform: "uppercase" }}>
                   🏷️ Topic
                 </p>
                 <p style={{ color: "#DAFAF4", fontSize: "16px", margin: 0, fontWeight: "bold" }}>
@@ -828,10 +828,10 @@ export default function MeetingsPage() {
                   backgroundColor: "#252525",
                   padding: "16px",
                   borderRadius: "8px",
-                  borderLeft: "4px solid #8AFFAC",
+                  borderLeft: "4px solid #5DDDD2",
                 }}
               >
-                <p style={{ color: "#8AFFAC", fontSize: "12px", margin: "0 0 4px 0", textTransform: "uppercase" }}>
+                <p style={{ color: "#5DDDD2", fontSize: "12px", margin: "0 0 4px 0", textTransform: "uppercase" }}>
                   👥 Attendees
                 </p>
                 <p style={{ color: "#DAFAF4", fontSize: "16px", margin: 0, fontWeight: "bold" }}>
@@ -846,13 +846,13 @@ export default function MeetingsPage() {
                     backgroundColor: "#252525",
                     padding: "16px",
                     borderRadius: "8px",
-                    borderLeft: "4px solid #11E44F",
+                    borderLeft: "4px solid #4CD3C8",
                   }}
                 >
-                  <p style={{ color: "#8AFFAC", fontSize: "12px", margin: "0 0 4px 0", textTransform: "uppercase" }}>
+                  <p style={{ color: "#5DDDD2", fontSize: "12px", margin: "0 0 4px 0", textTransform: "uppercase" }}>
                     🎥 Recording
                   </p>
-                  <p style={{ color: "#11E44F", fontSize: "16px", margin: 0, fontWeight: "bold" }}>
+                  <p style={{ color: "#4CD3C8", fontSize: "16px", margin: 0, fontWeight: "bold" }}>
                     Yes, this meeting will be recorded
                   </p>
                 </div>
@@ -866,7 +866,7 @@ export default function MeetingsPage() {
                   padding: "20px",
                   borderRadius: "8px",
                   marginBottom: "20px",
-                  borderLeft: "4px solid #11E44F",
+                  borderLeft: "4px solid #4CD3C8",
                 }}
               >
                 <h3 style={{ color: "#DAFAF4", margin: "0 0 12px 0" }}>Description</h3>
@@ -887,8 +887,8 @@ export default function MeetingsPage() {
               onClick={() => setActiveView("list")}
               style={{
                 backgroundColor: "transparent",
-                color: "#8AFFAC",
-                border: "1px solid #313131",
+                color: "#5DDDD2",
+                border: "1px solid #2A4A5A",
                 padding: "12px 24px",
                 borderRadius: "8px",
                 fontSize: "14px",
@@ -903,7 +903,7 @@ export default function MeetingsPage() {
                 e.target.style.backgroundColor = "transparent";
               }}
             >
-              ← Back to Meetings
+              â† Back to Meetings
             </button>
           </div>
         )}
@@ -911,3 +911,5 @@ export default function MeetingsPage() {
     </div>
   );
 }
+
+

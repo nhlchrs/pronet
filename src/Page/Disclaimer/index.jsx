@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import BannerInnerSection from "../../Components/Banner/inner";
 import HeadTitle from "../../Components/Head/HeadTitle";
 
@@ -37,9 +37,9 @@ const DisclaimerPage = () => {
                                         <li>Trade execution or signal services</li>
                                     </ul>
                                     <p style={{ lineHeight: '1.8', marginTop: '15px', color: '#2c3e50' }}>
-                                        Nothing presented by ProNet Solutions—whether through live classes, 
+                                        Nothing presented by ProNet Solutionsâ€”whether through live classes, 
                                         recorded videos, presentations, charts, indicators, examples, case studies, 
-                                        discussions, community interactions, or written content—should be 
+                                        discussions, community interactions, or written contentâ€”should be 
                                         interpreted as a <strong>recommendation to buy, sell, hold, or trade any financial 
                                         instrument</strong>.
                                     </p>
@@ -61,8 +61,8 @@ const DisclaimerPage = () => {
                                 <div style={{ marginBottom: '30px' }}>
                                     <h2 style={{ marginBottom: '15px', color: '#2c3e50' }}>3. Risk Disclosure</h2>
                                     <p style={{ lineHeight: '1.8', color: '#2c3e50' }}>
-                                        Trading and investing in financial markets—including but not limited to 
-                                        equities, derivatives, forex, commodities, indices, and cryptocurrencies—
+                                        Trading and investing in financial marketsâ€”including but not limited to 
+                                        equities, derivatives, forex, commodities, indices, and cryptocurrenciesâ€”
                                         carry <strong>significant risk</strong> and may result in <strong>partial or total loss of 
                                         capital</strong>.
                                     </p>
@@ -187,7 +187,7 @@ const DisclaimerPage = () => {
 
                                 <div style={{ padding: '20px', backgroundColor: '#fff3cd', border: '1px solid #ffc107', borderRadius: '5px', marginTop: '40px' }}>
                                     <p style={{ textAlign: 'center', fontWeight: '600', marginBottom: '0', color: '#856404' }}>
-                                        ⚠️ IMPORTANT: Always consult with a licensed financial professional before making investment decisions.
+                                        âš ï¸ IMPORTANT: Always consult with a licensed financial professional before making investment decisions.
                                     </p>
                                 </div>
                             </div>
@@ -200,3 +200,5 @@ const DisclaimerPage = () => {
 };
 
 export default DisclaimerPage;
+
+

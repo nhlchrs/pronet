@@ -1,4 +1,4 @@
-export const blogdata = [
+﻿export const blogdata = [
     {
         id: 1,
         image: "https://plus.unsplash.com/premium_photo-1663040328859-48bddaa9dfeb?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -12,7 +12,7 @@ export const blogdata = [
         id: 2,
         image: "https://plus.unsplash.com/premium_photo-1663040328859-48bddaa9dfeb?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         title: "Maximizing Passive Income with Affiliate Programs",
-        content: "Learn strategies to grow your earnings by leveraging affiliate opportunities within Pro Net Solutions’ ecosystem.",
+        content: "Learn strategies to grow your earnings by leveraging affiliate opportunities within Pro Net Solutionsâ€™ ecosystem.",
         link: "#",
         date: "August 11, 2024",
         comment: 0,
@@ -30,7 +30,7 @@ export const blogdata = [
         id: 4,
         image: "https://plus.unsplash.com/premium_photo-1663040328859-48bddaa9dfeb?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         title: "Starting Your Dropshipping Business Made Easy",
-        content: "A practical roadmap for launching and scaling your online store with Pro Net Solutions’ dropshipping solutions.",
+        content: "A practical roadmap for launching and scaling your online store with Pro Net Solutionsâ€™ dropshipping solutions.",
         link: "#",
         date: "August 11, 2024",
         comment: 0,
@@ -39,7 +39,7 @@ export const blogdata = [
         id: 5,
         image: "https://plus.unsplash.com/premium_photo-1663040328859-48bddaa9dfeb?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         title: "How to Read Financial Market Signals Effectively",
-        content: "Master the art of analyzing trading signals—identify trends, set alerts, and boost your trading success.",
+        content: "Master the art of analyzing trading signalsâ€”identify trends, set alerts, and boost your trading success.",
         link: "#",
         date: "August 11, 2024",
         comment: 0,
@@ -54,3 +54,5 @@ export const blogdata = [
         comment: 0,
     },
 ];
+
+

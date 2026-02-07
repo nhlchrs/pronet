@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 const BannerInnerSection = ({title, currentPage}) => {
     return(
@@ -22,3 +22,4 @@ const BannerInnerSection = ({title, currentPage}) => {
 }
 
 export default BannerInnerSection;
+

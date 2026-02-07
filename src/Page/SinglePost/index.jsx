@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import HeadTitle from "../../Components/Head/HeadTitle";
 import BannerInnerSection from "../../Components/Banner/inner";
 import SinglePostSection from "../../Components/Blog/SinglePost";
@@ -14,3 +14,4 @@ const SinglePostPage = () => {
 }
 
 export default SinglePostPage;
+

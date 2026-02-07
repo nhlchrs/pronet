@@ -1,4 +1,4 @@
-/* Secure Media Dark Theme Animations */
+﻿/* Secure Media Dark Theme Animations */
 
 /* Spinner Animation */
 @keyframes spin {
@@ -29,17 +29,17 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #121212;
+  background: #0B1929;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #11E44F, #0BA639);
+  background: linear-gradient(135deg, #4CD3C8, #2A7A75);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #0BA639, #11E44F);
+  background: linear-gradient(135deg, #2A7A75, #4CD3C8);
 }
 
 /* Prevent text selection during drag */
@@ -54,3 +54,6 @@
 * {
   box-sizing: border-box;
 }
+
+
+

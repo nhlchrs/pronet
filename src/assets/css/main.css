@@ -1,4 +1,4 @@
-/*===============================================
+﻿/*===============================================
 Template Name: pro-net - SEO Digital Marketing Agency React Bootstrap Template
 Author:  https://themeforest.net/user/fox_creation
 Description: pro-net is modern and elegant React Js Bootstrap Template for SEO & digital marketing agencies. You can use this creative template for businesses offering social media marketing, seo agency, advertising company, media agency, digital marketing and many more to effortlessly showcase your expertise.
@@ -65,17 +65,17 @@ Table of Contents
 /* 02. Global Setting Styles */
 
 :root{
-    --primary: #121212;
+    --primary: #0B1929;
     --secondary: #FCFCFC;
     --text-color: #DAFAF4;
-    --accent-color: #11E44F; 
-    --accent-color-2: #313131;
-    --accent-color-3: #8AFFAC;
+    --accent-color: #4CD3C8; 
+    --accent-color-2: #2A4A5A;
+    --accent-color-3: #5DDDD2;
     --accent-color-4: #00000030;
     --accent-color-5: #00000073;
     --accent-color-6: rgba(255, 255, 255, 0.041);
     --accent-color-error: #e63946;
-    --accent-border-1: #313131;
+    --accent-border-1: #2A4A5A;
     --dropdown-box-shadow: 0 10px 30px 0 rgba(45, 45, 45, .2);
     --accent-color-placeholder: #cccccc;
     --accent-transparent: #FFFFFF00;
@@ -760,12 +760,39 @@ textarea.error-border{
 }
 
 .sidebar::-webkit-scrollbar {
-    width: 5px;
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #1A2A3A;
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-    background: var(--accent-color-placeholder);
+    background: var(--accent-color);
     border-radius: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color-3);
+}
+
+/* Global Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1A2A3A;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color-3);
 }
 /* 12. Button Styles */
 
@@ -2912,3 +2939,5 @@ textarea.error-border{
     color: var(--text-color);
     font-size: 16px;
 }
+
+

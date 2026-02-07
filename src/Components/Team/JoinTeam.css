@@ -1,4 +1,4 @@
-.join-team-container {
+﻿.join-team-container {
   max-width: 700px;
   margin: 0 auto;
   padding: 2rem;
@@ -8,13 +8,13 @@
   background: white;
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 8px 24px rgba(17, 228, 79, 0.15);
-  border: 1px solid rgba(17, 228, 79, 0.1);
+  box-shadow: 0 8px 24px rgba(76, 211, 200, 0.15);
+  border: 1px solid rgba(76, 211, 200, 0.1);
 }
 
 .join-card h2 {
   margin: 0 0 0.5rem 0;
-  background: linear-gradient(135deg, #11E44F 0%, #121212 100%);
+  background: linear-gradient(135deg, #4CD3C8 0%, #0B1929 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -70,7 +70,7 @@
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  background: linear-gradient(135deg, #11E44F 0%, #121212 100%);
+  background: linear-gradient(135deg, #4CD3C8 0%, #0B1929 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -85,20 +85,20 @@
 .input-with-button input {
   flex: 1;
   padding: 0.75rem 1rem;
-  border: 2px solid rgba(17, 228, 79, 0.3);
+  border: 2px solid rgba(76, 211, 200, 0.3);
   border-radius: 8px;
   font-size: 1rem;
   font-family: 'Monaco', 'Courier New', monospace;
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: all 0.3s ease;
-  background: rgba(17, 228, 79, 0.02);
+  background: rgba(76, 211, 200, 0.02);
 }
 
 .input-with-button input:focus {
   outline: none;
-  border-color: #11E44F;
-  box-shadow: 0 0 0 4px rgba(17, 228, 79, 0.15);
+  border-color: #4CD3C8;
+  box-shadow: 0 0 0 4px rgba(76, 211, 200, 0.15);
   background: white;
 }
 
@@ -109,8 +109,8 @@
 
 .validate-btn {
   padding: 0.75rem 1.5rem;
-  background: #11E44F;
-  color: #121212;
+  background: #4CD3C8;
+  color: #0B1929;
   border: none;
   border-radius: 8px;
   font-weight: 600;
@@ -123,9 +123,9 @@
 }
 
 .validate-btn:hover:not(:disabled) {
-  background: #8AFFAC;
+  background: #5DDDD2;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(17, 228, 79, 0.3);
+  box-shadow: 0 4px 12px rgba(76, 211, 200, 0.3);
 }
 
 .validate-btn:disabled {
@@ -402,3 +402,6 @@
     margin-bottom: 0.25rem;
   }
 }
+
+
+

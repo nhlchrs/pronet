@@ -9,12 +9,12 @@ export default {
       colors: {
         // App theme colors
         primary: {
-          dark: '#121212',
-          card: '#1a1a1a',
-          border: '#313131',
+          dark: '#0B1929',
+          card: '#1A2A3A',
+          border: '#2A4A5A',
           input: '#0f0f0f',
-          accent: '#11E44F',
-          accentLight: '#8AFFAC',
+          accent: '#4CD3C8',
+          accentLight: '#5DDDD2',
           text: '#DAFAF4',
         }
       },

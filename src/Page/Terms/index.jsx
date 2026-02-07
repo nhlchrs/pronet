@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import BannerInnerSection from "../../Components/Banner/inner";
 import HeadTitle from "../../Components/Head/HeadTitle";
 
@@ -249,3 +249,5 @@ const TermsPage = () => {
 };
 
 export default TermsPage;
+
+

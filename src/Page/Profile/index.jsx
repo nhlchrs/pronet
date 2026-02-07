@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { userAPI } from "../../services/api";
@@ -244,7 +244,7 @@ export default function ProfilePage() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#121212",
+          backgroundColor: "#0B1929",
           color: "#DAFAF4",
           fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif",
         }}
@@ -254,7 +254,7 @@ export default function ProfilePage() {
             style={{
               width: "50px",
               height: "50px",
-              border: "3px solid #11E44F",
+              border: "3px solid #4CD3C8",
               borderTop: "3px solid transparent",
               borderRadius: "50%",
               margin: "0 auto 20px",
@@ -276,7 +276,7 @@ export default function ProfilePage() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#121212",
+        backgroundColor: "#0B1929",
         padding: "40px 20px",
         fontFamily: "'Red Hat Text', 'Red Hat Content', sans-serif",
       }}
@@ -302,7 +302,7 @@ export default function ProfilePage() {
             width: "400px",
             height: "400px",
             borderRadius: "50%",
-            backgroundColor: "#11E44F",
+            backgroundColor: "#4CD3C8",
           }}
         ></div>
       </div>
@@ -320,7 +320,7 @@ export default function ProfilePage() {
           >
             My Profile
           </h1>
-          <p style={{ color: "#8AFFAC", margin: 0 }}>
+          <p style={{ color: "#5DDDD2", margin: 0 }}>
             Manage your account information and settings
           </p>
         </div>
@@ -346,8 +346,8 @@ export default function ProfilePage() {
             style={{
               marginBottom: "20px",
               padding: "12px 16px",
-              backgroundColor: "#11E44F",
-              color: "#121212",
+              backgroundColor: "#4CD3C8",
+              color: "#0B1929",
               borderRadius: "8px",
               fontSize: "14px",
               fontWeight: "bold",
@@ -360,8 +360,8 @@ export default function ProfilePage() {
         {/* Profile Card */}
         <div
           style={{
-            backgroundColor: "#1a1a1a",
-            border: "1px solid #313131",
+            backgroundColor: "#1A2A3A",
+            border: "1px solid #2A4A5A",
             borderRadius: "16px",
             padding: "40px",
             marginBottom: "30px",
@@ -374,7 +374,7 @@ export default function ProfilePage() {
               alignItems: "center",
               marginBottom: "40px",
               paddingBottom: "30px",
-              borderBottom: "1px solid #313131",
+              borderBottom: "1px solid #2A4A5A",
             }}
           >
             <div
@@ -382,16 +382,16 @@ export default function ProfilePage() {
                 width: "100px",
                 height: "100px",
                 borderRadius: "50%",
-                backgroundColor: profileData.profilePicture ? "transparent" : "#11E44F",
+                backgroundColor: profileData.profilePicture ? "transparent" : "#4CD3C8",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 marginRight: "30px",
                 fontSize: "48px",
                 fontWeight: "bold",
-                color: "#121212",
+                color: "#0B1929",
                 overflow: "hidden",
-                border: profileData.profilePicture ? "3px solid #11E44F" : "none",
+                border: profileData.profilePicture ? "3px solid #4CD3C8" : "none",
               }}
             >
               {profileData.profilePicture ? (
@@ -420,15 +420,15 @@ export default function ProfilePage() {
               </h2>
               <p
                 style={{
-                  color: "#8AFFAC",
+                  color: "#5DDDD2",
                   margin: "0 0 5px 0",
                   fontSize: "14px",
                 }}
               >
                 {profileData.email}
               </p>
-              <p style={{ color: "#8AFFAC", margin: 0, fontSize: "14px" }}>
-                Role: <span style={{ color: "#11E44F" }}>{profileData.role}</span>
+              <p style={{ color: "#5DDDD2", margin: 0, fontSize: "14px" }}>
+                Role: <span style={{ color: "#4CD3C8" }}>{profileData.role}</span>
               </p>
             </div>
           </div>
@@ -440,7 +440,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -465,7 +465,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -490,7 +490,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -515,7 +515,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -541,7 +541,7 @@ export default function ProfilePage() {
                   <label
                     style={{
                       display: "block",
-                      color: "#8AFFAC",
+                      color: "#5DDDD2",
                       fontSize: "12px",
                       textTransform: "uppercase",
                       marginBottom: "8px",
@@ -568,7 +568,7 @@ export default function ProfilePage() {
                   <label
                     style={{
                       display: "block",
-                      color: "#8AFFAC",
+                      color: "#5DDDD2",
                       fontSize: "12px",
                       textTransform: "uppercase",
                       marginBottom: "8px",
@@ -593,8 +593,8 @@ export default function ProfilePage() {
               <button
                 onClick={() => setIsEditing(true)}
                 style={{
-                  backgroundColor: "#11E44F",
-                  color: "#121212",
+                  backgroundColor: "#4CD3C8",
+                  color: "#0B1929",
                   border: "none",
                   padding: "12px 24px",
                   borderRadius: "8px",
@@ -604,11 +604,11 @@ export default function ProfilePage() {
                   transition: "all 0.3s ease",
                 }}
                 onMouseOver={(e) => {
-                  e.target.style.backgroundColor = "#0FCC41";
+                  e.target.style.backgroundColor = "#4CD3C8";
                   e.target.style.transform = "scale(1.05)";
                 }}
                 onMouseOut={(e) => {
-                  e.target.style.backgroundColor = "#11E44F";
+                  e.target.style.backgroundColor = "#4CD3C8";
                   e.target.style.transform = "scale(1)";
                 }}
               >
@@ -622,7 +622,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "12px",
@@ -650,7 +650,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -668,7 +668,7 @@ export default function ProfilePage() {
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #313131",
+                    border: "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
@@ -681,7 +681,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -699,7 +699,7 @@ export default function ProfilePage() {
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #313131",
+                    border: "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
@@ -712,7 +712,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -730,7 +730,7 @@ export default function ProfilePage() {
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #313131",
+                    border: "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
@@ -743,7 +743,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -761,7 +761,7 @@ export default function ProfilePage() {
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #313131",
+                    border: "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
@@ -774,7 +774,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -792,7 +792,7 @@ export default function ProfilePage() {
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #313131",
+                    border: "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
@@ -805,7 +805,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -822,7 +822,7 @@ export default function ProfilePage() {
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #313131",
+                    border: "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
@@ -838,8 +838,8 @@ export default function ProfilePage() {
                   type="submit"
                   disabled={loading}
                   style={{
-                    backgroundColor: "#11E44F",
-                    color: "#121212",
+                    backgroundColor: "#4CD3C8",
+                    color: "#0B1929",
                     border: "none",
                     padding: "12px 24px",
                     borderRadius: "8px",
@@ -851,13 +851,13 @@ export default function ProfilePage() {
                   }}
                   onMouseOver={(e) => {
                     if (!loading) {
-                      e.target.style.backgroundColor = "#0FCC41";
+                      e.target.style.backgroundColor = "#4CD3C8";
                       e.target.style.transform = "scale(1.05)";
                     }
                   }}
                   onMouseOut={(e) => {
                     if (!loading) {
-                      e.target.style.backgroundColor = "#11E44F";
+                      e.target.style.backgroundColor = "#4CD3C8";
                       e.target.style.transform = "scale(1)";
                     }
                   }}
@@ -880,8 +880,8 @@ export default function ProfilePage() {
                   }}
                   style={{
                     backgroundColor: "transparent",
-                    color: "#8AFFAC",
-                    border: "1px solid #313131",
+                    color: "#5DDDD2",
+                    border: "1px solid #2A4A5A",
                     padding: "12px 24px",
                     borderRadius: "8px",
                     fontSize: "14px",
@@ -906,8 +906,8 @@ export default function ProfilePage() {
         {/* Change Password Section */}
         <div
           style={{
-            backgroundColor: "#1a1a1a",
-            border: "1px solid #313131",
+            backgroundColor: "#1A2A3A",
+            border: "1px solid #2A4A5A",
             borderRadius: "16px",
             padding: "40px",
             marginBottom: "30px",
@@ -928,8 +928,8 @@ export default function ProfilePage() {
               onClick={() => setIsChangingPassword(true)}
               style={{
                 backgroundColor: "#252525",
-                color: "#8AFFAC",
-                border: "1px solid #313131",
+                color: "#5DDDD2",
+                border: "1px solid #2A4A5A",
                 padding: "12px 24px",
                 borderRadius: "8px",
                 fontSize: "14px",
@@ -938,7 +938,7 @@ export default function ProfilePage() {
                 transition: "all 0.3s ease",
               }}
               onMouseOver={(e) => {
-                e.target.style.backgroundColor = "#313131";
+                e.target.style.backgroundColor = "#2A4A5A";
               }}
               onMouseOut={(e) => {
                 e.target.style.backgroundColor = "#252525";
@@ -952,7 +952,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -971,7 +971,7 @@ export default function ProfilePage() {
                       width: "100%",
                       padding: "12px 16px",
                       backgroundColor: "#252525",
-                      border: "1px solid #313131",
+                      border: "1px solid #2A4A5A",
                       borderRadius: "8px",
                       color: "#DAFAF4",
                       fontSize: "14px",
@@ -989,7 +989,7 @@ export default function ProfilePage() {
                       transform: "translateY(-50%)",
                       backgroundColor: "transparent",
                       border: "none",
-                      color: "#8AFFAC",
+                      color: "#5DDDD2",
                       cursor: "pointer",
                       fontSize: "14px",
                     }}
@@ -1003,7 +1003,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -1022,7 +1022,7 @@ export default function ProfilePage() {
                       width: "100%",
                       padding: "12px 16px",
                       backgroundColor: "#252525",
-                      border: "1px solid #313131",
+                      border: "1px solid #2A4A5A",
                       borderRadius: "8px",
                       color: "#DAFAF4",
                       fontSize: "14px",
@@ -1040,7 +1040,7 @@ export default function ProfilePage() {
                       transform: "translateY(-50%)",
                       backgroundColor: "transparent",
                       border: "none",
-                      color: "#8AFFAC",
+                      color: "#5DDDD2",
                       cursor: "pointer",
                       fontSize: "14px",
                     }}
@@ -1054,7 +1054,7 @@ export default function ProfilePage() {
                 <label
                   style={{
                     display: "block",
-                    color: "#8AFFAC",
+                    color: "#5DDDD2",
                     fontSize: "12px",
                     textTransform: "uppercase",
                     marginBottom: "8px",
@@ -1073,7 +1073,7 @@ export default function ProfilePage() {
                       width: "100%",
                       padding: "12px 16px",
                       backgroundColor: "#252525",
-                      border: "1px solid #313131",
+                      border: "1px solid #2A4A5A",
                       borderRadius: "8px",
                       color: "#DAFAF4",
                       fontSize: "14px",
@@ -1091,7 +1091,7 @@ export default function ProfilePage() {
                       transform: "translateY(-50%)",
                       backgroundColor: "transparent",
                       border: "none",
-                      color: "#8AFFAC",
+                      color: "#5DDDD2",
                       cursor: "pointer",
                       fontSize: "14px",
                     }}
@@ -1106,8 +1106,8 @@ export default function ProfilePage() {
                   type="submit"
                   disabled={loading}
                   style={{
-                    backgroundColor: "#11E44F",
-                    color: "#121212",
+                    backgroundColor: "#4CD3C8",
+                    color: "#0B1929",
                     border: "none",
                     padding: "12px 24px",
                     borderRadius: "8px",
@@ -1119,13 +1119,13 @@ export default function ProfilePage() {
                   }}
                   onMouseOver={(e) => {
                     if (!loading) {
-                      e.target.style.backgroundColor = "#0FCC41";
+                      e.target.style.backgroundColor = "#4CD3C8";
                       e.target.style.transform = "scale(1.05)";
                     }
                   }}
                   onMouseOut={(e) => {
                     if (!loading) {
-                      e.target.style.backgroundColor = "#11E44F";
+                      e.target.style.backgroundColor = "#4CD3C8";
                       e.target.style.transform = "scale(1)";
                     }
                   }}
@@ -1146,8 +1146,8 @@ export default function ProfilePage() {
                   }}
                   style={{
                     backgroundColor: "transparent",
-                    color: "#8AFFAC",
-                    border: "1px solid #313131",
+                    color: "#5DDDD2",
+                    border: "1px solid #2A4A5A",
                     padding: "12px 24px",
                     borderRadius: "8px",
                     fontSize: "14px",
@@ -1172,8 +1172,8 @@ export default function ProfilePage() {
         {/* Logout Section */}
         <div
           style={{
-            backgroundColor: "#1a1a1a",
-            border: "1px solid #313131",
+            backgroundColor: "#1A2A3A",
+            border: "1px solid #2A4A5A",
             borderRadius: "16px",
             padding: "40px",
           }}
@@ -1215,3 +1215,5 @@ export default function ProfilePage() {
     </div>
   );
 }
+
+

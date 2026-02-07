@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 const PortfolioCard = ({logo, image, category, title, content, link, speed = ""}) => {
     return(
@@ -22,3 +22,4 @@ const PortfolioCard = ({logo, image, category, title, content, link, speed = ""}
 }
 
 export default PortfolioCard;
+

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { teamdata } from "../../Data/Team";
 import TeamCard from "../Card/TeamCard";
 
@@ -28,3 +28,4 @@ const TeamSection = () => {
 }
 
 export default TeamSection;
+

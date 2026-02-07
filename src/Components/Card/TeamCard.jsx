@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 
 const TeamCard = ({image, name, designation, socials}) => {
     return(
@@ -31,3 +31,4 @@ const TeamCard = ({image, name, designation, socials}) => {
 }
 
 export default TeamCard;
+

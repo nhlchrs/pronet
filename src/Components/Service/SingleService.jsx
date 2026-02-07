@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { servicedata } from "../../Data/Service";
 import { Link } from "react-router-dom";
 
@@ -21,7 +21,7 @@ const SingleServiceSection = () => {
 
                             <div>
                                 <p>
-                                    Discover how Pro Net Solutions helps you unlock financial opportunities. Our platform connects you to powerful tools for market education and skill development—no experience required!
+                                    Discover how Pro Net Solutions helps you unlock financial opportunities. Our platform connects you to powerful tools for market education and skill developmentâ€”no experience required!
                                 </p>
                                 <p>
                                     Whether you're aspiring to learn about financial markets, build digital skills, or explore affiliate opportunities, you'll find tailored solutions, expert guidance, and a vibrant community behind you.
@@ -50,7 +50,7 @@ const SingleServiceSection = () => {
                                             <li>Affiliate commission and earning opportunities</li>
                                             <li>Mentorship & community-driven support</li>
                                             <li>Affiliate commissions and direct bonuses</li>
-                                            <li>Beginner-friendly onboarding—no prior knowledge needed!</li>
+                                            <li>Beginner-friendly onboardingâ€”no prior knowledge needed!</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -83,3 +83,5 @@ const SingleServiceSection = () => {
 }
 
 export default SingleServiceSection;
+
+

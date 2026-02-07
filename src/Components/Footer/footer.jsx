@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import NewsletterForm from "../Form/NewsletterForm";
 
 const Footer = () => {
@@ -83,7 +83,7 @@ const Footer = () => {
                         </div>
                         <div className="copyright-container">
                             <span className="copyright-text">
-                                ProNet Solutions © 2026 All Rights Reserved | <a href="/terms" style={{ color: 'inherit', textDecoration: 'underline' }}>Terms & Conditions</a> | <a href="/agreement" style={{ color: 'inherit', textDecoration: 'underline' }}>User Agreement</a> | <a href="/disclaimer" style={{ color: 'inherit', textDecoration: 'underline' }}>Disclaimer</a>
+                                ProNet Solutions Â© 2026 All Rights Reserved | <a href="/terms" style={{ color: 'inherit', textDecoration: 'underline' }}>Terms & Conditions</a> | <a href="/agreement" style={{ color: 'inherit', textDecoration: 'underline' }}>User Agreement</a> | <a href="/disclaimer" style={{ color: 'inherit', textDecoration: 'underline' }}>Disclaimer</a>
                             </span>
                             <div className="social-footer">
                                 <a href="#" className="social-item accent-color">
@@ -111,3 +111,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
+

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import BannerInnerSection from "../../Components/Banner/inner";
 import FaqSection from "../../Components/Faq";
 import HeadTitle from "../../Components/Head/HeadTitle";
@@ -14,3 +14,4 @@ const FaqPage = () => {
 }
 
 export default FaqPage;
+
