@@ -23,12 +23,12 @@ const PaymentPage = () => {
       price: 135,
       duration: 360,
       features: [
-        'Access to all courses',
-        'Live meetings and webinars',
-        'Premium support',
-        'Downloadable resources',
-        'One-on-one mentorship',
-        'Lifetime resource access',
+        '📚 Access to all courses',
+        '📹 Live meetings and webinars',
+        '💬 Premium support',
+        '⬇️ Downloadable resources',
+        '👨‍🏫 One-on-one mentorship',
+        '♾️ Lifetime resource access',
       ]
     }
   ];
@@ -213,7 +213,7 @@ const PaymentPage = () => {
     modal.innerHTML = `
       <div class="payment-modal-content">
         <div class="payment-modal-icon ${type}">
-          ${type === 'success' ? 'âœ“' : 'âœ•'}
+          ${type === 'success' ? '✅' : '❌'}
         </div>
         <h3>${title}</h3>
         <p>${message}</p>
@@ -319,7 +319,7 @@ const PaymentPage = () => {
                   <ul className="plan-features">
                     {plan.features.map((feature, index) => (
                       <li key={index}>
-                        <span className="check-icon">âœ“</span>
+
                         {feature}
                       </li>
                     ))}

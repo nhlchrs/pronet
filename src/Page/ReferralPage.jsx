@@ -3,22 +3,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../Components/shared/T
 import { ReferralCode } from '../Components/Team/ReferralCode';
 import { JoinTeam } from '../Components/Team/JoinTeam';
 import { TeamHierarchy } from '../Components/Team/TeamHierarchy';
+import { teamAPI } from '../services/api';
 import './ReferralPage.css';
 
 export const ReferralPage = () => {
   const [activeTab, setActiveTab] = useState('my-code');
   const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
 
   useEffect(() => {
-    checkUserRole();
+    checkUserRoleAndTeamStatus();
   }, []);
 
-  const checkUserRole = async () => {
+  const checkUserRoleAndTeamStatus = async () => {
     try {
       const token = localStorage.getItem('token');
       if (token) {
-        // Decode JWT to check user role or fetch user data
+        // Check user role
         const response = await fetch('/api/user/profile', {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,6 +29,17 @@ export const ReferralPage = () => {
         if (response.ok) {
           const data = await response.json();
           setUserRole(data.user?.role);
+        }
+
+        // Check if user has joined a team
+        try {
+          const statusResponse = await teamAPI.checkMemberStatus();
+          if (statusResponse.success && statusResponse.data) {
+            // User has a team membership and has a sponsor
+            setHasJoinedTeam(statusResponse.data.hasJoinedTeam || false);
+          }
+        } catch (error) {
+          console.error('Error checking team status:', error);
         }
       }
     } catch (error) {
@@ -60,7 +73,9 @@ export const ReferralPage = () => {
         <Tabs defaultValue="my-code" value={activeTab} onValueChange={setActiveTab}>
           <TabsList>
             <TabsTrigger value="my-code">My Referral Code</TabsTrigger>
-            <TabsTrigger value="join-team">Join a Team</TabsTrigger>
+            {!hasJoinedTeam && (
+              <TabsTrigger value="join-team">Join a Team</TabsTrigger>
+            )}
             <TabsTrigger value="hierarchy">Team Hierarchy</TabsTrigger>
           </TabsList>
 
@@ -105,61 +120,92 @@ export const ReferralPage = () => {
             </div>
           </TabsContent>
 
-          {/* Join a Team Tab */}
-          <TabsContent value="join-team">
-            <div className="tab-content">
-              <div className="tab-header">
-                <h2>Join a Team</h2>
-                <p>
-                  Do you have a referral code from someone? Use it here to join their team
-                  and start building your network together!
-                </p>
+          {/* Join a Team Tab - Only show if user hasn't joined a team */}
+          {!hasJoinedTeam && (
+            <TabsContent value="join-team">
+              <div className="tab-content">
+                <div className="tab-header">
+                  <h2>Join a Team</h2>
+                  <p>
+                    Do you have a referral code from someone? Use it here to join their team
+                    and start building your network together!
+                  </p>
+                </div>
+                <div className="tab-body">
+                  <JoinTeam isActive={activeTab === 'join-team'} />
+                </div>
               </div>
-              <div className="tab-body">
-                <JoinTeam isActive={activeTab === 'join-team'} />
-              </div>
-            </div>
-          </TabsContent>
+            </TabsContent>
+          )}
 
           {/* Team Hierarchy Tab */}
           <TabsContent value="hierarchy">
             <div className="tab-content">
-              <div className="tab-header">
-                <h2>Your Team Hierarchy</h2>
-                <p>
-                  View your entire team structure, member details, and track your network growth.
-                  The tree below shows all your direct and indirect referrals.
-                </p>
-              </div>
-              <div className="tab-body">
-                <TeamHierarchy isActive={activeTab === 'hierarchy'} />
-              </div>
-              <div className="tab-info">
-                <h3>📊 Understanding Levels</h3>
-                <div className="levels-guide">
-                  <div className="level-item">
-                    <span className="level-number">Level 0</span>
-                    <div>
-                      <h4>Starter</h4>
-                      <p>Your first position in the network</p>
+              {hasJoinedTeam ? (
+                <>
+                  <div className="tab-header">
+                    <h2>Your Team Hierarchy</h2>
+                    <p>
+                      View your entire team structure, member details, and track your network growth.
+                      The tree below shows all your direct and indirect referrals.
+                    </p>
+                  </div>
+                  <div className="tab-body">
+                    <TeamHierarchy isActive={activeTab === 'hierarchy'} />
+                  </div>
+                  <div className="tab-info">
+                    <h3>📊 Understanding Levels</h3>
+                    <div className="levels-guide">
+                      <div className="level-item">
+                        <span className="level-number">Level 0</span>
+                        <div>
+                          <h4>Starter</h4>
+                          <p>Your first position in the network</p>
+                        </div>
+                      </div>
+                      <div className="level-item">
+                        <span className="level-number">Level 1</span>
+                        <div>
+                          <h4>10+ Direct Referrals</h4>
+                          <p>Unlock level 2 income and premium benefits</p>
+                        </div>
+                      </div>
+                      <div className="level-item">
+                        <span className="level-number">Level 2+</span>
+                        <div>
+                          <h4>Team Leaders</h4>
+                          <p>Continue growing to unlock even higher benefits</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="level-item">
-                    <span className="level-number">Level 1</span>
-                    <div>
-                      <h4>10+ Direct Referrals</h4>
-                      <p>Unlock level 2 income and premium benefits</p>
-                    </div>
-                  </div>
-                  <div className="level-item">
-                    <span className="level-number">Level 2+</span>
-                    <div>
-                      <h4>Team Leaders</h4>
-                      <p>Continue growing to unlock even higher benefits</p>
-                    </div>
-                  </div>
+                </>
+              ) : (
+                <div className="tab-header" style={{ textAlign: 'center', padding: '3rem 1rem' }}>
+                  <h2>🌳 Team Hierarchy</h2>
+                  <p style={{ marginBottom: '2rem', fontSize: '1.1rem' }}>
+                    Join a team first to view your team hierarchy and network structure.
+                  </p>
+                  <button 
+                    onClick={() => setActiveTab('join-team')}
+                    style={{
+                      padding: '0.75rem 2rem',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      backgroundColor: '#4F46E5',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '0.5rem',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease'
+                    }}
+                    onMouseOver={(e) => e.target.style.backgroundColor = '#4338CA'}
+                    onMouseOut={(e) => e.target.style.backgroundColor = '#4F46E5'}
+                  >
+                    Join a Team Now
+                  </button>
                 </div>
-              </div>
+              )}
             </div>
           </TabsContent>
         </Tabs>

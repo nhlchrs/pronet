@@ -11,8 +11,33 @@
             password: "",
         });
         const [localError, setLocalError] = useState("");
+        const [fieldErrors, setFieldErrors] = useState({});
+        const [touchedFields, setTouchedFields] = useState({});
         const [showPassword, setShowPassword] = useState(false);
         const [rememberMe, setRememberMe] = useState(false);
+
+        const validateField = (name, value) => {
+            let error = "";
+            
+            switch (name) {
+                case "email":
+                    if (!value.trim()) {
+                        error = "Email is required";
+                    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                        error = "Please enter a valid email address";
+                    }
+                    break;
+                case "password":
+                    if (!value) {
+                        error = "Password is required";
+                    }
+                    break;
+                default:
+                    break;
+            }
+            
+            return error;
+        };
 
         const handleChange = (e) => {
             const { name, value } = e.target;
@@ -20,7 +45,53 @@
             ...prev,
             [name]: value,
             }));
+            
+            // Validate field if it's been touched
+            if (touchedFields[name]) {
+                const error = validateField(name, value);
+                setFieldErrors((prev) => ({
+                    ...prev,
+                    [name]: error,
+                }));
+            }
+            
             setLocalError("");
+        };
+
+        const handleBlur = (e) => {
+            const { name, value } = e.target;
+            setTouchedFields((prev) => ({
+                ...prev,
+                [name]: true,
+            }));
+            
+            const error = validateField(name, value);
+            setFieldErrors((prev) => ({
+                ...prev,
+                [name]: error,
+            }));
+        };
+
+        const getFieldStyle = (fieldName) => {
+            const hasError = touchedFields[fieldName] && fieldErrors[fieldName];
+            const isValid = touchedFields[fieldName] && !fieldErrors[fieldName] && formData[fieldName];
+            
+            return {
+                width: "100%",
+                paddingLeft: "44px",
+                paddingRight: fieldName === "password" ? "45px" : "16px",
+                paddingTop: "12px",
+                paddingBottom: "12px",
+                borderRadius: "10px",
+                border: hasError ? "2px solid #e63946" : isValid ? "2px solid #06d6a0" : "2px solid #2A4A5A",
+                backgroundColor: "#0f0f0f",
+                color: "#DAFAF4",
+                fontSize: "15px",
+                outline: "none",
+                transition: "all 0.3s ease",
+                cursor: loading ? "not-allowed" : "text",
+                opacity: loading ? 0.6 : 1,
+            };
         };
 
         const handleLoginSubmit = async (e) => {
@@ -28,18 +99,21 @@
             setLocalError("");
             setError(null);
 
-    if (!formData.email.trim()) {
-      setLocalError("Email is required");
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      setLocalError("Please enter a valid email");
-      return;
-    }
-    if (!formData.password) {
-      setLocalError("Password is required");
-      return;
-    }
+            // Validate all fields
+            const errors = {};
+            Object.keys(formData).forEach((key) => {
+                const error = validateField(key, formData[key]);
+                if (error) {
+                    errors[key] = error;
+                }
+            });
+
+            if (Object.keys(errors).length > 0) {
+                setFieldErrors(errors);
+                setTouchedFields({ email: true, password: true });
+                setLocalError("Please fix all errors before submitting");
+                return;
+            }
 
     try {
       const response = await login(formData.email, formData.password);
@@ -186,7 +260,8 @@
                 <i style={{
                   position: 'absolute',
                   left: '16px',
-                  top: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
                   color: '#5DDDD2',
                   fontSize: '16px',
                 }} className="fa-solid fa-envelope"></i>
@@ -199,34 +274,37 @@
                   placeholder="your@email.com"
                   disabled={loading}
                   required
-                  style={{
-                    width: '100%',
-                    paddingLeft: '44px',
-                    paddingRight: '16px',
-                    paddingTop: '12px',
-                    paddingBottom: '12px',
-                    borderRadius: '10px',
-                    border: '2px solid #2A4A5A',
-                    backgroundColor: '#0f0f0f',
-                    color: '#DAFAF4',
-                    fontSize: '15px',
-                    outline: 'none',
-                    transition: 'all 0.3s ease',
-                    cursor: loading ? 'not-allowed' : 'text',
-                    opacity: loading ? 0.6 : 1,
-                  }}
+                  style={getFieldStyle("email")}
                   onFocus={(e) => {
-                    e.target.style.borderColor = '#4CD3C8';
-                    e.target.style.backgroundColor = '#1A2A3A';
-                    e.target.style.boxShadow = '0 0 0 3px rgba(17, 228, 79, 0.1)';
+                    if (!fieldErrors.email) {
+                      e.target.style.borderColor = '#4CD3C8';
+                      e.target.style.backgroundColor = '#1A2A3A';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(76, 211, 200, 0.1)';
+                    }
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = '#2A4A5A';
+                    handleBlur(e);
+                    const hasError = touchedFields.email && fieldErrors.email;
+                    const isValid = touchedFields.email && !fieldErrors.email && formData.email;
+                    e.target.style.borderColor = hasError ? '#e63946' : isValid ? '#06d6a0' : '#2A4A5A';
                     e.target.style.backgroundColor = '#0f0f0f';
                     e.target.style.boxShadow = 'none';
                   }}
                 />
               </div>
+              {touchedFields.email && fieldErrors.email && (
+                <div style={{
+                  marginTop: '6px',
+                  fontSize: '12px',
+                  color: '#e63946',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}>
+                  <i className="fa-solid fa-circle-exclamation" style={{ fontSize: '10px' }}></i>
+                  <span>{fieldErrors.email}</span>
+                </div>
+              )}
             </div>
 
             {/* Password Field */}
@@ -246,13 +324,13 @@
                 <i style={{
                   position: 'absolute',
                   left: '16px',
-                  top: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
                   color: '#5DDDD2',
                   fontSize: '16px',
-                  pointerEvents: 'none',
                 }} className="fa-solid fa-lock"></i>
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
                   value={formData.password}
@@ -260,29 +338,19 @@
                   placeholder="••••••••"
                   disabled={loading}
                   required
-                  style={{
-                    width: '100%',
-                    paddingLeft: '44px',
-                    paddingRight: '44px',
-                    paddingTop: '12px',
-                    paddingBottom: '12px',
-                    borderRadius: '10px',
-                    border: '2px solid #2A4A5A',
-                    backgroundColor: '#0f0f0f',
-                    color: '#DAFAF4',
-                    fontSize: '15px',
-                    outline: 'none',
-                    transition: 'all 0.3s ease',
-                    cursor: loading ? 'not-allowed' : 'text',
-                    opacity: loading ? 0.6 : 1,
-                  }}
+                  style={getFieldStyle("password")}
                   onFocus={(e) => {
-                    e.target.style.borderColor = '#4CD3C8';
-                    e.target.style.backgroundColor = '#1A2A3A';
-                    e.target.style.boxShadow = '0 0 0 3px rgba(17, 228, 79, 0.1)';
+                    if (!fieldErrors.password) {
+                      e.target.style.borderColor = '#4CD3C8';
+                      e.target.style.backgroundColor = '#1A2A3A';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(76, 211, 200, 0.1)';
+                    }
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = '#2A4A5A';
+                    handleBlur(e);
+                    const hasError = touchedFields.password && fieldErrors.password;
+                    const isValid = touchedFields.password && !fieldErrors.password && formData.password;
+                    e.target.style.borderColor = hasError ? '#e63946' : isValid ? '#06d6a0' : '#2A4A5A';
                     e.target.style.backgroundColor = '#0f0f0f';
                     e.target.style.boxShadow = 'none';
                   }}
@@ -290,25 +358,33 @@
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  disabled={loading}
                   style={{
                     position: 'absolute',
                     right: '12px',
-                    color: '#5DDDD2',
-                    fontSize: '16px',
-                    background: 'none',
+                    background: 'transparent',
                     border: 'none',
-                    cursor: loading ? 'not-allowed' : 'pointer',
-                    padding: '8px',
-                    transition: 'color 0.2s ease',
-                    opacity: loading ? 0.6 : 1,
+                    color: '#5DDDD2',
+                    cursor: 'pointer',
+                    padding: '4px',
+                    fontSize: '16px',
                   }}
-                  onMouseEnter={(e) => !loading && (e.target.style.color = '#4CD3C8')}
-                  onMouseLeave={(e) => (e.target.style.color = '#5DDDD2')}
                 >
-                  <i className={`fa-solid fa-${showPassword ? "eye-slash" : "eye"}`}></i>
+                  <i className={showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'}></i>
                 </button>
               </div>
+              {touchedFields.password && fieldErrors.password && (
+                <div style={{
+                  marginTop: '6px',
+                  fontSize: '12px',
+                  color: '#e63946',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}>
+                  <i className="fa-solid fa-circle-exclamation" style={{ fontSize: '10px' }}></i>
+                  <span>{fieldErrors.password}</span>
+                </div>
+              )}
             </div>
 
             {/* Remember Me & Forgot Password */}
@@ -432,7 +508,7 @@
           color: '#5DDDD2',
           fontSize: '12px',
         }}>
-          <p style={{ margin: 0 }}>ProNet © 2025 | All rights reserved</p>
+          <p style={{ margin: 0 }}>Pronext © 2025 | All rights reserved</p>
         </div>
       </div>
 

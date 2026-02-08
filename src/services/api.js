@@ -275,6 +275,10 @@ export const teamAPI = {
     return apiCall('/team/init-membership', 'POST');
   },
 
+  checkMemberStatus: async () => {
+    return apiCall('/team/check-status', 'GET');
+  },
+
   getMyReferralCode: async () => {
     return apiCall('/team/my-referral-code', 'GET');
   },

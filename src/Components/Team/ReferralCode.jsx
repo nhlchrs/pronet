@@ -92,8 +92,8 @@ export const ReferralCode = ({ isActive }) => {
 
   return (
     <div className="referral-code-container">
-      {/* Main Referral Code Card */}
-      <div className="code-card">
+      {/* Main Referral Code Card - COMMENTED OUT */}
+      {/* <div className="code-card">
         <h3>🔑 Main Referral Code</h3>
         <p className="code-description">General team invitation code</p>
         <div className="code-display">
@@ -131,11 +131,11 @@ export const ReferralCode = ({ isActive }) => {
             {copiedCode === 'main-link' ? <Check size={14} /> : <Copy size={14} />}
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Left Team Code Card */}
       <div className="code-card left-code">
-        <h3>â¬…ï¸ Left Team Code (Lpro)</h3>
+        <h3>🔑 Left Team Code (Lpro)</h3>
         <p className="code-description">For left position members</p>
         <div className="code-display">
           <div className="code-box">
@@ -176,7 +176,7 @@ export const ReferralCode = ({ isActive }) => {
 
       {/* Right Team Code Card */}
       <div className="code-card right-code">
-        <h3>âž¡ï¸ Right Team Code (Rpro)</h3>
+        <h3>🔑 Right Team Code (Rpro)</h3>
         <p className="code-description">For right position members</p>
         <div className="code-display">
           <div className="code-box">

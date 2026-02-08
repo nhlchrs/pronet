@@ -15,9 +15,70 @@ export default function RegisterPage() {
     confirmPassword: "",
   });
   const [localError, setLocalError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [touchedFields, setTouchedFields] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
+
+  const validateField = (name, value) => {
+    let error = "";
+    
+    switch (name) {
+      case "firstName":
+        if (!value.trim()) {
+          error = "First name is required";
+        } else if (value.trim().length < 2) {
+          error = "First name must be at least 2 characters";
+        }
+        break;
+      case "lastName":
+        if (!value.trim()) {
+          error = "Last name is required";
+        } else if (value.trim().length < 2) {
+          error = "Last name must be at least 2 characters";
+        }
+        break;
+      case "email":
+        if (!value.trim()) {
+          error = "Email is required";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          error = "Please enter a valid email address";
+        }
+        break;
+      case "phone":
+        if (!value.trim()) {
+          error = "Phone number is required";
+        } else if (!/^[\d\s\-\+\(\)]{10,}$/.test(value)) {
+          error = "Please enter a valid phone number";
+        }
+        break;
+      case "password":
+        if (!value) {
+          error = "Password is required";
+        } else if (value.length < 8) {
+          error = "Password must be at least 8 characters";
+        } else if (!/(?=.*[a-z])/.test(value)) {
+          error = "Password must contain a lowercase letter";
+        } else if (!/(?=.*[A-Z])/.test(value)) {
+          error = "Password must contain an uppercase letter";
+        } else if (!/(?=.*\d)/.test(value)) {
+          error = "Password must contain a number";
+        }
+        break;
+      case "confirmPassword":
+        if (!value) {
+          error = "Please confirm your password";
+        } else if (value !== formData.password) {
+          error = "Passwords do not match";
+        }
+        break;
+      default:
+        break;
+    }
+    
+    return error;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,42 +86,118 @@ export default function RegisterPage() {
       ...prev,
       [name]: value,
     }));
+    
+    // Validate field if it's been touched
+    if (touchedFields[name]) {
+      const error = validateField(name, value);
+      setFieldErrors((prev) => ({
+        ...prev,
+        [name]: error,
+      }));
+    }
+    
     setLocalError("");
   };
 
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouchedFields((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+    
+    const error = validateField(name, value);
+    setFieldErrors((prev) => ({
+      ...prev,
+      [name]: error,
+    }));
+  };
+
+  const getPasswordStrength = (password) => {
+    if (!password) return { strength: 0, label: "", color: "" };
+    
+    let strength = 0;
+    if (password.length >= 8) strength++;
+    if (/(?=.*[a-z])/.test(password)) strength++;
+    if (/(?=.*[A-Z])/.test(password)) strength++;
+    if (/(?=.*\d)/.test(password)) strength++;
+    if (/(?=.*[@$!%*?&#])/.test(password)) strength++;
+    
+    if (strength <= 2) return { strength, label: "Weak", color: "#e63946" };
+    if (strength === 3) return { strength, label: "Fair", color: "#f77f00" };
+    if (strength === 4) return { strength, label: "Good", color: "#06d6a0" };
+    return { strength, label: "Strong", color: "#4CD3C8" };
+  };
+
+  const getFieldStyle = (fieldName) => {
+    const hasError = touchedFields[fieldName] && fieldErrors[fieldName];
+    const isValid = touchedFields[fieldName] && !fieldErrors[fieldName] && formData[fieldName];
+    
+    return {
+      width: "100%",
+      padding: "12px 16px",
+      borderRadius: "10px",
+      border: hasError ? "2px solid #e63946" : isValid ? "2px solid #06d6a0" : "2px solid #2A4A5A",
+      backgroundColor: "#0f0f0f",
+      color: "#DAFAF4",
+      fontSize: "15px",
+      outline: "none",
+      transition: "all 0.3s ease",
+      boxSizing: "border-box",
+    };
+  };
+
+  const handleFocusStyle = (e, hasError) => {
+    if (!hasError) {
+      e.target.style.borderColor = "#4CD3C8";
+      e.target.style.backgroundColor = "#1A2A3A";
+    }
+  };
+
+  const handleBlurStyle = (e, fieldName) => {
+    const hasError = touchedFields[fieldName] && fieldErrors[fieldName];
+    const isValid = touchedFields[fieldName] && !fieldErrors[fieldName] && formData[fieldName];
+    
+    if (hasError) {
+      e.target.style.borderColor = "#e63946";
+    } else if (isValid) {
+      e.target.style.borderColor = "#06d6a0";
+    } else {
+      e.target.style.borderColor = "#2A4A5A";
+    }
+    e.target.style.backgroundColor = "#0f0f0f";
+  };
+
   const validateForm = () => {
-    if (!formData.firstName.trim()) {
-      setLocalError("First name is required");
-      return false;
-    }
-    if (!formData.lastName.trim()) {
-      setLocalError("Last name is required");
-      return false;
-    }
-    if (!formData.email.trim()) {
-      setLocalError("Email is required");
-      return false;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      setLocalError("Please enter a valid email");
-      return false;
-    }
-    if (!formData.phone.trim()) {
-      setLocalError("Phone number is required");
-      return false;
-    }
-    if (formData.password.length < 8) {
-      setLocalError("Password must be at least 8 characters");
-      return false;
-    }
-    if (formData.password !== formData.confirmPassword) {
-      setLocalError("Passwords do not match");
-      return false;
-    }
+    const errors = {};
+    
+    // Validate all fields
+    Object.keys(formData).forEach((key) => {
+      const error = validateField(key, formData[key]);
+      if (error) {
+        errors[key] = error;
+      }
+    });
+    
     if (!termsAccepted) {
       setLocalError("Please accept terms and conditions");
       return false;
     }
+    
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setTouchedFields({
+        firstName: true,
+        lastName: true,
+        email: true,
+        phone: true,
+        password: true,
+        confirmPassword: true,
+      });
+      setLocalError("Please fix all errors before submitting");
+      return false;
+    }
+    
     return true;
   };
 
@@ -170,7 +307,7 @@ export default function RegisterPage() {
               color: "#5DDDD2",
               margin: 0,
               fontWeight: "500",
-            }}>Join ProNet today</p>
+            }}>Join Pronext today</p>
           </div>
 
           {(localError || error) && (
@@ -214,27 +351,26 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 placeholder="John"
                 disabled={loading}
-                style={{
-                  width: "100%",
-                  padding: "12px 16px",
-                  borderRadius: "10px",
-                  border: "2px solid #2A4A5A",
-                  backgroundColor: "#0f0f0f",
-                  color: "#DAFAF4",
-                  fontSize: "15px",
-                  outline: "none",
-                  transition: "all 0.3s ease",
-                  boxSizing: "border-box",
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "#4CD3C8";
-                  e.target.style.backgroundColor = "#1A2A3A";
-                }}
+                style={getFieldStyle("firstName")}
+                onFocus={(e) => handleFocusStyle(e, fieldErrors.firstName)}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "#2A4A5A";
-                  e.target.style.backgroundColor = "#0f0f0f";
+                  handleBlur(e);
+                  handleBlurStyle(e, "firstName");
                 }}
               />
+              {touchedFields.firstName && fieldErrors.firstName && (
+                <div style={{
+                  marginTop: "6px",
+                  fontSize: "12px",
+                  color: "#e63946",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                }}>
+                  <i className="fa-solid fa-circle-exclamation" style={{ fontSize: "10px" }}></i>
+                  <span>{fieldErrors.firstName}</span>
+                </div>
+              )}
             </div>
 
             {/* Last Name */}
@@ -254,27 +390,26 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 placeholder="Doe"
                 disabled={loading}
-                style={{
-                  width: "100%",
-                  padding: "12px 16px",
-                  borderRadius: "10px",
-                  border: "2px solid #2A4A5A",
-                  backgroundColor: "#0f0f0f",
-                  color: "#DAFAF4",
-                  fontSize: "15px",
-                  outline: "none",
-                  transition: "all 0.3s ease",
-                  boxSizing: "border-box",
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "#4CD3C8";
-                  e.target.style.backgroundColor = "#1A2A3A";
-                }}
+                style={getFieldStyle("lastName")}
+                onFocus={(e) => handleFocusStyle(e, fieldErrors.lastName)}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "#2A4A5A";
-                  e.target.style.backgroundColor = "#0f0f0f";
+                  handleBlur(e);
+                  handleBlurStyle(e, "lastName");
                 }}
               />
+              {touchedFields.lastName && fieldErrors.lastName && (
+                <div style={{
+                  marginTop: "6px",
+                  fontSize: "12px",
+                  color: "#e63946",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                }}>
+                  <i className="fa-solid fa-circle-exclamation" style={{ fontSize: "10px" }}></i>
+                  <span>{fieldErrors.lastName}</span>
+                </div>
+              )}
             </div>
 
             {/* Email */}
@@ -286,35 +421,34 @@ export default function RegisterPage() {
                 color: "#DAFAF4",
                 marginBottom: "8px",
                 textTransform: "uppercase",
-              }}>Email</label>
+              }}>Email Address</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="your@email.com"
+                placeholder="john@example.com"
                 disabled={loading}
-                style={{
-                  width: "100%",
-                  padding: "12px 16px",
-                  borderRadius: "10px",
-                  border: "2px solid #2A4A5A",
-                  backgroundColor: "#0f0f0f",
-                  color: "#DAFAF4",
-                  fontSize: "15px",
-                  outline: "none",
-                  transition: "all 0.3s ease",
-                  boxSizing: "border-box",
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "#4CD3C8";
-                  e.target.style.backgroundColor = "#1A2A3A";
-                }}
+                style={getFieldStyle("email")}
+                onFocus={(e) => handleFocusStyle(e, fieldErrors.email)}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "#2A4A5A";
-                  e.target.style.backgroundColor = "#0f0f0f";
+                  handleBlur(e);
+                  handleBlurStyle(e, "email");
                 }}
               />
+              {touchedFields.email && fieldErrors.email && (
+                <div style={{
+                  marginTop: "6px",
+                  fontSize: "12px",
+                  color: "#e63946",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                }}>
+                  <i className="fa-solid fa-circle-exclamation" style={{ fontSize: "10px" }}></i>
+                  <span>{fieldErrors.email}</span>
+                </div>
+              )}
             </div>
 
             {/* Phone */}
@@ -326,35 +460,34 @@ export default function RegisterPage() {
                 color: "#DAFAF4",
                 marginBottom: "8px",
                 textTransform: "uppercase",
-              }}>Phone</label>
+              }}>Phone Number</label>
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="1234567890"
+                placeholder="+1 (555) 123-4567"
                 disabled={loading}
-                style={{
-                  width: "100%",
-                  padding: "12px 16px",
-                  borderRadius: "10px",
-                  border: "2px solid #2A4A5A",
-                  backgroundColor: "#0f0f0f",
-                  color: "#DAFAF4",
-                  fontSize: "15px",
-                  outline: "none",
-                  transition: "all 0.3s ease",
-                  boxSizing: "border-box",
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "#4CD3C8";
-                  e.target.style.backgroundColor = "#1A2A3A";
-                }}
+                style={getFieldStyle("phone")}
+                onFocus={(e) => handleFocusStyle(e, fieldErrors.phone)}
                 onBlur={(e) => {
-                  e.target.style.borderColor = "#2A4A5A";
-                  e.target.style.backgroundColor = "#0f0f0f";
+                  handleBlur(e);
+                  handleBlurStyle(e, "phone");
                 }}
               />
+              {touchedFields.phone && fieldErrors.phone && (
+                <div style={{
+                  marginTop: "6px",
+                  fontSize: "12px",
+                  color: "#e63946",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                }}>
+                  <i className="fa-solid fa-circle-exclamation" style={{ fontSize: "10px" }}></i>
+                  <span>{fieldErrors.phone}</span>
+                </div>
+              )}
             </div>
 
             {/* Password */}
@@ -367,7 +500,7 @@ export default function RegisterPage() {
                 marginBottom: "8px",
                 textTransform: "uppercase",
               }}>Password</label>
-              <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <div style={{ position: "relative" }}>
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
@@ -376,42 +509,74 @@ export default function RegisterPage() {
                   placeholder="••••••••"
                   disabled={loading}
                   style={{
-                    flex: 1,
-                    padding: "12px 16px",
-                    borderRadius: "10px",
-                    border: "2px solid #2A4A5A",
-                    backgroundColor: "#0f0f0f",
-                    color: "#DAFAF4",
-                    fontSize: "15px",
-                    outline: "none",
-                    transition: "all 0.3s ease",
-                    boxSizing: "border-box",
+                    ...getFieldStyle("password"),
+                    paddingRight: "45px",
                   }}
-                  onFocus={(e) => {
-                    e.target.style.borderColor = "#4CD3C8";
-                    e.target.style.backgroundColor = "#1A2A3A";
-                  }}
+                  onFocus={(e) => handleFocusStyle(e, fieldErrors.password)}
                   onBlur={(e) => {
-                    e.target.style.borderColor = "#2A4A5A";
-                    e.target.style.backgroundColor = "#0f0f0f";
+                    handleBlur(e);
+                    handleBlurStyle(e, "password");
                   }}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   style={{
-                    padding: "12px 16px",
-                    background: "#4CD3C8",
-                    color: "#0B1929",
+                    position: "absolute",
+                    right: "12px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "transparent",
                     border: "none",
-                    borderRadius: "8px",
+                    color: "#5DDDD2",
                     cursor: "pointer",
-                    fontWeight: "600",
+                    padding: "4px",
+                    fontSize: "16px",
                   }}
                 >
-                  {showPassword ? "Hide" : "Show"}
+                  <i className={showPassword ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}></i>
                 </button>
               </div>
+              {formData.password && (
+                <div style={{ marginTop: "8px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
+                    <div style={{
+                      flex: 1,
+                      height: "4px",
+                      backgroundColor: "#2A4A5A",
+                      borderRadius: "2px",
+                      overflow: "hidden",
+                    }}>
+                      <div style={{
+                        height: "100%",
+                        width: `${(getPasswordStrength(formData.password).strength / 5) * 100}%`,
+                        backgroundColor: getPasswordStrength(formData.password).color,
+                        transition: "all 0.3s ease",
+                      }}></div>
+                    </div>
+                    <span style={{
+                      fontSize: "11px",
+                      fontWeight: "600",
+                      color: getPasswordStrength(formData.password).color,
+                    }}>
+                      {getPasswordStrength(formData.password).label}
+                    </span>
+                  </div>
+                </div>
+              )}
+              {touchedFields.password && fieldErrors.password && (
+                <div style={{
+                  marginTop: "6px",
+                  fontSize: "12px",
+                  color: "#e63946",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                }}>
+                  <i className="fa-solid fa-circle-exclamation" style={{ fontSize: "10px" }}></i>
+                  <span>{fieldErrors.password}</span>
+                </div>
+              )}
             </div>
 
             {/* Confirm Password */}
@@ -424,7 +589,7 @@ export default function RegisterPage() {
                 marginBottom: "8px",
                 textTransform: "uppercase",
               }}>Confirm Password</label>
-              <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <div style={{ position: "relative" }}>
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   name="confirmPassword"
@@ -433,42 +598,60 @@ export default function RegisterPage() {
                   placeholder="••••••••"
                   disabled={loading}
                   style={{
-                    flex: 1,
-                    padding: "12px 16px",
-                    borderRadius: "10px",
-                    border: "2px solid #2A4A5A",
-                    backgroundColor: "#0f0f0f",
-                    color: "#DAFAF4",
-                    fontSize: "15px",
-                    outline: "none",
-                    transition: "all 0.3s ease",
-                    boxSizing: "border-box",
+                    ...getFieldStyle("confirmPassword"),
+                    paddingRight: "45px",
                   }}
-                  onFocus={(e) => {
-                    e.target.style.borderColor = "#4CD3C8";
-                    e.target.style.backgroundColor = "#1A2A3A";
-                  }}
+                  onFocus={(e) => handleFocusStyle(e, fieldErrors.confirmPassword)}
                   onBlur={(e) => {
-                    e.target.style.borderColor = "#2A4A5A";
-                    e.target.style.backgroundColor = "#0f0f0f";
+                    handleBlur(e);
+                    handleBlurStyle(e, "confirmPassword");
                   }}
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   style={{
-                    padding: "12px 16px",
-                    background: "#4CD3C8",
-                    color: "#0B1929",
+                    position: "absolute",
+                    right: "12px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "transparent",
                     border: "none",
-                    borderRadius: "8px",
+                    color: "#5DDDD2",
                     cursor: "pointer",
-                    fontWeight: "600",
+                    padding: "4px",
+                    fontSize: "16px",
                   }}
                 >
-                  {showConfirmPassword ? "Hide" : "Show"}
+                  <i className={showConfirmPassword ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}></i>
                 </button>
               </div>
+              {touchedFields.confirmPassword && !fieldErrors.confirmPassword && formData.confirmPassword && (
+                <div style={{
+                  marginTop: "6px",
+                  fontSize: "12px",
+                  color: "#06d6a0",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                }}>
+                  <i className="fa-solid fa-circle-check" style={{ fontSize: "10px" }}></i>
+                  <span>Passwords match</span>
+                </div>
+              )}
+              {touchedFields.confirmPassword && fieldErrors.confirmPassword && (
+                <div style={{
+                  marginTop: "6px",
+                  fontSize: "12px",
+                  color: "#e63946",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                }}>
+                  <i className="fa-solid fa-circle-exclamation" style={{ fontSize: "10px" }}></i>
+                  <span>{fieldErrors.confirmPassword}</span>
+                </div>
+              )}
             </div>
 
             {/* Terms */}
@@ -566,7 +749,7 @@ export default function RegisterPage() {
           color: "#5DDDD2",
           fontSize: "12px",
         }}>
-          <p style={{ margin: 0 }}>ProNet © 2025 | All rights reserved</p>
+          <p style={{ margin: 0 }}>Pronext © 2025 | All rights reserved</p>
         </div>
       </div>
 

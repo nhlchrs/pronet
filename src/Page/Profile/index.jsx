@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { userAPI } from "../../services/api";
 import ProfilePictureUpload from "../../Components/ProfilePictureUpload";
+import { toast } from "sonner";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -39,6 +40,8 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [touchedFields, setTouchedFields] = useState({});
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -115,6 +118,15 @@ export default function ProfilePage() {
       ...prev,
       [name]: value,
     }));
+    
+    // Clear field error if user is typing
+    if (touchedFields[name]) {
+      const error = validateProfileField(name, value);
+      setFieldErrors((prev) => ({
+        ...prev,
+        [name]: error,
+      }));
+    }
   };
 
   const handlePasswordChange = (e) => {
@@ -123,32 +135,153 @@ export default function ProfilePage() {
       ...prev,
       [name]: value,
     }));
+    
+    // Clear field error if user is typing
+    if (touchedFields[name]) {
+      const error = validatePasswordField(name, value);
+      setFieldErrors((prev) => ({
+        ...prev,
+        [name]: error,
+      }));
+    }
+  };
+
+  const handleFieldBlur = (e) => {
+    const { name, value } = e.target;
+    setTouchedFields((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+    
+    let error = "";
+    if (isChangingPassword) {
+      error = validatePasswordField(name, value);
+    } else {
+      error = validateProfileField(name, value);
+    }
+    
+    setFieldErrors((prev) => ({
+      ...prev,
+      [name]: error,
+    }));
+  };
+
+  const validateProfileField = (name, value) => {
+    let error = "";
+    
+    switch (name) {
+      case "fname":
+        if (!value.trim()) {
+          error = "First name is required";
+        } else if (value.trim().length < 2) {
+          error = "First name must be at least 2 characters";
+        }
+        break;
+      case "lname":
+        if (!value.trim()) {
+          error = "Last name is required";
+        } else if (value.trim().length < 2) {
+          error = "Last name must be at least 2 characters";
+        }
+        break;
+      case "email":
+        if (value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          error = "Please enter a valid email address";
+        }
+        break;
+      case "phone":
+        if (value.trim() && !/^[\d\s\-\+\(\)]{10,}$/.test(value)) {
+          error = "Please enter a valid phone number";
+        }
+        break;
+      case "dob":
+        if (value) {
+          const selectedDate = new Date(value);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          
+          if (selectedDate > today) {
+            error = "Date of birth cannot be in the future";
+          }
+          
+          // Check if date is too old (more than 120 years ago)
+          const minDate = new Date();
+          minDate.setFullYear(minDate.getFullYear() - 120);
+          if (selectedDate < minDate) {
+            error = "Please enter a valid date of birth";
+          }
+        }
+        break;
+      default:
+        break;
+    }
+    
+    return error;
+  };
+
+  const validatePasswordField = (name, value) => {
+    let error = "";
+    
+    switch (name) {
+      case "currentPassword":
+        if (!value.trim()) {
+          error = "Current password is required";
+        }
+        break;
+      case "newPassword":
+        if (!value) {
+          error = "New password is required";
+        } else if (value.length < 8) {
+          error = "Password must be at least 8 characters";
+        } else if (!/(?=.*[a-z])/.test(value)) {
+          error = "Password must contain a lowercase letter";
+        } else if (!/(?=.*[A-Z])/.test(value)) {
+          error = "Password must contain an uppercase letter";
+        } else if (!/(?=.*\d)/.test(value)) {
+          error = "Password must contain a number";
+        }
+        break;
+      case "confirmPassword":
+        if (!value) {
+          error = "Please confirm your password";
+        } else if (value !== passwordData.newPassword) {
+          error = "Passwords do not match";
+        }
+        break;
+      default:
+        break;
+    }
+    
+    return error;
   };
 
   const validatePasswordForm = () => {
-    if (!passwordData.currentPassword.trim()) {
-      setError("Current password is required");
+    const errors = {};
+    
+    // Validate all password fields
+    Object.keys(passwordData).forEach((key) => {
+      const error = validatePasswordField(key, passwordData[key]);
+      if (error) {
+        errors[key] = error;
+      }
+    });
+    
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setTouchedFields({
+        currentPassword: true,
+        newPassword: true,
+        confirmPassword: true,
+      });
+      toast.error("Please fix all errors before submitting");
       return false;
     }
-    if (!passwordData.newPassword.trim()) {
-      setError("New password is required");
-      return false;
-    }
-    if (passwordData.newPassword.length < 8) {
-      setError("New password must be at least 8 characters");
-      return false;
-    }
-    if (passwordData.newPassword !== passwordData.confirmPassword) {
-      setError("Passwords do not match");
-      return false;
-    }
+    
     return true;
   };
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
-    setError("");
-    setSuccessMessage("");
 
     if (!validatePasswordForm()) {
       return;
@@ -161,19 +294,17 @@ export default function ProfilePage() {
         newPassword: passwordData.newPassword,
       });
 
-      setSuccessMessage("Password changed successfully!");
+      toast.success("Password changed successfully!");
       setPasswordData({
         currentPassword: "",
         newPassword: "",
         confirmPassword: "",
       });
+      setFieldErrors({});
+      setTouchedFields({});
       setIsChangingPassword(false);
-
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 3000);
     } catch (err) {
-      setError(err.message || "Failed to change password. Please try again.");
+      toast.error(err.message || "Failed to change password. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -181,15 +312,27 @@ export default function ProfilePage() {
 
   const handleSaveProfile = async (e) => {
     e.preventDefault();
-    setError("");
-    setSuccessMessage("");
 
-    if (!editData.fname.trim()) {
-      setError("First name is required");
-      return;
-    }
-    if (!editData.lname.trim()) {
-      setError("Last name is required");
+    // Validate all fields
+    const errors = {};
+    errors.fname = validateProfileField("fname", editData.fname);
+    errors.lname = validateProfileField("lname", editData.lname);
+    if (editData.email) errors.email = validateProfileField("email", editData.email);
+    if (editData.phone) errors.phone = validateProfileField("phone", editData.phone);
+    if (editData.dob) errors.dob = validateProfileField("dob", editData.dob);
+
+    // Filter out empty errors
+    const validErrors = {};
+    Object.keys(errors).forEach((key) => {
+      if (errors[key]) {
+        validErrors[key] = errors[key];
+      }
+    });
+
+    if (Object.keys(validErrors).length > 0) {
+      setFieldErrors(validErrors);
+      setTouchedFields({ fname: true, lname: true, email: true, phone: true, dob: true });
+      toast.error("Please fix all errors before submitting");
       return;
     }
 
@@ -218,14 +361,12 @@ export default function ProfilePage() {
         address: editData.address,
       }));
 
-      setSuccessMessage("Profile updated successfully!");
+      toast.success("Profile updated successfully!");
       setIsEditing(false);
-
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 3000);
+      setFieldErrors({});
+      setTouchedFields({});
     } catch (err) {
-      setError(err.message || "Failed to update profile. Please try again.");
+      toast.error(err.message || "Failed to update profile. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -234,6 +375,40 @@ export default function ProfilePage() {
   const handleLogout = () => {
     logout();
     navigate("/");
+  };
+
+  const getFieldStyle = (fieldName) => {
+    const hasError = touchedFields[fieldName] && fieldErrors[fieldName];
+    const isValid = touchedFields[fieldName] && !fieldErrors[fieldName];
+    
+    return {
+      width: "100%",
+      padding: "12px 16px",
+      borderRadius: "10px",
+      border: hasError ? "2px solid #e63946" : isValid ? "2px solid #06d6a0" : "2px solid #2A4A5A",
+      backgroundColor: "#0f0f0f",
+      color: "#DAFAF4",
+      fontSize: "15px",
+      outline: "none",
+      transition: "all 0.3s ease",
+      boxSizing: "border-box",
+    };
+  };
+
+  const getPasswordStrength = (password) => {
+    if (!password) return { strength: 0, label: "", color: "" };
+    
+    let strength = 0;
+    if (password.length >= 8) strength++;
+    if (/(?=.*[a-z])/.test(password)) strength++;
+    if (/(?=.*[A-Z])/.test(password)) strength++;
+    if (/(?=.*\d)/.test(password)) strength++;
+    if (/(?=.*[@$!%*?&#])/.test(password)) strength++;
+    
+    if (strength <= 2) return { strength, label: "Weak", color: "#e63946" };
+    if (strength === 3) return { strength, label: "Fair", color: "#f77f00" };
+    if (strength === 4) return { strength, label: "Good", color: "#06d6a0" };
+    return { strength, label: "Strong", color: "#4CD3C8" };
   };
 
   if (loading && !profileData.name) {
@@ -324,38 +499,6 @@ export default function ProfilePage() {
             Manage your account information and settings
           </p>
         </div>
-
-        {/* Alert Messages */}
-        {error && (
-          <div
-            style={{
-              marginBottom: "20px",
-              padding: "12px 16px",
-              backgroundColor: "#ff4444",
-              color: "#fff",
-              borderRadius: "8px",
-              fontSize: "14px",
-            }}
-          >
-            {error}
-          </div>
-        )}
-
-        {successMessage && (
-          <div
-            style={{
-              marginBottom: "20px",
-              padding: "12px 16px",
-              backgroundColor: "#4CD3C8",
-              color: "#0B1929",
-              borderRadius: "8px",
-              fontSize: "14px",
-              fontWeight: "bold",
-            }}
-          >
-            {successMessage}
-          </div>
-        )}
 
         {/* Profile Card */}
         <div
@@ -664,17 +807,28 @@ export default function ProfilePage() {
                   name="fname"
                   value={editData.fname}
                   onChange={handleEditChange}
+                  onBlur={handleFieldBlur}
                   style={{
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #2A4A5A",
+                    border: fieldErrors.fname ? "1px solid #e63946" : "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
                     boxSizing: "border-box",
                   }}
                 />
+                {fieldErrors.fname && (
+                  <p style={{
+                    color: "#e63946",
+                    fontSize: "12px",
+                    marginTop: "5px",
+                    marginBottom: "0"
+                  }}>
+                    {fieldErrors.fname}
+                  </p>
+                )}
               </div>
 
               <div style={{ marginBottom: "20px" }}>
@@ -695,17 +849,28 @@ export default function ProfilePage() {
                   name="lname"
                   value={editData.lname}
                   onChange={handleEditChange}
+                  onBlur={handleFieldBlur}
                   style={{
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #2A4A5A",
+                    border: fieldErrors.lname ? "1px solid #e63946" : "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
                     boxSizing: "border-box",
                   }}
                 />
+                {fieldErrors.lname && (
+                  <p style={{
+                    color: "#e63946",
+                    fontSize: "12px",
+                    marginTop: "5px",
+                    marginBottom: "0"
+                  }}>
+                    {fieldErrors.lname}
+                  </p>
+                )}
               </div>
 
               <div style={{ marginBottom: "20px" }}>
@@ -726,17 +891,28 @@ export default function ProfilePage() {
                   name="email"
                   value={editData.email}
                   onChange={handleEditChange}
+                  onBlur={handleFieldBlur}
                   style={{
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #2A4A5A",
+                    border: fieldErrors.email ? "1px solid #e63946" : "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
                     boxSizing: "border-box",
                   }}
                 />
+                {fieldErrors.email && (
+                  <p style={{
+                    color: "#e63946",
+                    fontSize: "12px",
+                    marginTop: "5px",
+                    marginBottom: "0"
+                  }}>
+                    {fieldErrors.email}
+                  </p>
+                )}
               </div>
 
               <div style={{ marginBottom: "20px" }}>
@@ -757,17 +933,28 @@ export default function ProfilePage() {
                   name="phone"
                   value={editData.phone}
                   onChange={handleEditChange}
+                  onBlur={handleFieldBlur}
                   style={{
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #2A4A5A",
+                    border: fieldErrors.phone ? "1px solid #e63946" : "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
                     boxSizing: "border-box",
                   }}
                 />
+                {fieldErrors.phone && (
+                  <p style={{
+                    color: "#e63946",
+                    fontSize: "12px",
+                    marginTop: "5px",
+                    marginBottom: "0"
+                  }}>
+                    {fieldErrors.phone}
+                  </p>
+                )}
               </div>
 
               <div style={{ marginBottom: "20px" }}>
@@ -788,17 +975,29 @@ export default function ProfilePage() {
                   name="dob"
                   value={editData.dob}
                   onChange={handleEditChange}
+                  onBlur={handleFieldBlur}
+                  max={new Date().toISOString().split('T')[0]}
                   style={{
                     width: "100%",
                     padding: "12px 16px",
                     backgroundColor: "#252525",
-                    border: "1px solid #2A4A5A",
+                    border: fieldErrors.dob ? "1px solid #e63946" : "1px solid #2A4A5A",
                     borderRadius: "8px",
                     color: "#DAFAF4",
                     fontSize: "14px",
                     boxSizing: "border-box",
                   }}
                 />
+                {fieldErrors.dob && (
+                  <p style={{
+                    color: "#e63946",
+                    fontSize: "12px",
+                    marginTop: "5px",
+                    marginBottom: "0"
+                  }}>
+                    {fieldErrors.dob}
+                  </p>
+                )}
               </div>
 
               <div style={{ marginBottom: "30px" }}>

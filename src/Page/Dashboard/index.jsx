@@ -417,18 +417,122 @@ export default function Dashboard() {
                   marginBottom: "30px",
                 }}
               >
-                <h3 style={{ color: "#DAFAF4", marginTop: 0, marginBottom: "24px" }}>
-                  Platform Metrics
+                <h3 style={{ color: "#DAFAF4", marginTop: 0, marginBottom: "24px", display: "flex", alignItems: "center", gap: "12px" }}>
+                  <span style={{ fontSize: "28px" }}>📊</span>
+                  Your Statistics
                 </h3>
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
                     gap: "20px",
                   }}
                 >
+                  {/* User Statistics */}
+                  {metrics.users && (
+                    <>
+                      <div
+                        style={{
+                          backgroundColor: "rgba(76, 211, 200, 0.1)",
+                          padding: "20px",
+                          borderRadius: "12px",
+                          border: "2px solid #4CD3C8",
+                        }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
+                          <span style={{ fontSize: "24px" }}>👥</span>
+                          <p
+                            style={{
+                              color: "#5DDDD2",
+                              fontSize: "13px",
+                              textTransform: "uppercase",
+                              margin: 0,
+                              fontWeight: "600",
+                              letterSpacing: "0.5px",
+                            }}
+                          >
+                            Total Users
+                          </p>
+                        </div>
+                        <p
+                          style={{
+                            color: "#DAFAF4",
+                            fontSize: "32px",
+                            fontWeight: "bold",
+                            margin: 0,
+                          }}
+                        >
+                          {metrics.users.total?.toLocaleString() || "0"}
+                        </p>
+                        <div style={{ marginTop: "12px", display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                          <span style={{ color: "#06d6a0", fontSize: "12px", backgroundColor: "rgba(6, 214, 160, 0.15)", padding: "4px 8px", borderRadius: "6px" }}>
+                            ✓ Active: {metrics.users.active || 0}
+                          </span>
+                          {metrics.users.newToday > 0 && (
+                            <span style={{ color: "#4CD3C8", fontSize: "12px", backgroundColor: "rgba(76, 211, 200, 0.15)", padding: "4px 8px", borderRadius: "6px" }}>
+                              🆕 Today: +{metrics.users.newToday}
+                            </span>
+                          )}
+                          {metrics.users.newThisMonth > 0 && (
+                            <span style={{ color: "#5DDDD2", fontSize: "12px", backgroundColor: "rgba(93, 221, 210, 0.15)", padding: "4px 8px", borderRadius: "6px" }}>
+                              📅 This Month: +{metrics.users.newThisMonth}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {/* Revenue Statistics */}
+                  {metrics.revenue && (
+                    <>
+                      <div
+                        style={{
+                          backgroundColor: "rgba(6, 214, 160, 0.1)",
+                          padding: "20px",
+                          borderRadius: "12px",
+                          border: "2px solid #06d6a0",
+                        }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
+                          <span style={{ fontSize: "24px" }}>💰</span>
+                          <p
+                            style={{
+                              color: "#5DDDD2",
+                              fontSize: "13px",
+                              textTransform: "uppercase",
+                              margin: 0,
+                              fontWeight: "600",
+                              letterSpacing: "0.5px",
+                            }}
+                          >
+                            Total Revenue
+                          </p>
+                        </div>
+                        <p
+                          style={{
+                            color: "#DAFAF4",
+                            fontSize: "32px",
+                            fontWeight: "bold",
+                            margin: 0,
+                          }}
+                        >
+                          ${(metrics.revenue.total || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </p>
+                        <div style={{ marginTop: "12px" }}>
+                          <span style={{ color: "#06d6a0", fontSize: "12px", backgroundColor: "rgba(6, 214, 160, 0.15)", padding: "4px 8px", borderRadius: "6px" }}>
+                            📈 This Month: ${(metrics.revenue.thisMonth || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {/* Other metrics */}
                   {Object.entries(metrics)
-                    .filter(([_, value]) => {
+                    .filter(([key, value]) => {
+                      // Skip users and revenue as they're handled above
+                      if (key === "users" || key === "revenue") return false;
                       // Only show simple values, not complex objects
                       return (
                         typeof value === "number" ||
@@ -441,35 +545,38 @@ export default function Dashboard() {
                         key={key}
                         style={{
                           backgroundColor: "#252525",
-                          padding: "16px",
-                          borderRadius: "8px",
+                          padding: "20px",
+                          borderRadius: "12px",
                           border: "1px solid #2A4A5A",
                         }}
                       >
                         <p
                           style={{
                             color: "#5DDDD2",
-                            fontSize: "12px",
-                            textTransform: "capitalize",
+                            fontSize: "13px",
+                            textTransform: "uppercase",
                             margin: 0,
-                            marginBottom: "8px",
-                            fontWeight: "bold",
+                            marginBottom: "12px",
+                            fontWeight: "600",
+                            letterSpacing: "0.5px",
                           }}
                         >
                           {key.replace(/([A-Z])/g, " $1").trim()}
                         </p>
                         <p
                           style={{
-                            color: "#4CD3C8",
-                            fontSize: "24px",
+                            color: "#DAFAF4",
+                            fontSize: "28px",
                             fontWeight: "bold",
                             margin: 0,
                           }}
                         >
                           {typeof value === "boolean"
                             ? value
-                              ? "Active"
-                              : "Inactive"
+                              ? "✓ Active"
+                              : "✗ Inactive"
+                            : typeof value === "number"
+                            ? value.toLocaleString()
                             : value}
                         </p>
                       </div>
@@ -478,52 +585,109 @@ export default function Dashboard() {
 
                 {/* Show complex metrics separately if any */}
                 {Object.entries(metrics).some(
-                  ([_, value]) =>
-                    typeof value === "object" && value !== null
+                  ([key, value]) =>
+                    key !== "users" && key !== "revenue" && typeof value === "object" && value !== null
                 ) && (
-                  <div style={{ marginTop: "20px", paddingTop: "20px", borderTop: "1px solid #2A4A5A" }}>
-                    <h4 style={{ color: "#DAFAF4", marginTop: 0 }}>Additional Details</h4>
+                  <div style={{ marginTop: "32px", paddingTop: "24px", borderTop: "2px solid #2A4A5A" }}>
+                    <h4 style={{ 
+                      color: "#DAFAF4", 
+                      marginTop: 0,
+                      marginBottom: "20px",
+                      fontSize: "20px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px"
+                    }}>
+                      <span style={{ fontSize: "24px" }}>📋</span>
+                      Additional Details
+                    </h4>
                     <div
                       style={{
                         display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-                        gap: "16px",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                        gap: "20px",
                       }}
                     >
                       {Object.entries(metrics)
                         .filter(
-                          ([_, value]) =>
-                            typeof value === "object" && value !== null
+                          ([key, value]) =>
+                            key !== "users" && key !== "revenue" && typeof value === "object" && value !== null
                         )
                         .map(([key, value]) => (
                           <div
                             key={key}
                             style={{
-                              backgroundColor: "#252525",
-                              padding: "16px",
-                              borderRadius: "8px",
+                              backgroundColor: "rgba(42, 74, 90, 0.3)",
+                              padding: "20px",
+                              borderRadius: "12px",
                               border: "1px solid #2A4A5A",
+                              transition: "all 0.3s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.borderColor = "#4CD3C8";
+                              e.currentTarget.style.backgroundColor = "rgba(76, 211, 200, 0.1)";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.borderColor = "#2A4A5A";
+                              e.currentTarget.style.backgroundColor = "rgba(42, 74, 90, 0.3)";
                             }}
                           >
                             <p
                               style={{
-                                color: "#5DDDD2",
-                                fontSize: "12px",
-                                textTransform: "capitalize",
+                                color: "#4CD3C8",
+                                fontSize: "14px",
+                                textTransform: "uppercase",
                                 margin: 0,
-                                marginBottom: "8px",
-                                fontWeight: "bold",
+                                marginBottom: "16px",
+                                fontWeight: "700",
+                                letterSpacing: "1px",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
                               }}
                             >
+                              <span style={{ fontSize: "18px" }}>▪</span>
                               {key.replace(/([A-Z])/g, " $1").trim()}
                             </p>
-                            <ul style={{ color: "#DAFAF4", fontSize: "13px", margin: 0, paddingLeft: "20px" }}>
-                              {Object.entries(value).map(([subKey, subValue]) => (
-                                <li key={subKey} style={{ marginBottom: "4px" }}>
-                                  <strong>{subKey}:</strong> {String(subValue)}
-                                </li>
+                            <div style={{ 
+                              backgroundColor: "#0B1929",
+                              padding: "12px",
+                              borderRadius: "8px",
+                              border: "1px solid #1A2A3A"
+                            }}>
+                              {Object.entries(value).map(([subKey, subValue], index) => (
+                                <div 
+                                  key={subKey} 
+                                  style={{ 
+                                    marginBottom: index < Object.entries(value).length - 1 ? "10px" : "0",
+                                    paddingBottom: index < Object.entries(value).length - 1 ? "10px" : "0",
+                                    borderBottom: index < Object.entries(value).length - 1 ? "1px solid #2A4A5A" : "none"
+                                  }}
+                                >
+                                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px" }}>
+                                    <span style={{ 
+                                      color: "#5DDDD2", 
+                                      fontSize: "12px",
+                                      textTransform: "capitalize",
+                                      fontWeight: "500"
+                                    }}>
+                                      {subKey.replace(/([A-Z])/g, " $1").trim()}:
+                                    </span>
+                                    <span style={{ 
+                                      color: "#DAFAF4", 
+                                      fontSize: "14px",
+                                      fontWeight: "600"
+                                    }}>
+                                      {typeof subValue === "number" 
+                                        ? subValue.toLocaleString() 
+                                        : typeof subValue === "boolean"
+                                        ? subValue ? "✓" : "✗"
+                                        : String(subValue)}
+                                    </span>
+                                  </div>
+                                </div>
                               ))}
-                            </ul>
+                            </div>
                           </div>
                         ))}
                     </div>

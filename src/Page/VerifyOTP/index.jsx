@@ -476,7 +476,7 @@ export default function VerifyOTPPage() {
           }}
         >
           <p style={{ margin: 0 }}>
-            ProNet © 2025 | All rights reserved
+            Pronext © 2025 | All rights reserved
           </p>
         </div>
       </div>
