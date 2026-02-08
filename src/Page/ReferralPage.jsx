@@ -144,10 +144,10 @@ export const ReferralPage = () => {
               {hasJoinedTeam ? (
                 <>
                   <div className="tab-header">
-                    <h2>Your Team Hierarchy</h2>
+                    <h2>Your Team Downline</h2>
                     <p>
-                      View your entire team structure, member details, and track your network growth.
-                      The tree below shows all your direct and indirect referrals.
+                      View your team structure starting from you as the root.
+                      The tree below shows all your direct referrals and their teams (your downline).
                     </p>
                   </div>
                   <div className="tab-body">

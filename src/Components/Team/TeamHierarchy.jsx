@@ -196,12 +196,12 @@ export const TeamHierarchy = ({ isActive }) => {
 
   const fetchHierarchy = async () => {
     try {
-      const response = await teamAPI.getDownlineStructure();
-      console.log('Hierarchy API Response:', response);
+      const response = await teamAPI.getUserDownline();
+      console.log('User Downline API Response:', response);
 
       if (response.success) {
-        setHierarchyData(response.data);
-        setCurrentUserId(response.currentUserId);
+        setHierarchyData(response.data.hierarchy);
+        setCurrentUserId(response.data.currentUserId);
         setError('');
       } else {
         setError(response.message || 'Could not load team hierarchy');

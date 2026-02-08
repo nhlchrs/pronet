@@ -294,6 +294,11 @@ export const teamAPI = {
   getDownlineStructure: async () => {
     return apiCall('/team/downline-structure/me', 'GET');
   },
+
+  // Get user's own downline (user as root, no ancestors)
+  getUserDownline: async () => {
+    return apiCall('/team/my-downline', 'GET');
+  },
 };
 
 // ===== ANALYTICS ENDPOINTS =====
