@@ -361,6 +361,34 @@ const Navbar = () => {
                                                     <i className="fa-solid fa-credit-card" style={{ marginRight: '8px' }}></i>
                                                     Payments
                                                 </button>
+                                                <button
+                                                    onClick={() => {
+                                                        navigate('/payout');
+                                                        setShowUserMenu(false);
+                                                    }}
+                                                    style={{
+                                                        width: '100%',
+                                                        padding: '10px 16px',
+                                                        backgroundColor: 'transparent',
+                                                        border: 'none',
+                                                        color: '#DAFAF4',
+                                                        textAlign: 'left',
+                                                        cursor: 'pointer',
+                                                        fontSize: '14px',
+                                                        transition: 'all 0.2s ease',
+                                                    }}
+                                                    onMouseEnter={(e) => {
+                                                        e.target.style.backgroundColor = '#4CD3C812';
+                                                        e.target.style.color = '#4CD3C8';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        e.target.style.backgroundColor = 'transparent';
+                                                        e.target.style.color = '#DAFAF4';
+                                                    }}
+                                                >
+                                                    <i className="fa-solid fa-money-bill-transfer" style={{ marginRight: '8px' }}></i>
+                                                    Payout
+                                                </button>
                                                 <div style={{ height: '1px', backgroundColor: '#2A4A5A', margin: '8px 0' }}></div>
                                                 <button
                                                     onClick={() => {

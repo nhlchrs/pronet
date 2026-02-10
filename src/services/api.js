@@ -111,6 +111,15 @@ export const userAPI = {
   changePassword: async (passwordData) => {
     return apiCall('/user/change-password', 'POST', passwordData);
   },
+
+  // Crypto wallet endpoints
+  getCryptoWallet: async () => {
+    return apiCall('/user/crypto-wallet', 'GET');
+  },
+
+  updateCryptoWallet: async (walletData) => {
+    return apiCall('/user/crypto-wallet', 'PUT', walletData);
+  },
 };
 
 // ===== MEETING ENDPOINTS =====
@@ -298,6 +307,27 @@ export const teamAPI = {
   // Get user's own downline (user as root, no ancestors)
   getUserDownline: async () => {
     return apiCall('/team/my-downline', 'GET');
+  },
+
+  // Payout endpoints
+  getPayoutBalance: async () => {
+    return apiCall('/team/payout/balance', 'GET');
+  },
+
+  requestPayout: async (payoutData) => {
+    return apiCall('/team/payout/request', 'POST', payoutData);
+  },
+
+  getPayoutHistory: async (page = 1, limit = 10) => {
+    return apiCall(`/team/payout/history?page=${page}&limit=${limit}`, 'GET');
+  },
+
+  getPayoutDetails: async (payoutId) => {
+    return apiCall(`/team/payout/${payoutId}`, 'GET');
+  },
+
+  getPayoutStats: async () => {
+    return apiCall('/team/payout/stats/summary', 'GET');
   },
 };
 

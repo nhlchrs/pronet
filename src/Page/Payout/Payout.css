@@ -1,0 +1,1110 @@
+.payout-page-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.08) 0%, rgba(11, 25, 41, 0.08) 100%);
+  padding: 2rem 1rem 4rem;
+}
+
+.payout-content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(76, 211, 200, 0.1);
+  border-top-color: #4CD3C8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+.loading-state p {
+  color: #4CD3C8;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Page Header */
+.payout-header {
+  max-width: 1400px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.payout-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4CD3C8 0%, #0B1929 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.payout-header p {
+  margin: 0;
+  color: #666;
+  font-size: 1rem;
+}
+
+/* Balance Cards */
+.balance-cards {
+  max-width: 1400px;
+  margin: 0 auto 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.balance-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 0 4px 20px rgba(76, 211, 200, 0.12);
+  border: 1px solid rgba(76, 211, 200, 0.1);
+  transition: all 0.3s ease;
+}
+
+.balance-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(76, 211, 200, 0.25);
+  border-color: rgba(76, 211, 200, 0.3);
+}
+
+.balance-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.balance-card-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.balance-card-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.balance-card-amount.success {
+  color: #10B981;
+}
+
+.balance-card-amount.info {
+  color: #3B82F6;
+}
+
+.balance-card-amount.success {
+  color: #10B981;
+}
+
+.balance-card-amount.info {
+  color: #3B82F6;
+}
+
+.balance-card-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.balance-card-icon.primary {
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.1) 0%, rgba(76, 211, 200, 0.2) 100%);
+  color: #4CD3C8;
+}
+
+.balance-card-icon.success {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.2) 100%);
+  color: #10B981;
+}
+
+.balance-card-icon.info {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.2) 100%);
+  color: #3B82F6;
+}
+
+/* Statistics Panel */
+.statistics-panel {
+  max-width: 1400px;
+  margin: 0 auto 2rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 0 4px 20px rgba(76, 211, 200, 0.12);
+  border: 1px solid rgba(76, 211, 200, 0.1);
+}
+
+.statistics-panel h3 {
+  margin: 0 0 1.25rem 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4CD3C8 0%, #0B1929 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.statistics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.05) 0%, rgba(18, 18, 18, 0.05) 100%);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.1) 0%, rgba(18, 18, 18, 0.1) 100%);
+}
+
+.stat-item p {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.stat-item .stat-number {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.stat-number.default {
+  color: #6B7280;
+}
+
+.stat-number.pending {
+  color: #FBBF24;
+}
+
+.stat-number.processing {
+  color: #3B82F6;
+}
+
+.stat-number.completed {
+  color: #10B981;
+}
+
+.stat-number.failed {
+  color: #EF4444;
+}
+
+/* Tabs */
+.payout-tabs-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(76, 211, 200, 0.15);
+  overflow: hidden;
+  border: 1px solid rgba(76, 211, 200, 0.1);
+}
+
+.tabs-header {
+  border-bottom: 2px solid rgba(76, 211, 200, 0.15);
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.03) 0%, rgba(11, 25, 41, 0.03) 100%);
+}
+
+.tabs-nav {
+  display: flex;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 1.25rem 1.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #666;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  top: 2px;
+  font-size: 0.95rem;
+}
+
+.tab-button:hover {
+  color: #4CD3C8;
+  background: rgba(76, 211, 200, 0.05);
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.08) 0%, rgba(11, 25, 41, 0.08) 100%);
+  color: #4CD3C8;
+  border-bottom-color: #4CD3C8;
+}
+
+.tab-content {
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Request Payout Form */
+.payout-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-title {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4CD3C8 0%, #0B1929 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.payout-form {
+  /* Form wrapper */
+}
+
+.form-group {
+  margin-bottom: 1.75rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.form-label .required {
+  color: #EF4444;
+  margin-left: 2px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #E5E7EB;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #4CD3C8;
+  box-shadow: 0 0 0 3px rgba(76, 211, 200, 0.1);
+}
+
+.form-input.currency-input {
+  padding-left: 2rem;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-weight: 500;
+}
+
+.input-with-icon .form-input {
+  padding-left: 2.5rem;
+}
+
+.form-hint {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #6B7280;
+}
+
+/* Payment Method Selector */
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.payment-method-button {
+  padding: 1.25rem;
+  border: 2px solid #E5E7EB;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.payment-method-button:hover {
+  border-color: #4CD3C8;
+  background: rgba(76, 211, 200, 0.05);
+  transform: translateY(-2px);
+}
+
+.payment-method-button.active {
+  border-color: #4CD3C8;
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.1) 0%, rgba(76, 211, 200, 0.05) 100%);
+}
+
+.payment-method-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.payment-method-icon {
+  font-size: 1.5rem;
+  color: #4CD3C8;
+}
+
+.payment-method-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+/* Crypto Wallet Form */
+.crypto-wallet-form {
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.05) 0%, rgba(18, 18, 18, 0.05) 100%);
+  border: 1px solid rgba(76, 211, 200, 0.15);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.crypto-wallet-form h4 {
+  margin: 0 0 1.25rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Cryptocurrency Selection Grid */
+.crypto-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* Simplified Crypto Grid (2 options) */
+.crypto-grid-simple {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 100%;
+}
+
+.crypto-selection-group {
+  margin-bottom: 2rem;
+}
+
+/* Large Crypto Currency Buttons */
+.crypto-currency-button-large {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  border: 3px solid rgba(76, 211, 200, 0.2);
+  border-radius: 16px;
+  background: white;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.crypto-currency-button-large::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.03) 0%, rgba(11, 25, 41, 0.03) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.crypto-currency-button-large:hover {
+  border-color: rgba(76, 211, 200, 0.6);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(76, 211, 200, 0.2);
+}
+
+.crypto-currency-button-large:hover::before {
+  opacity: 1;
+}
+
+.crypto-currency-button-large.active {
+  border-color: #4CD3C8;
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.12) 0%, rgba(76, 211, 200, 0.06) 100%);
+  box-shadow: 0 6px 20px rgba(76, 211, 200, 0.25);
+}
+
+.crypto-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.15) 0%, rgba(11, 25, 41, 0.15) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.crypto-icon-wrapper svg {
+  width: 3.5rem;
+  height: 3.5rem;
+  color: #4CD3C8;
+}
+
+.crypto-currency-button-large.active .crypto-icon-wrapper {
+  background: linear-gradient(135deg, #4CD3C8 0%, #2A7A75 100%);
+}
+
+.crypto-currency-button-large.active .crypto-icon-wrapper svg {
+  color: white;
+}
+
+.crypto-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.crypto-name {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #0B1929;
+  letter-spacing: 0.5px;
+}
+
+.crypto-desc {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #666;
+  text-align: center;
+}
+
+.crypto-badge {
+  display: inline-block;
+  padding: 0.375rem 0.875rem;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+/* Cryptocurrency Selection Buttons */
+.crypto-currency-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 2px solid rgba(76, 211, 200, 0.2);
+  border-radius: 10px;
+  background: white;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.crypto-currency-button:hover {
+  border-color: rgba(76, 211, 200, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 211, 200, 0.15);
+}
+
+.crypto-currency-button.active {
+  border-color: #4CD3C8;
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.1) 0%, rgba(76, 211, 200, 0.05) 100%);
+}
+
+.crypto-currency-button svg {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #4CD3C8;
+}
+
+.crypto-currency-button div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.crypto-currency-button span {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* Crypto Hint */
+.crypto-hint {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.1) 0%, rgba(11, 25, 41, 0.1) 100%);
+  border-left: 4px solid #4CD3C8;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #0B1929;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(76, 211, 200, 0.1);
+}
+
+/* Wallet Address Input */
+.wallet-address-input {
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+.wallet-address-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 6px;
+  margin-top: 0.75rem;
+}
+
+.wallet-address-warning p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #92400e;
+  line-height: 1.4;
+}
+
+/* Submit Button */
+.submit-button {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #4CD3C8 0%, #2A7A75 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(76, 211, 200, 0.3);
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(76, 211, 200, 0.4);
+}
+
+.submit-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submit-button:disabled {
+  background: #9CA3AF;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Info Box */
+.info-box {
+  margin-top: 1.5rem;
+  padding: 1.75rem;
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.1) 0%, rgba(11, 25, 41, 0.15) 100%);
+  border: 2px solid rgba(76, 211, 200, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(76, 211, 200, 0.15);
+}
+
+.info-box-content {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.info-box-icon {
+  min-width: 2rem;
+  color: #10B981;
+  flex-shrink: 0;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-box-icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.info-box-text {
+  flex: 1;
+}
+
+.info-box-title {
+  margin: 0 0 1rem 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #0B1929;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-box-text p {
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.info-box-text ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.info-box-text li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  color: #0B1929;
+  font-size: 0.95rem;
+  padding-left: 2rem;
+  position: relative;
+}
+
+.info-box-text li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #10B981;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.info-box-text li:last-child {
+  margin-bottom: 0;
+}
+
+/* Payout History */
+.payout-history-container h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4CD3C8 0%, #0B1929 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.payout-table-container {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(76, 211, 200, 0.1);
+}
+
+.payout-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.payout-table thead {
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.08) 0%, rgba(11, 25, 41, 0.08) 100%);
+}
+
+.payout-table th {
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid rgba(76, 211, 200, 0.15);
+}
+
+.payout-table tbody tr {
+  border-bottom: 1px solid rgba(76, 211, 200, 0.08);
+  transition: background-color 0.2s ease;
+}
+
+.payout-table tbody tr:hover {
+  background: rgba(76, 211, 200, 0.03);
+}
+
+.payout-table td {
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.payout-table .reference-cell,
+.payout-table .table-reference {
+  font-weight: 600;
+  color: #4CD3C8;
+}
+
+.payout-table .amount-cell,
+.payout-table .table-amount {
+  font-weight: 600;
+  color: #333;
+}
+
+.payout-table .net-amount-cell,
+.payout-table .table-net-amount {
+  font-weight: 700;
+  color: #10B981;
+}
+
+.payout-table .table-date,
+.payout-table .table-method {
+  color: #666;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-flex;
+  padding: 0.375rem 0.875rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-badge.status-pending {
+  background: rgba(251, 191, 36, 0.1);
+  color: #D97706;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.status-badge.status-processing {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563EB;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.status-badge.status-completed {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-badge.status-failed {
+  background: rgba(239, 68, 68, 0.1);
+  color: #DC2626;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.status-badge.status-cancelled {
+  background: rgba(107, 114, 128, 0.1);
+  color: #4B5563;
+  border: 1px solid rgba(107, 114, 128, 0.3);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.empty-state svg {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  color: #D1D5DB;
+}
+
+.empty-state h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.empty-state p {
+  margin: 0 0 1.5rem 0;
+  color: #6B7280;
+  font-size: 0.95rem;
+}
+
+.primary-button,
+.empty-state button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #4CD3C8 0%, #2A7A75 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(76, 211, 200, 0.3);
+}
+
+.primary-button:hover,
+.empty-state button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(76, 211, 200, 0.4);
+}
+
+/* Pagination */
+.pagination-container {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pagination-info {
+  font-size: 0.9rem;
+  color: #6B7280;
+}
+
+.pagination-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.pagination-button {
+  padding: 0.625rem 1.25rem;
+  border: 2px solid #E5E7EB;
+  border-radius: 8px;
+  background: white;
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background: rgba(76, 211, 200, 0.05);
+  border-color: #4CD3C8;
+  color: #4CD3C8;
+}
+
+.pagination-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .payout-page-container {
+    padding: 1rem 0.75rem 2rem;
+  }
+
+  .payout-header h1 {
+    font-size: 1.875rem;
+  }
+
+  .balance-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .statistics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .payout-tabs {
+    flex-direction: column;
+  }
+
+  .tab-button {
+    border-bottom: none;
+    border-left: 3px solid transparent;
+  }
+
+  .tab-button.active {
+    border-bottom: none;
+    border-left-color: #4CD3C8;
+  }
+
+  .tab-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .crypto-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .crypto-grid-simple {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 100%;
+  }
+
+  .crypto-currency-button-large {
+    min-height: 180px;
+    padding: 1.5rem 1rem;
+  }
+
+  .crypto-icon-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+
+  .crypto-icon-wrapper svg {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .crypto-name {
+    font-size: 1.25rem;
+  }
+
+  .payout-table-container {
+    overflow-x: scroll;
+  }
+
+  .pagination-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pagination-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .payment-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .payout-table-container {
+    max-width: 100%;
+  }
+
+  .payout-table {
+    font-size: 0.85rem;
+  }
+
+  .payout-table th,
+  .payout-table td {
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .balance-card-amount {
+    font-size: 1.5rem;
+  }
+
+  .balance-card-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
+
+  .stat-item .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .crypto-currency-button-large {
+    min-height: 160px;
+    padding: 1.25rem 0.875rem;
+  }
+
+  .crypto-icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .crypto-icon-wrapper svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .crypto-name {
+    font-size: 1.125rem;
+  }
+
+  .info-box {
+    padding: 1.25rem;
+  }
+
+  .info-box-icon {
+    min-width: 1.5rem;
+    padding: 0.5rem;
+  }
+
+  .info-box-icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .info-box-title {
+    font-size: 1rem;
+  }
+
+  .info-box-text li {
+    font-size: 0.875rem;
+  }
+}
