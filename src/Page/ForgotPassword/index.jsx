@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef } from "react";
+﻿import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
@@ -7,19 +7,6 @@ const ForgotPasswordPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [navigationData, setNavigationData] = useState(null);
-  const navigationRef = useRef(false);
-
-  useEffect(() => {
-    if (navigationData && !navigationRef.current) {
-      navigationRef.current = true;
-      console.log("Executing navigation with data:", navigationData);
-      navigate("/reset-password", {
-        state: navigationData,
-        replace: true
-      });
-    }
-  }, [navigationData, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,14 +26,14 @@ const ForgotPasswordPage = () => {
       setLoading(true);
       const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
       
-      console.log("Sending forgot password request to:", `${API_URL}/forgot-password`);
+      console.log("Sending forgot password request to:", `${API_URL}/forssgot-password`);
       const response = await axios.post(`${API_URL}/forgot-password`, {
         email: email.toLowerCase().trim(),
       });
 
       console.log("Response received:", response.data);
 
-      if (response.data.success) {
+      if (response.data.status==1) {
         const otpValue = response.data.data?.otp;
         console.log("OTP received:", otpValue);
         
@@ -58,12 +45,16 @@ const ForgotPasswordPage = () => {
           toast.success("OTP sent to your email! Check your inbox.");
         }
         
-        console.log("Setting navigation data to trigger useEffect");
+        console.log("Navigating to reset password page");
         setLoading(false);
-        // Trigger navigation via state update
-        setNavigationData({ 
-          email: email.toLowerCase().trim(),
-          otp: otpValue 
+        
+        // Navigate directly to reset password page with email and OTP
+        navigate("/reset-password", {
+          state: { 
+            email: email.toLowerCase().trim(),
+            otp: otpValue 
+          },
+          replace: true
         });
       } else {
         console.error("Request failed:", response.data.message);
@@ -164,7 +155,7 @@ const ForgotPasswordPage = () => {
               fontWeight: '500',
               lineHeight: '1.5',
             }}>
-              Enter your email and we'll send you a reset link
+              Enter your email and we'll send you a reset OTP
             </p>
           </div>
 

@@ -57,7 +57,7 @@ const ResetPasswordPage = () => {
         confirmPassword: formData.confirmPassword,
       });
 
-      if (response.data.success) {
+      if (response.data.status==1) {
         toast.success("Password reset successfully! Redirecting to login...");
         setTimeout(() => {
           navigate("/login");
