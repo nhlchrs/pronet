@@ -29,20 +29,20 @@ const PaymentPage = () => {
     }
   }, [location.state]);
 
-  // Monitor subscription status and redirect when subscription becomes active
-  useEffect(() => {
-    if (user) {
-      const hasActiveSubscription = user.membershipStatus === 'active' || 
-                                    user.subscriptionStatus === 'active' ||
-                                    user.hasMembership === true ||
-                                    (user.subscription && user.subscription.isActive);
-      
-      if (hasActiveSubscription) {
-        // User has active subscription, redirect to dashboard
-        navigate('/dashboard', { replace: true });
-      }
-    }
-  }, [user, navigate]);
+  // TEMPORARILY COMMENTED OUT - Monitor subscription status and redirect when subscription becomes active
+  // useEffect(() => {
+  //   if (user) {
+  //     const hasActiveSubscription = user.membershipStatus === 'active' || 
+  //                                   user.subscriptionStatus === 'active' ||
+  //                                   user.hasMembership === true ||
+  //                                   (user.subscription && user.subscription.isActive);
+  //     
+  //     if (hasActiveSubscription) {
+  //       // User has active subscription, redirect to dashboard
+  //       navigate('/dashboard', { replace: true });
+  //     }
+  //   }
+  // }, [user, navigate]);
 
   // Subscription plans
   const plans = [

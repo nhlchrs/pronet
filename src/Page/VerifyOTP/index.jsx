@@ -72,25 +72,29 @@ export default function VerifyOTPPage() {
         // Auto-login after OTP verification (for both registration and login flows)
         // The token is already stored by verifyOTP in AuthContext
         
-        // Check if user has active subscription/membership
-        const hasActiveSubscription = user?.membershipStatus === 'active' || 
-                                      user?.subscriptionStatus === 'active' ||
-                                      user?.hasMembership === true ||
-                                      (user?.subscription && user.subscription.isActive);
+        // TEMPORARILY COMMENTED OUT - Subscription check disabled
+        // // Check if user has active subscription/membership
+        // const hasActiveSubscription = user?.membershipStatus === 'active' || 
+        //                               user?.subscriptionStatus === 'active' ||
+        //                               user?.hasMembership === true ||
+        //                               (user?.subscription && user.subscription.isActive);
         
         setTimeout(() => {
-          if (!hasActiveSubscription) {
-            // Redirect to payment/subscription page if no active subscription
-            navigate("/payment", { 
-              state: { 
-                message: "Please subscribe to a plan to access all features",
-                fromAuth: true 
-              } 
-            });
-          } else {
-            // Redirect to dashboard if subscription is active
-            navigate("/dashboard");
-          }
+          // TEMPORARILY BYPASSED - Direct to dashboard for all users
+          navigate("/dashboard");
+          
+          // if (!hasActiveSubscription) {
+          //   // Redirect to payment/subscription page if no active subscription
+          //   navigate("/payment", { 
+          //     state: { 
+          //       message: "Please subscribe to a plan to access all features",
+          //       fromAuth: true 
+          //     } 
+          //   });
+          // } else {
+          //   // Redirect to dashboard if subscription is active
+          //   navigate("/dashboard");
+          // }
         }, 1500);
       } else {
         setLocalError("OTP verification failed. No token received.");
