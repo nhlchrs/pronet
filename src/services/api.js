@@ -27,7 +27,11 @@ export const apiCall = async (endpoint, method = 'GET', data = null, headers = {
     const responseData = await response.json();
 
     if (!response.ok) {
-      throw new Error(responseData.message || 'API Error');
+      // Preserve response data in error for better error handling
+      const error = new Error(responseData.message || 'API Error');
+      error.status = response.status;
+      error.data = responseData;
+      throw error;
     }
 
     return responseData;

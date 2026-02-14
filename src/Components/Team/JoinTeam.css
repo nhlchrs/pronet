@@ -157,10 +157,22 @@
   border-radius: 8px;
   color: #c33;
   font-size: 0.95rem;
+  animation: slideIn 0.3s ease-out;
 }
 
 .error-message svg {
   flex-shrink: 0;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Referrer Card */
@@ -403,5 +415,23 @@
   }
 }
 
+/* Binary Tree Position Styles */
+.position-left {
+  color: #3b82f6;
+  font-weight: 600;
+}
 
+.position-right {
+  color: #f59e0b;
+  font-weight: 600;
+}
 
+.position-main {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.value.active {
+  color: #10b981;
+  font-weight: 600;
+}

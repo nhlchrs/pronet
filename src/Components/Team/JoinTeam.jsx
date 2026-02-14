@@ -28,14 +28,59 @@ export const JoinTeam = ({ isActive }) => {
       const response = await teamAPI.validateReferralCode(referralCode);
 
       if (response.success) {
-        setReferrerInfo(response.data);
-        setError('');
+        // Check if the leg is available (for LPRO/RPRO codes)
+        if (response.isAvailable === false) {
+          const positionName = response.position === 'left' ? 'Left (LPRO)' : response.position === 'right' ? 'Right (RPRO)' : response.position;
+          const otherLeg = response.position === 'left' ? 'Right (RPRO)' : response.position === 'right' ? 'Left (LPRO)' : 'other';
+          setError(`⚠️ The ${positionName} leg is full (${response.currentCount}/2 members). Please ask your sponsor for the ${otherLeg} code instead.`);
+          setReferrerInfo(null);
+        } else {
+          // Format the response to match expected structure
+          setReferrerInfo({
+            sponsor: response.sponsor,
+            position: response.position,
+            isAvailable: response.isAvailable,
+            currentCount: response.currentCount,
+            referrerName: response.sponsor?.userId?.fname 
+              ? `${response.sponsor.userId.fname} ${response.sponsor.userId.lname || ''}`
+              : 'Team Member',
+            referrerLevel: response.sponsor?.level || 0,
+            directCount: response.sponsor?.directCount || 0,
+          });
+          setError('');
+        }
       } else {
-        setError(response.message || 'Invalid referral code');
+        // Handle backend error messages (like leg full)
+        if (response.legFull) {
+          const positionName = response.position === 'left' ? 'Left (LPRO)' : response.position === 'right' ? 'Right (RPRO)' : response.position;
+          const otherLeg = response.position === 'left' ? 'Right (RPRO)' : response.position === 'right' ? 'Left (LPRO)' : 'other';
+          setError(`🔒 ${positionName} leg is FULL (${response.currentCount}/2). Please contact your sponsor to get the ${otherLeg} code.`);
+        } else {
+          setError(response.message || 'Invalid referral code');
+        }
         setReferrerInfo(null);
       }
     } catch (err) {
-      setError('Failed to validate code');
+      console.log('Validation Error:', err);
+      
+      const errorMsg = err.message || 'Failed to validate code';
+      const errorData = err.data; // Access error data directly from error object
+      
+      // Check if error is about leg being full
+      if (errorData?.legFull || errorData?.position) {
+        const positionName = errorData.position === 'left' ? 'Left (LPRO)' : errorData.position === 'right' ? 'Right (RPRO)' : errorData.position;
+        const otherLeg = errorData.position === 'left' ? 'Right (RPRO)' : errorData.position === 'right' ? 'Left (LPRO)' : 'other';
+        
+        // Check if we have currentCount for more detailed message
+        if (errorData.currentCount !== undefined) {
+          setError(`🔒 ${positionName} leg is FULL (${errorData.currentCount}/2). Please contact your sponsor to get the ${otherLeg} code.`);
+        } else {
+          setError(`🔒 ${positionName} leg is FULL. Please contact your sponsor to get the ${otherLeg} code.`);
+        }
+      } else {
+        // Show the error message from backend
+        setError(`⚠️ ${errorMsg}`);
+      }
       setReferrerInfo(null);
     } finally {
       setLoading(false);
@@ -68,7 +113,9 @@ export const JoinTeam = ({ isActive }) => {
         setError(response.message || 'Failed to join team');
       }
     } catch (err) {
-      setError('Failed to join team');
+      console.log('Apply Code Error:', err);
+      const errorMsg = err.message || 'Failed to join team';
+      setError(`⚠️ ${errorMsg}`);
     } finally {
       setLoading(false);
     }
@@ -150,6 +197,25 @@ export const JoinTeam = ({ isActive }) => {
                 <span className="label">Direct Referrals:</span>
                 <span className="value">{referrerInfo.directCount || 0} members</span>
               </div>
+              {referrerInfo.position && (
+                <div className="info-row">
+                  <span className="label">Position:</span>
+                  <span className={`value position-${referrerInfo.position}`}>
+                    {referrerInfo.position === 'left' && '⬅️ Left Leg (Lpro)'}
+                    {referrerInfo.position === 'right' && '➡️ Right Leg (Rpro)'}
+                    {referrerInfo.position === 'main' && '🔑 Main Team'}
+                  </span>
+                </div>
+              )}
+              {referrerInfo.position !== 'main' && (
+                <div className="info-row">
+                  <span className="label">Leg Status:</span>
+                  <span className="value">
+                    {referrerInfo.currentCount}/2 members
+                    {referrerInfo.isAvailable ? ' ✅ Available' : ' 🔒 Full'}
+                  </span>
+                </div>
+              )}
               <div className="info-row">
                 <span className="label">Status:</span>
                 <span className="value active">Active</span>

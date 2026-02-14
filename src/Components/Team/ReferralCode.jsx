@@ -134,9 +134,23 @@ export const ReferralCode = ({ isActive }) => {
       </div> */}
 
       {/* Left Team Code Card */}
-      <div className="code-card left-code">
-        <h3>🔑 Left Team Code (Lpro)</h3>
+      <div className={`code-card left-code ${referralData.binaryTree?.leftLegFull ? 'leg-full' : ''}`}>
+        <div className="card-header-with-status">
+          <h3>🔑 Left Team Code (Lpro)</h3>
+          {referralData.binaryTree && (
+            <span className={`leg-status ${referralData.binaryTree.lproAvailable ? 'status-active' : 'status-full'}`}>
+              {referralData.binaryTree.lproAvailable ? 
+                `✅ Active (${referralData.binaryTree.leftLegCount || 0}/2)` : 
+                '🔒 Full (2/2)'}
+            </span>
+          )}
+        </div>
         <p className="code-description">For left position members</p>
+        {referralData.binaryTree && !referralData.binaryTree.lproAvailable && (
+          <div className="code-warning">
+            ⚠️ Left leg is full. Direct new members to use your RPRO code instead.
+          </div>
+        )}
         <div className="code-display">
           <div className="code-box">
             <code className="code-text">{referralData.leftReferralCode}</code>
@@ -144,6 +158,7 @@ export const ReferralCode = ({ isActive }) => {
           <button
             className="copy-btn"
             onClick={() => handleCopyCode(referralData.leftReferralCode, 'left')}
+            disabled={referralData.binaryTree && !referralData.binaryTree.lproAvailable}
           >
             {copiedCode === 'left' ? (
               <>
@@ -158,26 +173,42 @@ export const ReferralCode = ({ isActive }) => {
             )}
           </button>
         </div>
-        <div className="link-display-small">
-          <input
-            type="text"
-            readOnly
-            value={referralData.leftReferralLink}
-            className="link-input-small"
-          />
-          <button
-            className="copy-btn-small"
-            onClick={() => handleCopyCode(referralData.leftReferralLink, 'left-link')}
-          >
-            {copiedCode === 'left-link' ? <Check size={14} /> : <Copy size={14} />}
-          </button>
-        </div>
+        {referralData.binaryTree && referralData.binaryTree.lproAvailable && (
+          <div className="link-display-small">
+            <input
+              type="text"
+              readOnly
+              value={referralData.leftReferralLink}
+              className="link-input-small"
+            />
+            <button
+              className="copy-btn-small"
+              onClick={() => handleCopyCode(referralData.leftReferralLink, 'left-link')}
+            >
+              {copiedCode === 'left-link' ? <Check size={14} /> : <Copy size={14} />}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Right Team Code Card */}
-      <div className="code-card right-code">
-        <h3>🔑 Right Team Code (Rpro)</h3>
+      <div className={`code-card right-code ${referralData.binaryTree?.rightLegFull ? 'leg-full' : ''}`}>
+        <div className="card-header-with-status">
+          <h3>🔑 Right Team Code (Rpro)</h3>
+          {referralData.binaryTree && (
+            <span className={`leg-status ${referralData.binaryTree.rproAvailable ? 'status-active' : 'status-full'}`}>
+              {referralData.binaryTree.rproAvailable ? 
+                `✅ Active (${referralData.binaryTree.rightLegCount || 0}/2)` : 
+                '🔒 Full (2/2)'}
+            </span>
+          )}
+        </div>
         <p className="code-description">For right position members</p>
+        {referralData.binaryTree && !referralData.binaryTree.rproAvailable && (
+          <div className="code-warning">
+            ⚠️ Right leg is full. Direct new members to use your LPRO code instead.
+          </div>
+        )}
         <div className="code-display">
           <div className="code-box">
             <code className="code-text">{referralData.rightReferralCode}</code>
@@ -185,6 +216,7 @@ export const ReferralCode = ({ isActive }) => {
           <button
             className="copy-btn"
             onClick={() => handleCopyCode(referralData.rightReferralCode, 'right')}
+            disabled={referralData.binaryTree && !referralData.binaryTree.rproAvailable}
           >
             {copiedCode === 'right' ? (
               <>
@@ -199,21 +231,74 @@ export const ReferralCode = ({ isActive }) => {
             )}
           </button>
         </div>
-        <div className="link-display-small">
-          <input
-            type="text"
-            readOnly
-            value={referralData.rightReferralLink}
-            className="link-input-small"
-          />
-          <button
-            className="copy-btn-small"
-            onClick={() => handleCopyCode(referralData.rightReferralLink, 'right-link')}
-          >
-            {copiedCode === 'right-link' ? <Check size={14} /> : <Copy size={14} />}
-          </button>
-        </div>
+        {referralData.binaryTree && referralData.binaryTree.rproAvailable && (
+          <div className="link-display-small">
+            <input
+              type="text"
+              readOnly
+              value={referralData.rightReferralLink}
+              className="link-input-small"
+            />
+            <button
+              className="copy-btn-small"
+              onClick={() => handleCopyCode(referralData.rightReferralLink, 'right-link')}
+            >
+              {copiedCode === 'right-link' ? <Check size={14} /> : <Copy size={14} />}
+            </button>
+          </div>
+        )}
       </div>
+
+      {/* Binary Tree Status Card */}
+      {referralData.binaryTree && (
+        <div className="binary-tree-status">
+          <h3>🌳 Binary Tree Status</h3>
+          <div className="binary-status-grid">
+            <div className="binary-leg-info left-leg">
+              <div className="leg-header">
+                <span className="leg-icon">⬅️</span>
+                <span className="leg-title">Left Leg</span>
+              </div>
+              <div className="leg-stats">
+                <div className="leg-count">
+                  <span className="count-number">{referralData.binaryTree.leftLegCount || 0}</span>
+                  <span className="count-label">/ 2 Members</span>
+                </div>
+                <div className="leg-pv">
+                  <span className="pv-label">PV:</span>
+                  <span className="pv-value">{referralData.binaryTree.leftLegPV || 0}</span>
+                </div>
+                <div className={`leg-availability ${referralData.binaryTree.lproAvailable ? 'available' : 'full'}`}>
+                  {referralData.binaryTree.lproAvailable ? '✅ Available' : '🔒 Full'}
+                </div>
+              </div>
+            </div>
+            <div className="binary-leg-info right-leg">
+              <div className="leg-header">
+                <span className="leg-icon">➡️</span>
+                <span className="leg-title">Right Leg</span>
+              </div>
+              <div className="leg-stats">
+                <div className="leg-count">
+                  <span className="count-number">{referralData.binaryTree.rightLegCount || 0}</span>
+                  <span className="count-label">/ 2 Members</span>
+                </div>
+                <div className="leg-pv">
+                  <span className="pv-label">PV:</span>
+                  <span className="pv-value">{referralData.binaryTree.rightLegPV || 0}</span>
+                </div>
+                <div className={`leg-availability ${referralData.binaryTree.rproAvailable ? 'available' : 'full'}`}>
+                  {referralData.binaryTree.rproAvailable ? '✅ Available' : '🔒 Full'}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="binary-info-note">
+            <p>📊 <strong>Binary System:</strong> Each leg can have maximum 2 direct members. When a leg is full, that code becomes inactive and members must use the other leg code.</p>
+            <p>💰 <strong>Binary Bonus:</strong> Earned based on your weaker leg's Point Value (PV). Balance your team for maximum earnings!</p>
+          </div>
+        </div>
+      )}
 
       {/* Position Information Card */}
       {referralData.stats.userPosition && (
@@ -321,7 +406,7 @@ export const ReferralCode = ({ isActive }) => {
       <div className="instructions">
         <h4>How to Share:</h4>
         <ul>
-          <li>📋 <strong>Main Code:</strong> For general team invitations</li>
+          <li>📄 <strong>Main Code:</strong> For general team invitations</li>
           <li>⬅️ <strong>Left Code (Lpro):</strong> Place members on your left team</li>
           <li>➡️ <strong>Right Code (Rpro):</strong> Place members on your right team</li>
           <li>💰 You earn bonuses from their activity</li>

@@ -9,7 +9,7 @@ const PaymentPage = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [currencies, setCurrencies] = useState([]);
-  const [selectedCurrency, setSelectedCurrency] = useState('btc');
+  const [selectedCurrency, setSelectedCurrency] = useState('usdtbsc');
   const [amount, setAmount] = useState(100);
   const [estimate, setEstimate] = useState(null);
   const [payments, setPayments] = useState([]);
@@ -17,6 +17,20 @@ const PaymentPage = () => {
 
   // Subscription plans
   const plans = [
+    {
+      id: 'test',
+      name: 'Test Plan',
+      price: 20,
+      duration: 7,
+      features: [
+        '🧪 7 Days Access',
+        '📚 Access to all courses',
+        '📹 Live meetings and webinars',
+        '💬 Basic support',
+        '⬇️ Downloadable resources',
+        '🔬 Perfect for testing subscription webhooks',
+      ]
+    },
     {
       id: 'annual',
       name: 'Annual Package',
@@ -89,8 +103,18 @@ const PaymentPage = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      // Use BTC as default if selectedCurrency is unavailable
-      const payCurrency = selectedCurrency && selectedCurrency.toLowerCase() !== 'usdt' ? selectedCurrency : 'btc';
+      // For test plan and small amounts, use USDT on BSC network
+      let payCurrency = selectedCurrency;
+      
+      // Convert generic 'usdt' to network-specific 'usdtbsc'
+      if (payCurrency.toLowerCase() === 'usdt') {
+        payCurrency = 'usdtbsc';
+      }
+      
+      // For amounts <= $50, recommend BSC network currencies
+      if (plan.price <= 50 && !['usdtbsc', 'usdttrc20', 'bnbbsc', 'trx'].includes(payCurrency.toLowerCase())) {
+        payCurrency = 'usdtbsc'; // Default to USDT BSC for low amounts
+      }
       
       const response = await axios.post(
         `${VITE_API_URL}/payments/subscribe`,
@@ -288,14 +312,12 @@ const PaymentPage = () => {
                 value={selectedCurrency}
                 onChange={(e) => setSelectedCurrency(e.target.value)}
               >
-                <option value="bnbbsc">BNB (BEP-20) - Recommended â­</option>
-                <option value="usdtbsc">USDT (BEP-20) - Recommended â­</option>
-                <option value="usdttrc20">USDT (TRC-20) - Recommended â­</option>
-                <option value="trx">TRX (TRC-20) - Recommended â­</option>
-                <option disabled>â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€</option>
+                <option value="bnbbsc">BNB (BEP-20) - Recommended ⭐</option>
+                <option value="usdtbsc">USDT (BEP-20) - Recommended ⭐</option>
+                <option value="usdttrc20">USDT (TRC-20) - Recommended ⭐</option>
+                <option disabled>──────────</option>
                 <option value="btc">Bitcoin (BTC)</option>
                 <option value="eth">Ethereum (ETH)</option>
-                <option value="ltc">Litecoin (LTC)</option>
                 <option value="usdt">Tether (USDT ERC-20)</option>
                 {currencies.map((currency) => (
                   <option key={currency} value={currency}>
