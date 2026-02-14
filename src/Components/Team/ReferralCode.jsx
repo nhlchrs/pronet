@@ -406,7 +406,6 @@ export const ReferralCode = ({ isActive }) => {
       <div className="instructions">
         <h4>How to Share:</h4>
         <ul>
-          <li>📄 <strong>Main Code:</strong> For general team invitations</li>
           <li>⬅️ <strong>Left Code (Lpro):</strong> Place members on your left team</li>
           <li>➡️ <strong>Right Code (Rpro):</strong> Place members on your right team</li>
           <li>💰 You earn bonuses from their activity</li>
