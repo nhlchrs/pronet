@@ -146,17 +146,35 @@ const OrgChartNode = ({ member, currentUserId, maxDepth = 5, currentDepth = 0 })
       </div>
 
       {hasChildren && (
-        <div className={`org-children ${member.teamMembers.length === 1 ? 'single-child' : ''}`}>
-          {member.teamMembers.map((child, index) => (
-            <OrgChartNode
-              key={child._id || index}
-              member={child}
-              currentUserId={currentUserId}
-              maxDepth={maxDepth}
-              currentDepth={currentDepth + 1}
-            />
-          ))}
-        </div>
+        <>
+          {member.teamMembers.length >= 2 && (
+            <div className="team-count-badge">
+              👥 {member.teamMembers.length} Team Members
+            </div>
+          )}
+          <div className={`org-children ${
+            member.teamMembers.length === 1 ? 'single-child' : ''
+          } ${
+            member.teamMembers.length >= 2 ? 'many-children has-scroll' : ''
+          }`}>
+            {member.teamMembers.map((child, index) => (
+              <OrgChartNode
+                key={child._id || index}
+                member={child}
+                currentUserId={currentUserId}
+                maxDepth={maxDepth}
+                currentDepth={currentDepth + 1}
+              />
+            ))}
+          </div>
+          {member.teamMembers.length >= 3 && currentDepth <= 1 && (
+            <div style={{ textAlign: 'center', marginTop: '15px' }}>
+              <span className="scroll-hint-message">
+                👈 Scroll Horizontally to View All Team Members 👉
+              </span>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
@@ -176,6 +194,45 @@ export const TeamHierarchy = ({ isActive }) => {
       initializeAndFetch();
     }
   }, [isActive]);
+
+  // Add scroll detection for org-children containers
+  useEffect(() => {
+    const handleScroll = (e) => {
+      const container = e.target;
+      if (container.scrollLeft > 10) {
+        container.classList.add('scrolled');
+        // Hide scroll hint when scrolling
+        const parent = container.closest('.org-node');
+        if (parent) {
+          const hint = parent.querySelector('.scroll-hint-message');
+          if (hint) {
+            hint.style.display = 'none';
+          }
+        }
+      } else {
+        container.classList.remove('scrolled');
+        // Show scroll hint again
+        const parent = container.closest('.org-node');
+        if (parent) {
+          const hint = parent.querySelector('.scroll-hint-message');
+          if (hint) {
+            hint.style.display = 'inline-block';
+          }
+        }
+      }
+    };
+
+    const orgChildrenContainers = document.querySelectorAll('.org-children');
+    orgChildrenContainers.forEach(container => {
+      container.addEventListener('scroll', handleScroll);
+    });
+
+    return () => {
+      orgChildrenContainers.forEach(container => {
+        container.removeEventListener('scroll', handleScroll);
+      });
+    };
+  }, [hierarchyData, viewMode]);
 
   const initializeAndFetch = async () => {
     try {

@@ -435,3 +435,59 @@
   color: #10b981;
   font-weight: 600;
 }
+
+/* Spillover Info Box */
+.spillover-info-box {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: white;
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.spillover-icon {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(10deg);
+  }
+}
+
+.spillover-info-box h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.spillover-info-box p {
+  margin: 0 0 1rem 0;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.spillover-note {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.spillover-note strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+

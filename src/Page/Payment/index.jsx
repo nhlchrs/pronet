@@ -1,4 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import './Payment.css';
@@ -7,6 +8,8 @@ const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 const PaymentPage = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [currencies, setCurrencies] = useState([]);
   const [selectedCurrency, setSelectedCurrency] = useState('usdtbsc');
@@ -14,6 +17,32 @@ const PaymentPage = () => {
   const [estimate, setEstimate] = useState(null);
   const [payments, setPayments] = useState([]);
   const [activeTab, setActiveTab] = useState('subscribe');
+  const [showAuthMessage, setShowAuthMessage] = useState(false);
+
+  // Check if redirected from authentication or protected route
+  useEffect(() => {
+    if (location.state?.message && (location.state?.fromAuth || location.state?.fromProtectedRoute)) {
+      setShowAuthMessage(true);
+      // Auto-hide message after 10 seconds
+      const timer = setTimeout(() => setShowAuthMessage(false), 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [location.state]);
+
+  // Monitor subscription status and redirect when subscription becomes active
+  useEffect(() => {
+    if (user) {
+      const hasActiveSubscription = user.membershipStatus === 'active' || 
+                                    user.subscriptionStatus === 'active' ||
+                                    user.hasMembership === true ||
+                                    (user.subscription && user.subscription.isActive);
+      
+      if (hasActiveSubscription) {
+        // User has active subscription, redirect to dashboard
+        navigate('/dashboard', { replace: true });
+      }
+    }
+  }, [user, navigate]);
 
   // Subscription plans
   const plans = [
@@ -276,6 +305,61 @@ const PaymentPage = () => {
     <div className="payment-page">
       <div className="payment-container">
         <h1>Payments & Subscriptions</h1>
+
+        {/* Auth Redirect Message */}
+        {showAuthMessage && location.state?.message && (
+          <div style={{
+            padding: '16px 20px',
+            marginBottom: '24px',
+            backgroundColor: location.state?.fromProtectedRoute ? '#f59e0b' : '#667eea',
+            color: 'white',
+            borderRadius: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            boxShadow: location.state?.fromProtectedRoute 
+              ? '0 4px 16px rgba(245, 158, 11, 0.3)' 
+              : '0 4px 16px rgba(102, 126, 234, 0.3)',
+            animation: 'slideInDown 0.5s ease-out'
+          }}>
+            <span style={{ fontSize: '24px' }}>
+              {location.state?.fromProtectedRoute ? '🔒' : '🎯'}
+            </span>
+            <div style={{ flex: 1 }}>
+              <strong style={{ display: 'block', marginBottom: '4px' }}>
+                {location.state?.fromProtectedRoute 
+                  ? '🚫 Subscription Required' 
+                  : 'Welcome! Subscribe to Get Started'}
+              </strong>
+              <span>{location.state.message}</span>
+              {location.state?.attemptedPath && (
+                <div style={{ 
+                  marginTop: '6px', 
+                  fontSize: '13px', 
+                  opacity: 0.9,
+                  fontStyle: 'italic' 
+                }}>
+                  Attempted to access: {location.state.attemptedPath}
+                </div>
+              )}
+            </div>
+            <button 
+              onClick={() => setShowAuthMessage(false)}
+              style={{
+                background: 'rgba(255, 255, 255, 0.2)',
+                border: 'none',
+                color: 'white',
+                padding: '8px 12px',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: '600'
+              }}
+            >
+              Got it
+            </button>
+          </div>
+        )}
 
         {/* Tab Navigation */}
         <div className="payment-tabs">

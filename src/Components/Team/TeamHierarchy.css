@@ -301,6 +301,30 @@
 
 .children-list {
   margin-top: 0.5rem;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 8px;
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #667eea #f0f0f0;
+}
+
+.children-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.children-list::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 3px;
+}
+
+.children-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 3px;
+}
+
+.children-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
 }
 
 /* Info Box */

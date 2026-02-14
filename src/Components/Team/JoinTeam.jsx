@@ -28,14 +28,31 @@ export const JoinTeam = ({ isActive }) => {
       const response = await teamAPI.validateReferralCode(referralCode);
 
       if (response.success) {
-        // Check if the leg is available (for LPRO/RPRO codes)
-        if (response.isAvailable === false) {
+        // Check for spillover placement
+        if (response.spilloverNeeded) {
+          // Both legs are full - spillover will happen
+          setReferrerInfo({
+            sponsor: response.sponsor,
+            position: response.position,
+            isAvailable: true,
+            spilloverNeeded: true,
+            currentCount: response.currentCount,
+            referrerName: response.sponsor?.userId?.fname 
+              ? `${response.sponsor.userId.fname} ${response.sponsor.userId.lname || ''}`
+              : 'Team Member',
+            referrerLevel: response.sponsor?.level || 0,
+            directCount: response.sponsor?.directCount || 0,
+            spilloverMessage: response.message,
+          });
+          setError('');
+        } else if (response.isAvailable === false) {
+          // One leg is full, other is available
           const positionName = response.position === 'left' ? 'Left (LPRO)' : response.position === 'right' ? 'Right (RPRO)' : response.position;
           const otherLeg = response.position === 'left' ? 'Right (RPRO)' : response.position === 'right' ? 'Left (LPRO)' : 'other';
           setError(`⚠️ The ${positionName} leg is full (${response.currentCount}/2 members). Please ask your sponsor for the ${otherLeg} code instead.`);
           setReferrerInfo(null);
         } else {
-          // Format the response to match expected structure
+          // Normal placement - leg is available
           setReferrerInfo({
             sponsor: response.sponsor,
             position: response.position,
@@ -183,6 +200,19 @@ export const JoinTeam = ({ isActive }) => {
         {/* Referrer Info Card */}
         {referrerInfo && (
           <div className="referrer-card">
+            {/* Spillover Message */}
+            {referrerInfo.spilloverNeeded && (
+              <div className="spillover-info-box">
+                <div className="spillover-icon">✨</div>
+                <h4>Spillover Placement</h4>
+                <p>{referrerInfo.spilloverMessage || 'Both legs are full! You will be placed in the next available spot in the network.'}</p>
+                <div className="spillover-note">
+                  <strong>Note:</strong> Your sponsor's referral network is at 2:2 capacity. 
+                  The system will automatically find the best available position in their downline for you.
+                </div>
+              </div>
+            )}
+
             <h3>Your Sponsor</h3>
             <div className="referrer-info">
               <div className="info-row">
@@ -207,13 +237,19 @@ export const JoinTeam = ({ isActive }) => {
                   </span>
                 </div>
               )}
-              {referrerInfo.position !== 'main' && (
+              {referrerInfo.position !== 'main' && !referrerInfo.spilloverNeeded && (
                 <div className="info-row">
                   <span className="label">Leg Status:</span>
                   <span className="value">
                     {referrerInfo.currentCount}/2 members
                     {referrerInfo.isAvailable ? ' ✅ Available' : ' 🔒 Full'}
                   </span>
+                </div>
+              )}
+              {referrerInfo.spilloverNeeded && (
+                <div className="info-row">
+                  <span className="label">Placement Type:</span>
+                  <span className="value">🌟 Spillover Placement</span>
                 </div>
               )}
               <div className="info-row">

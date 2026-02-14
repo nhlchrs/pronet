@@ -64,14 +64,33 @@ export default function VerifyOTPPage() {
 
       // Handle both response structures: response.token or response.data.token
       const token = response.token || (response.data && response.data.token);
+      const user = response.user || (response.data && response.data.user);
       
       if (token) {
         setSuccessMessage("OTP verified successfully! Redirecting...");
         
         // Auto-login after OTP verification (for both registration and login flows)
         // The token is already stored by verifyOTP in AuthContext
+        
+        // Check if user has active subscription/membership
+        const hasActiveSubscription = user?.membershipStatus === 'active' || 
+                                      user?.subscriptionStatus === 'active' ||
+                                      user?.hasMembership === true ||
+                                      (user?.subscription && user.subscription.isActive);
+        
         setTimeout(() => {
-          navigate("/dashboard");
+          if (!hasActiveSubscription) {
+            // Redirect to payment/subscription page if no active subscription
+            navigate("/payment", { 
+              state: { 
+                message: "Please subscribe to a plan to access all features",
+                fromAuth: true 
+              } 
+            });
+          } else {
+            // Redirect to dashboard if subscription is active
+            navigate("/dashboard");
+          }
         }, 1500);
       } else {
         setLocalError("OTP verification failed. No token received.");
