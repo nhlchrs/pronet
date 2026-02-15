@@ -3,7 +3,7 @@ import { AlertCircle, CheckCircle, Loader } from 'lucide-react';
 import { teamAPI } from '../../services/api';
 import './JoinTeam.css';
 
-export const JoinTeam = ({ isActive }) => {
+export const JoinTeam = ({ isActive, onSuccess }) => {
   const [referralCode, setReferralCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -111,6 +111,13 @@ export const JoinTeam = ({ isActive }) => {
         setSuccess(true);
         setReferralCode('');
         setReferrerInfo(null);
+        
+        // Call onSuccess callback if provided
+        if (onSuccess) {
+          onSuccess();
+        }
+        
+        // Reload page after short delay to show success message
         setTimeout(() => {
           window.location.reload();
         }, 2000);

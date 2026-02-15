@@ -15,6 +15,21 @@ export const ReferralPage = () => {
 
   useEffect(() => {
     checkUserRoleAndTeamStatus();
+    
+    // Re-check status when page becomes visible
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        console.log('🔄 Page visible, re-checking team status...');
+        checkUserRoleAndTeamStatus();
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    // Cleanup
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   const checkUserRoleAndTeamStatus = async () => {
@@ -35,16 +50,37 @@ export const ReferralPage = () => {
         // Check if user has joined a team
         try {
           const statusResponse = await teamAPI.checkMemberStatus();
+          console.log('🔍 Team Status Response:', statusResponse);
+          
           if (statusResponse.success) {
             // Check if user is a team member (has team membership initialized)
-            setIsTeamMember(statusResponse.isTeamMember || false);
+            const isMember = statusResponse.isTeamMember || false;
+            setIsTeamMember(isMember);
+            
             // Check if user has joined someone's team (has a sponsor)
-            if (statusResponse.data) {
-              setHasJoinedTeam(statusResponse.data.hasJoinedTeam || false);
+            let hasJoined = false;
+            if (statusResponse.data && statusResponse.data.hasJoinedTeam !== undefined) {
+              hasJoined = statusResponse.data.hasJoinedTeam;
             }
+            
+            setHasJoinedTeam(hasJoined);
+            console.log(`✅ Team Status: isMember=${isMember}, hasJoinedTeam=${hasJoined}`);
+            
+            // Debug: Show sponsor status
+            if (statusResponse.data?.sponsorId) {
+              console.log(`👤 User has sponsor: ${statusResponse.data.sponsorId}`);
+            }
+          } else {
+            // User is not a team member
+            setIsTeamMember(false);
+            setHasJoinedTeam(false);
+            console.log('❌ User is not a team member');
           }
         } catch (error) {
           console.error('Error checking team status:', error);
+          // On error, default to safe state
+          setIsTeamMember(false);
+          setHasJoinedTeam(false);
         }
       }
     } catch (error) {
@@ -137,7 +173,13 @@ export const ReferralPage = () => {
                   </p>
                 </div>
                 <div className="tab-body">
-                  <JoinTeam isActive={activeTab === 'join-team'} />
+                  <JoinTeam 
+                    isActive={activeTab === 'join-team'} 
+                    onSuccess={() => {
+                      console.log('✅ Join successful, refreshing status...');
+                      checkUserRoleAndTeamStatus();
+                    }}
+                  />
                 </div>
               </div>
             </TabsContent>
