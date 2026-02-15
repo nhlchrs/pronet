@@ -11,6 +11,7 @@ export const ReferralPage = () => {
   const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hasJoinedTeam, setHasJoinedTeam] = useState(false);
+  const [isTeamMember, setIsTeamMember] = useState(false);
 
   useEffect(() => {
     checkUserRoleAndTeamStatus();
@@ -34,9 +35,13 @@ export const ReferralPage = () => {
         // Check if user has joined a team
         try {
           const statusResponse = await teamAPI.checkMemberStatus();
-          if (statusResponse.success && statusResponse.data) {
-            // User has a team membership and has a sponsor
-            setHasJoinedTeam(statusResponse.data.hasJoinedTeam || false);
+          if (statusResponse.success) {
+            // Check if user is a team member (has team membership initialized)
+            setIsTeamMember(statusResponse.isTeamMember || false);
+            // Check if user has joined someone's team (has a sponsor)
+            if (statusResponse.data) {
+              setHasJoinedTeam(statusResponse.data.hasJoinedTeam || false);
+            }
           }
         } catch (error) {
           console.error('Error checking team status:', error);
@@ -138,10 +143,10 @@ export const ReferralPage = () => {
             </TabsContent>
           )}
 
-          {/* Team Hierarchy Tab */}
+          {/* Team Hierarchy Tab - Always show for team members */}
           <TabsContent value="hierarchy">
             <div className="tab-content">
-              {hasJoinedTeam ? (
+              {isTeamMember ? (
                 <>
                   <div className="tab-header">
                     <h2>Your Team Downline</h2>
@@ -184,10 +189,10 @@ export const ReferralPage = () => {
                 <div className="tab-header" style={{ textAlign: 'center', padding: '3rem 1rem' }}>
                   <h2>🌳 Team Hierarchy</h2>
                   <p style={{ marginBottom: '2rem', fontSize: '1.1rem' }}>
-                    Join a team first to view your team hierarchy and network structure.
+                    Initialize your team membership to view your team hierarchy and start building your network.
                   </p>
                   <button 
-                    onClick={() => setActiveTab('join-team')}
+                    onClick={() => setActiveTab('my-code')}
                     style={{
                       padding: '0.75rem 2rem',
                       fontSize: '1rem',
@@ -202,7 +207,7 @@ export const ReferralPage = () => {
                     onMouseOver={(e) => e.target.style.backgroundColor = '#4338CA'}
                     onMouseOut={(e) => e.target.style.backgroundColor = '#4F46E5'}
                   >
-                    Join a Team Now
+                    Get Your Referral Codes
                   </button>
                 </div>
               )}
