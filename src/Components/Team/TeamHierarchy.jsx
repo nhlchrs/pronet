@@ -1,5 +1,5 @@
-﻿import { useState, useEffect } from 'react';
-import { ChevronDown, ChevronRight, AlertCircle, Loader } from 'lucide-react';
+﻿import { useState, useEffect, useRef } from 'react';
+import { ChevronDown, ChevronRight, ChevronLeft, AlertCircle, Loader } from 'lucide-react';
 import { teamAPI } from '../../services/api';
 import './TeamHierarchy.css';
 import './OrgChart.css';
@@ -104,6 +104,10 @@ const HierarchyNode = ({ member, depth = 0, maxDepth = 5, currentUserId }) => {
 const OrgChartNode = ({ member, currentUserId, maxDepth = 5, currentDepth = 0 }) => {
   const hasChildren = member.teamMembers && member.teamMembers.length > 0;
   const isCurrentUser = member.userId?._id === currentUserId || member.isCurrentUser;
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const carouselRef = useRef(null);
+  const itemsPerPage = 3; /* Changed from 4 to 3 */
 
   if (currentDepth > maxDepth) {
     return null;
@@ -112,6 +116,39 @@ const OrgChartNode = ({ member, currentUserId, maxDepth = 5, currentDepth = 0 })
   const userName = member.userId?.fname && member.userId?.lname 
     ? `${member.userId.fname} ${member.userId.lname}` 
     : member.userId?.name || 'Unknown';
+
+  const totalChildren = member.teamMembers?.length || 0;
+  const totalPages = Math.ceil(totalChildren / itemsPerPage);
+  const showCarousel = totalChildren > itemsPerPage;
+
+  // Auto-slide functionality
+  useEffect(() => {
+    if (!showCarousel || !isAutoPlaying) return;
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalPages);
+    }, 3000); // Slide every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [showCarousel, isAutoPlaying, totalPages]);
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 5000); // Resume auto-play after 5 seconds
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalPages);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 5000);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalPages) % totalPages);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 5000);
+  };
 
   return (
     <div className="org-node">
@@ -150,28 +187,86 @@ const OrgChartNode = ({ member, currentUserId, maxDepth = 5, currentDepth = 0 })
           {member.teamMembers.length >= 2 && (
             <div className="team-count-badge">
               👥 {member.teamMembers.length} Team Members
+              {showCarousel && (
+                <span style={{ marginLeft: '10px', fontSize: '10px', opacity: 0.9 }}>
+                  {isAutoPlaying ? '▶️ Auto-Sliding' : '⏸️ Paused'}
+                </span>
+              )}
             </div>
           )}
-          <div className={`org-children ${
-            member.teamMembers.length === 1 ? 'single-child' : ''
-          } ${
-            member.teamMembers.length >= 2 ? 'many-children has-scroll' : ''
-          }`}>
-            {member.teamMembers.map((child, index) => (
-              <OrgChartNode
-                key={child._id || index}
-                member={child}
-                currentUserId={currentUserId}
-                maxDepth={maxDepth}
-                currentDepth={currentDepth + 1}
-              />
-            ))}
-          </div>
-          {member.teamMembers.length >= 3 && currentDepth <= 1 && (
-            <div style={{ textAlign: 'center', marginTop: '15px' }}>
-              <span className="scroll-hint-message">
-                👈 Scroll Horizontally to View All Team Members 👉
-              </span>
+          
+          {showCarousel ? (
+            <div className="carousel-container">
+              {/* Previous Button */}
+              <button 
+                className="carousel-nav-btn prev-btn" 
+                onClick={prevSlide}
+                aria-label="Previous"
+              >
+                <ChevronLeft size={24} />
+              </button>
+
+              {/* Carousel Track */}
+              <div className="org-children-carousel" ref={carouselRef}>
+                <div 
+                  className="carousel-track"
+                  style={{
+                    transform: `translateX(-${currentSlide * 880}px)`, 
+                    transition: 'transform 0.5s ease-in-out'
+                  }}
+                >
+                  {member.teamMembers.map((child, index) => (
+                    <div key={child._id || index} className="carousel-item">
+                      <OrgChartNode
+                        member={child}
+                        currentUserId={currentUserId}
+                        maxDepth={maxDepth}
+                        currentDepth={currentDepth + 1}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Next Button */}
+              <button 
+                className="carousel-nav-btn next-btn" 
+                onClick={nextSlide}
+                aria-label="Next"
+              >
+                <ChevronRight size={24} />
+              </button>
+
+              {/* Pagination Dots */}
+              <div className="carousel-dots">
+                {Array.from({ length: totalPages }).map((_, index) => (
+                  <button
+                    key={index}
+                    className={`carousel-dot ${index === currentSlide ? 'active' : ''}`}
+                    onClick={() => goToSlide(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Page Indicator */}
+              <div className="carousel-page-indicator">
+                Showing {currentSlide * itemsPerPage + 1}-{Math.min((currentSlide + 1) * itemsPerPage, totalChildren)} of {totalChildren}
+              </div>
+            </div>
+          ) : (
+            <div className={`org-children ${
+              member.teamMembers.length === 1 ? 'single-child' : ''
+            }`}>
+              {member.teamMembers.map((child, index) => (
+                <OrgChartNode
+                  key={child._id || index}
+                  member={child}
+                  currentUserId={currentUserId}
+                  maxDepth={maxDepth}
+                  currentDepth={currentDepth + 1}
+                />
+              ))}
             </div>
           )}
         </>

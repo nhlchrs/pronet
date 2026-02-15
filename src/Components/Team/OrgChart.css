@@ -217,11 +217,11 @@
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: #667eea rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* When children overflow, keep flex-start for scrolling */
@@ -255,15 +255,15 @@
   transform: scaleY(1.1);
 }
 
-/* Scroll shadow indicators - Enhanced */
+/* Scroll shadow indicators - Subtle and non-intrusive */
 .org-children::after {
   content: '';
   position: absolute;
   right: 0;
   top: 0;
   bottom: 12px;
-  width: 80px;
-  background: linear-gradient(to left, rgba(245, 247, 250, 0.98), transparent);
+  width: 60px;
+  background: linear-gradient(to left, rgba(245, 247, 250, 0.6), transparent);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -272,7 +272,7 @@
 }
 
 .org-children.has-scroll::after {
-  opacity: 1;
+  opacity: 0.5;
 }
 
 /* Left scroll shadow - Enhanced */
@@ -280,11 +280,11 @@
   position: relative;
 }
 
-/* Override for scrolled state - add left shadow via filter */
+/* Override for scrolled state - subtle shadows */
 .org-children.has-scroll.scrolled {
-  box-shadow: inset 20px 0 20px -20px rgba(102, 126, 234, 0.2),
-              inset -20px 0 20px -20px rgba(102, 126, 234, 0.2),
-              inset 0 0 20px rgba(0, 0, 0, 0.03);
+  box-shadow: inset 15px 0 15px -15px rgba(102, 126, 234, 0.1),
+              inset -15px 0 15px -15px rgba(102, 126, 234, 0.1),
+              inset 0 0 10px rgba(0, 0, 0, 0.02);
 }
 
 /* Scroll hint message (now added via separate div in JSX, not pseudo-element) */
@@ -582,6 +582,277 @@
 @media (min-width: 1025px) {
   .org-children {
     gap: 22px;
+  }
+}
+
+/* ===== CAROUSEL STYLES ===== */
+
+/* Carousel Container */
+.carousel-container {
+  position: relative;
+  margin-top: 50px;
+  padding: 20px 80px; /* More padding for nav buttons */
+  width: 100%;
+  max-width: 100%; /* Use full width */
+}
+
+/* Carousel Wrapper (shows only 4 items at once) */
+.org-children-carousel {
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 40px 20px; /* More padding for breathing room */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
+  min-height: 300px;
+}
+
+/* Carousel Track (slides horizontally) */
+.carousel-track {  
+  display: grid !important;
+  grid-auto-flow: column !important;
+  grid-auto-columns: calc(33.333% - 40px) !important; /* 3 columns instead of 4 */
+  gap: 50px !important; /* Large spacing between cards */
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+  padding: 0 25px;
+}
+
+/* Each Carousel Item - Show 3 at once */
+.carousel-item {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  flex-shrink: 0 !important;
+  padding: 0 15px !important;
+  box-sizing: border-box;
+  display: flex !important;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 250px !important;
+  height: auto !important;
+}
+
+/* Ensure org-node in carousel displays properly */
+.carousel-item .org-node {
+  width: 200px !important;
+  margin: 0 auto;
+  animation: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Make sure org-node-content is visible and consistent size */
+.carousel-item .org-node-content {
+  margin: 0 auto;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  width: 200px !important;
+  min-width: 200px !important;
+  max-width: 200px !important;
+}
+
+/* Force all child elements to be visible in carousel */
+.carousel-item .org-node-name,
+.carousel-item .org-node-email,
+.carousel-item .org-node-stats,
+.carousel-item .org-stat,
+.carousel-item .referral-code-org,
+.carousel-item .level-badge-org {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  color: white !important;
+}
+
+/* Hide connecting lines in carousel (they don't make sense in slider) */
+.carousel-item .org-node::before,
+.carousel-item .org-node::after {
+  display: none !important;
+}
+
+/* Hide any children containers within carousel items (flatten hierarchy in carousel) */
+.carousel-item .org-children {
+  display: none;
+}
+
+/* Navigation Buttons */
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.carousel-nav-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 24px rgba(102, 126, 234, 0.6);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.carousel-nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.prev-btn {
+  left: -60px;
+}
+
+.next-btn {
+  right: -60px;
+}
+
+/* Pagination Dots */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(102, 126, 234, 0.3);
+  border: 2px solid rgba(102, 126, 234, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.carousel-dot:hover {
+  background: rgba(102, 126, 234, 0.6);
+  transform: scale(1.2);
+}
+
+.carousel-dot.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  width: 32px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+}
+
+/* Page Indicator */
+.carousel-page-indicator {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #667eea;
+  font-weight: 600;
+  background: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  display: inline-block;
+  box-shadow: 0 2px 12px rgba(102, 126, 234, 0.2);
+  border: 2px solid rgba(102, 126, 234, 0.2);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Responsive Carousel */
+@media (max-width: 1200px) {
+  .prev-btn {
+    left: -50px;
+  }
+  .next-btn {
+    right: -50px;
+  }
+  
+  .org-children-carousel {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .carousel-item {
+    min-width: 33.333%; /* Show 3 items on tablets */
+  }
+  
+  .prev-btn {
+    left: -40px;
+    width: 45px;
+    height: 45px;
+  }
+  .next-btn {
+    right: -40px;
+    width: 45px;
+    height: 45px;
+  }
+  
+  .org-children-carousel {
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-item {
+    min-width: 50%; /* Show 2 items on mobile */
+  }
+  
+  .carousel-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .prev-btn {
+    left: 5px;
+  }
+  .next-btn {
+    right: 5px;
+  }
+  
+  .carousel-page-indicator {
+    font-size: 11px;
+    padding: 6px 16px;
+  }
+  
+  .org-children-carousel {
+    max-width: 500px;
+    padding: 20px 5px;
+  }
+  
+  .carousel-item .org-node-content {
+    min-width: 140px;
+    max-width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-item {
+    min-width: 100%; /* Show 1 item on very small screens */
+  }
+  
+  .org-children-carousel {
+    max-width: 100%;
+    padding: 20px 5px;
+  }
+  
+  .carousel-item .org-node-content {
+    min-width: 160px;
+    max-width: 200px;
   }
 }
 
