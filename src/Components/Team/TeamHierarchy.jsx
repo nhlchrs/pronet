@@ -161,9 +161,6 @@ const OrgChartNode = ({ member, currentUserId, maxDepth = 5, currentDepth = 0 })
         {member.userId?.email && (
           <div className="org-node-email">{member.userId.email}</div>
         )}
-        {member.referralCode && (
-          <div className="referral-code-org">🔑 {member.referralCode}</div>
-        )}
         <div className="org-node-stats">
           <div className="org-stat">
             <div className="org-stat-value">{member.directCount || 0}</div>
@@ -187,11 +184,6 @@ const OrgChartNode = ({ member, currentUserId, maxDepth = 5, currentDepth = 0 })
           {member.teamMembers.length >= 2 && (
             <div className="team-count-badge">
               👥 {member.teamMembers.length} Team Members
-              {showCarousel && (
-                <span style={{ marginLeft: '10px', fontSize: '10px', opacity: 0.9 }}>
-                  {isAutoPlaying ? '▶️ Auto-Sliding' : '⏸️ Paused'}
-                </span>
-              )}
             </div>
           )}
           
@@ -531,11 +523,11 @@ export const TeamHierarchy = ({ isActive }) => {
       <div className="info-box">
         <h4>📊 Understanding Your Hierarchy</h4>
         <ul>
-          <li>🎯 <strong>Levels</strong> - Your position based on direct referrals and team structure</li>
-          <li>👥 <strong>Direct Count</strong> - People you directly referred</li>
-          <li>🌳 <strong>Total Downline</strong> - Everyone below you in the network</li>
-          <li>💰 <strong>Earnings</strong> - Total commissions from your network</li>
-          <li>⭐ <strong>Level Qualification</strong> - Reach 10 direct referrals to unlock Level 1 benefits</li>
+          <li><strong>Levels</strong> - Your position based on direct referrals and team structure</li>
+          <li><strong>Direct Count</strong> - People you directly referred</li>
+          <li><strong>Total Downline</strong> - Everyone below you in the network</li>
+          <li><strong>Earnings</strong> - Total commissions from your network</li>
+          <li><strong>Level Qualification</strong> - Reach 10 direct referrals to unlock Level 1 benefits</li>
         </ul>
       </div>
     </div>
