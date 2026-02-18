@@ -531,11 +531,11 @@ export const TeamHierarchy = ({ isActive }) => {
       <div className="info-box">
         <h4>📊 Understanding Your Hierarchy</h4>
         <ul>
-          <li><strong>Levels</strong> - Your position based on direct referrals and team structure</li>
-          <li><strong>Direct Count</strong> - People you directly referred</li>
-          <li><strong>Total Downline</strong> - Everyone below you in the network</li>
-          <li><strong>Earnings</strong> - Total commissions from your network</li>
-          <li><strong>Level Qualification</strong> - Reach 10 direct referrals to unlock Level 1 benefits</li>
+          <li>🎯 <strong>Levels</strong> - Your position based on direct referrals and team structure</li>
+          <li>👥 <strong>Direct Count</strong> - People you directly referred</li>
+          <li>🌳 <strong>Total Downline</strong> - Everyone below you in the network</li>
+          <li>💰 <strong>Earnings</strong> - Total commissions from your network</li>
+          <li>⭐ <strong>Level Qualification</strong> - Reach 10 direct referrals to unlock Level 1 benefits</li>
         </ul>
       </div>
     </div>

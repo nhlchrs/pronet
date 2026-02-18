@@ -361,7 +361,7 @@
 }
 
 .info-box li::before {
-  content: 'â†’';
+  content: '→';
   position: absolute;
   left: 0;
   background: linear-gradient(135deg, #4CD3C8 0%, #0B1929 100%);
