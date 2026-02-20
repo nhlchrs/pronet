@@ -17,7 +17,14 @@ const BinaryRank = ({ binaryRank, directReferrals }) => {
     affiliatesNeeded,
     needsMoreReferrals,
     referralsNeeded,
+    leftLegCount = 0,
+    rightLegCount = 0,
   } = binaryRank;
+
+  // Check 1:2 activation ratio
+  const meetsActivationRatio = (leftLegCount >= 1 && rightLegCount >= 2) || 
+                                 (rightLegCount >= 1 && leftLegCount >= 2);
+  const isActivationComplete = meetsActivationRatio;
 
   // Rank colors
   const rankColors = {
@@ -46,32 +53,46 @@ const BinaryRank = ({ binaryRank, directReferrals }) => {
       </div>
 
       {/* Binary Commission Not Activated Warning */}
-      {needsMoreReferrals && (
+      {!isActivationComplete && (
         <div className="activation-warning">
           <div className="warning-icon">🔒</div>
           <div className="warning-content">
             <h4>Binary Commission Not Activated</h4>
             <p>
-              You need <strong>{referralsNeeded} more direct referrals</strong> to activate binary commission earnings.
+              <strong>Activation Requirement: 1:2 Ratio</strong>
             </p>
-            <p style={{ fontSize: '14px', marginTop: '8px', opacity: 0.9 }}>
-              <em>Note: You can still achieve ranks and claim rewards based on your active affiliates!</em>
+            <p style={{ fontSize: '15px', marginTop: '8px' }}>
+              You need <strong>at least 1 member in one leg AND 2 members in the other leg</strong> to activate binary matching.
             </p>
-            <div className="progress-bar">
-              <div
-                className="progress-fill"
-                style={{ width: `${(directReferrals / 10) * 100}%` }}
-              />
+            <div style={{ marginTop: '16px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '24px', fontWeight: 'bold', color: leftLegCount >= 1 ? '#10B981' : '#F59E0B' }}>
+                  {leftLegCount}
+                </div>
+                <div style={{ fontSize: '12px', marginTop: '4px' }}>Left Leg</div>
+                <div style={{ fontSize: '10px', opacity: 0.8 }}>{leftLegCount >= 1 ? '✓ Ready' : 'Need 1+'}</div>
+              </div>
+              <div style={{ fontSize: '24px', alignSelf: 'center', opacity: 0.5 }}>×</div>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '24px', fontWeight: 'bold', color: rightLegCount >= 2 ? '#10B981' : '#F59E0B' }}>
+                  {rightLegCount}
+                </div>
+                <div style={{ fontSize: '12px', marginTop: '4px' }}>Right Leg</div>
+                <div style={{ fontSize: '10px', opacity: 0.8 }}>{rightLegCount >= 2 ? '✓ Ready' : 'Need 2+'}</div>
+              </div>
             </div>
-            <p className="progress-text">
-              {directReferrals} / 10 Direct Referrals
+            <p style={{ fontSize: '13px', marginTop: '16px', opacity: 0.9, fontStyle: 'italic' }}>
+              OR you can have 2+ in left and 1+ in right
+            </p>
+            <p style={{ fontSize: '13px', marginTop: '8px', opacity: 0.9 }}>
+              <em>📌 Note: You can still achieve ranks and claim rewards based on your active affiliates!</em>
             </p>
           </div>
         </div>
       )}
 
       {/* Current Rank Display */}
-      {activated && (
+      {isActivationComplete && (
         <>
           <div className="current-rank-card" style={{ borderColor: currentColor }}>
             <div className="rank-badge" style={{ background: currentColor }}>
