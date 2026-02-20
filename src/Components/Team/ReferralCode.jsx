@@ -90,8 +90,51 @@ export const ReferralCode = ({ isActive }) => {
     return null;
   }
 
+  // Get leg counts and binary activation status
+  const leftLegCount = referralData.stats?.leftLegCount || 0;
+  const rightLegCount = referralData.stats?.rightLegCount || 0;
+  const binaryActivated = referralData.stats?.binaryActivated || false;
+
+  // Smart restriction logic: Only blur one leg at a time to guide user to 2:2
+  // Once BOTH legs have 2+, unlock everything (2:2 achieved)
+  const bothLegsHaveTwo = leftLegCount >= 2 && rightLegCount >= 2;
+  const isLeftLegFull = !bothLegsHaveTwo && leftLegCount >= 2;
+  const isRightLegFull = !bothLegsHaveTwo && rightLegCount >= 2;
+
   return (
     <div className="referral-code-container">
+      {/* Smart Restriction Notice */}
+      {(isLeftLegFull || isRightLegFull) && (
+        <div style={{
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          padding: '1rem',
+          borderRadius: '0.75rem',
+          color: 'white',
+          marginBottom: '1.5rem',
+          boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+        }}>
+          <p style={{ margin: 0, fontSize: '0.95rem', fontWeight: '500' }}>
+            🎯 <strong>Balance Your Team!</strong> {isLeftLegFull ? 'Left leg' : 'Right leg'} has 2 members. 
+            Please use <strong>{isLeftLegFull ? 'Right Code (Rpro)' : 'Left Code (Lpro)'}</strong> to achieve 2:2 activation.
+          </p>
+        </div>
+      )}
+      {/* Success Notice - 2:2 Achieved */}
+      {bothLegsHaveTwo && (
+        <div style={{
+          background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+          padding: '1rem',
+          borderRadius: '0.75rem',
+          color: 'white',
+          marginBottom: '1.5rem',
+          boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+        }}>
+          <p style={{ margin: 0, fontSize: '0.95rem', fontWeight: '500' }}>
+            🎉 <strong>2:2 Activation Achieved!</strong> Both codes are now active. You can use either code to grow your team unlimited!
+          </p>
+        </div>
+      )}
+
       {/* Main Referral Code Card - COMMENTED OUT */}
       {/* <div className="code-card">
         <h3>🔑 Main Referral Code</h3>
@@ -134,31 +177,34 @@ export const ReferralCode = ({ isActive }) => {
       </div> */}
 
       {/* Left Team Code Card */}
-      <div className={`code-card left-code ${referralData.binaryTree?.leftLegFull ? 'leg-full' : ''}`}>
+      <div className="code-card left-code" style={{ 
+        opacity: isLeftLegFull ? 0.5 : 1,
+        pointerEvents: isLeftLegFull ? 'none' : 'auto',
+        userSelect: isLeftLegFull ? 'none' : 'auto',
+        transition: 'all 0.3s ease'
+      }}>
         <div className="card-header-with-status">
           <h3>🔑 Left Team Code (Lpro)</h3>
-          {referralData.binaryTree && (
-            <span className={`leg-status ${referralData.binaryTree.lproAvailable ? 'status-active' : 'status-full'}`}>
-              {referralData.binaryTree.lproAvailable ? 
-                `✅ Active (${referralData.binaryTree.leftLegCount || 0}/2)` : 
-                '🔒 Full (2/2)'}
+          {isLeftLegFull ? (
+            <span className="leg-status" style={{ background: '#ef4444', color: 'white' }}>
+              🔒 Full ({leftLegCount}/2)
+            </span>
+          ) : (
+            <span className="leg-status status-active">
+              ✅ Active ({leftLegCount} members)
             </span>
           )}
         </div>
         <p className="code-description">For left position members</p>
-        {referralData.binaryTree && !referralData.binaryTree.lproAvailable && (
-          <div className="code-warning">
-            ⚠️ Left leg is full. Direct new members to use your RPRO code instead.
-          </div>
-        )}
         <div className="code-display">
-          <div className="code-box">
+          <div className="code-box" style={{ filter: isLeftLegFull ? 'blur(4px)' : 'none' }}>
             <code className="code-text">{referralData.leftReferralCode}</code>
           </div>
           <button
             className="copy-btn"
             onClick={() => handleCopyCode(referralData.leftReferralCode, 'left')}
-            disabled={referralData.binaryTree && !referralData.binaryTree.lproAvailable}
+            disabled={isLeftLegFull}
+            style={{ opacity: isLeftLegFull ? 0.5 : 1 }}
           >
             {copiedCode === 'left' ? (
               <>
@@ -173,50 +219,66 @@ export const ReferralCode = ({ isActive }) => {
             )}
           </button>
         </div>
-        {referralData.binaryTree && referralData.binaryTree.lproAvailable && (
-          <div className="link-display-small">
-            <input
-              type="text"
-              readOnly
-              value={referralData.leftReferralLink}
-              className="link-input-small"
-            />
-            <button
-              className="copy-btn-small"
-              onClick={() => handleCopyCode(referralData.leftReferralLink, 'left-link')}
-            >
-              {copiedCode === 'left-link' ? <Check size={14} /> : <Copy size={14} />}
-            </button>
+        {isLeftLegFull && (
+          <div style={{
+            background: '#fee2e2',
+            color: '#991b1b',
+            padding: '0.5rem',
+            borderRadius: '0.5rem',
+            fontSize: '0.85rem',
+            marginTop: '0.5rem'
+          }}>
+            ⚠️ This code is disabled. Use Right Code (Rpro) to complete 2:2 activation.
           </div>
         )}
+        <div className="link-display-small">
+          <input
+            type="text"
+            readOnly
+            value={referralData.leftReferralLink}
+            className="link-input-small"
+            style={{ filter: isLeftLegFull ? 'blur(2px)' : 'none' }}
+          />
+          <button
+            className="copy-btn-small"
+            onClick={() => handleCopyCode(referralData.leftReferralLink, 'left-link')}
+            disabled={isLeftLegFull}
+            style={{ opacity: isLeftLegFull ? 0.5 : 1 }}
+          >
+            {copiedCode === 'left-link' ? <Check size={14} /> : <Copy size={14} />}
+          </button>
+        </div>
       </div>
 
       {/* Right Team Code Card */}
-      <div className={`code-card right-code ${referralData.binaryTree?.rightLegFull ? 'leg-full' : ''}`}>
+      <div className="code-card right-code" style={{ 
+        opacity: isRightLegFull ? 0.5 : 1,
+        pointerEvents: isRightLegFull ? 'none' : 'auto',
+        userSelect: isRightLegFull ? 'none' : 'auto',
+        transition: 'all 0.3s ease'
+      }}>
         <div className="card-header-with-status">
           <h3>🔑 Right Team Code (Rpro)</h3>
-          {referralData.binaryTree && (
-            <span className={`leg-status ${referralData.binaryTree.rproAvailable ? 'status-active' : 'status-full'}`}>
-              {referralData.binaryTree.rproAvailable ? 
-                `✅ Active (${referralData.binaryTree.rightLegCount || 0}/2)` : 
-                '🔒 Full (2/2)'}
+          {isRightLegFull ? (
+            <span className="leg-status" style={{ background: '#ef4444', color: 'white' }}>
+              🔒 Full ({rightLegCount}/2)
+            </span>
+          ) : (
+            <span className="leg-status status-active">
+              ✅ Active ({rightLegCount} members)
             </span>
           )}
         </div>
         <p className="code-description">For right position members</p>
-        {referralData.binaryTree && !referralData.binaryTree.rproAvailable && (
-          <div className="code-warning">
-            ⚠️ Right leg is full. Direct new members to use your LPRO code instead.
-          </div>
-        )}
         <div className="code-display">
-          <div className="code-box">
+          <div className="code-box" style={{ filter: isRightLegFull ? 'blur(4px)' : 'none' }}>
             <code className="code-text">{referralData.rightReferralCode}</code>
           </div>
           <button
             className="copy-btn"
             onClick={() => handleCopyCode(referralData.rightReferralCode, 'right')}
-            disabled={referralData.binaryTree && !referralData.binaryTree.rproAvailable}
+            disabled={isRightLegFull}
+            style={{ opacity: isRightLegFull ? 0.5 : 1 }}
           >
             {copiedCode === 'right' ? (
               <>
@@ -231,22 +293,35 @@ export const ReferralCode = ({ isActive }) => {
             )}
           </button>
         </div>
-        {referralData.binaryTree && referralData.binaryTree.rproAvailable && (
-          <div className="link-display-small">
-            <input
-              type="text"
-              readOnly
-              value={referralData.rightReferralLink}
-              className="link-input-small"
-            />
-            <button
-              className="copy-btn-small"
-              onClick={() => handleCopyCode(referralData.rightReferralLink, 'right-link')}
-            >
-              {copiedCode === 'right-link' ? <Check size={14} /> : <Copy size={14} />}
-            </button>
+        {isRightLegFull && (
+          <div style={{
+            background: '#fee2e2',
+            color: '#991b1b',
+            padding: '0.5rem',
+            borderRadius: '0.5rem',
+            fontSize: '0.85rem',
+            marginTop: '0.5rem'
+          }}>
+            ⚠️ This code is disabled. Use Left Code (Lpro) to complete 2:2 activation.
           </div>
         )}
+        <div className="link-display-small">
+          <input
+            type="text"
+            readOnly
+            value={referralData.rightReferralLink}
+            className="link-input-small"
+            style={{ filter: isRightLegFull ? 'blur(2px)' : 'none' }}
+          />
+          <button
+            className="copy-btn-small"
+            onClick={() => handleCopyCode(referralData.rightReferralLink, 'right-link')}
+            disabled={isRightLegFull}
+            style={{ opacity: isRightLegFull ? 0.5 : 1 }}
+          >
+            {copiedCode === 'right-link' ? <Check size={14} /> : <Copy size={14} />}
+          </button>
+        </div>
       </div>
 
       {/* Binary Tree Status Card */}

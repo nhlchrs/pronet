@@ -172,7 +172,7 @@ const RewardClaim = ({ binaryRank }) => {
       {availableRewards.length === 0 && claimedRewards.length === 0 && (
         <div className="no-rewards">
           <p>🏆 Keep building your team to unlock rank rewards!</p>
-          <p>Your current rank: <strong>{binaryRank?.currentRank || 'NONE'}</strong></p>
+          <p>Your current rank: <strong style={{ color: '#4f46e5' }}>{binaryRank?.currentRank || 'NONE'}</strong></p>
         </div>
       )}
 
