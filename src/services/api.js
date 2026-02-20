@@ -1,6 +1,14 @@
 // API Configuration
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
+// Global logout handler - will be set by AuthContext
+let globalLogoutHandler = null;
+
+// Set the logout handler from AuthContext
+export const setLogoutHandler = (handler) => {
+  globalLogoutHandler = handler;
+};
+
 // Helper function to handle API calls
 export const apiCall = async (endpoint, method = 'GET', data = null, headers = {}) => {
   const token = localStorage.getItem('token');
@@ -27,6 +35,17 @@ export const apiCall = async (endpoint, method = 'GET', data = null, headers = {
     const responseData = await response.json();
 
     if (!response.ok) {
+      // Check for token expiration or unauthorized access (401)
+      if (response.status === 401) {
+        // Token expired or invalid - trigger automatic logout
+        console.warn('Token expired or unauthorized. Logging out...');
+        if (globalLogoutHandler) {
+          globalLogoutHandler();
+        }
+        // Redirect to login page
+        window.location.href = '/login';
+      }
+
       // Preserve response data in error for better error handling
       const error = new Error(responseData.message || 'API Error');
       error.status = response.status;
@@ -332,6 +351,24 @@ export const teamAPI = {
 
   getPayoutStats: async () => {
     return apiCall('/team/payout/stats/summary', 'GET');
+  },
+
+  // Get team statistics including binary rank
+  getTeamStats: async () => {
+    return apiCall('/team/check-status', 'GET');
+  },
+
+  // Reward claim endpoints
+  getAvailableRewards: async () => {
+    return apiCall('/team/rewards/available', 'GET');
+  },
+
+  claimReward: async (rewardData) => {
+    return apiCall('/team/rewards/claim', 'POST', rewardData);
+  },
+
+  getRewardHistory: async () => {
+    return apiCall('/team/rewards/history', 'GET');
   },
 };
 

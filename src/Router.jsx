@@ -27,6 +27,7 @@ import ReferralPage from "./Page/ReferralPage";
 import SecureMedia from "./Page/SecureMedia";
 import PaymentPage from "./Page/Payment";
 import PayoutPage from "./Page/Payout";
+import RewardsPage from "./Page/Rewards";
 import AgreementPage from "./Page/Agreement";
 import DisclaimerPage from "./Page/Disclaimer";
 import LearnMorePage from "./Page/LearnMore";
@@ -71,6 +72,7 @@ function AppRouters(){
             <Route path="referral" element={<ProtectedRoute><ReferralPage /></ProtectedRoute>} />
             <Route path="payment" element={<ProtectedRoute><PaymentPage /></ProtectedRoute>} />
             <Route path="payout" element={<ProtectedRoute><PayoutPage /></ProtectedRoute>} />
+            <Route path="rewards" element={<ProtectedRoute><RewardsPage /></ProtectedRoute>} />
             
             <Route path="404-page" element={<PageNotFound />}/>
             <Route path="*" element={<PageNotFound />}/>

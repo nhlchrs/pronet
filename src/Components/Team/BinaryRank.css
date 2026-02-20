@@ -1,0 +1,395 @@
+/* Binary Rank Container */
+.binary-rank-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.binary-rank-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.binary-rank-header h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+/* Activation Warning */
+.activation-warning {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 2px solid #f59e0b;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.warning-icon {
+  font-size: 48px;
+  flex-shrink: 0;
+}
+
+.warning-content {
+  flex: 1;
+}
+
+.warning-content h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #92400e;
+}
+
+.warning-content p {
+  margin: 0 0 12px 0;
+  color: #78350f;
+  font-size: 14px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #78350f;
+  margin: 0;
+}
+
+/* Current Rank Card */
+.current-rank-card {
+  background: white;
+  border: 3px solid;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  border-radius: 50px;
+  color: white;
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.rank-emoji {
+  font-size: 32px;
+}
+
+.rank-name {
+  letter-spacing: 1px;
+}
+
+.rank-details {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.detail-item {
+  flex: 1;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.detail-value.highlight {
+  color: #10b981;
+}
+
+/* Commission Card */
+.commission-card {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 2px solid #10b981;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.commission-card h4 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #065f46;
+}
+
+.commission-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.commission-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.commission-item.total {
+  grid-column: 1 / -1;
+  padding-top: 12px;
+  border-top: 2px solid #10b981;
+}
+
+.commission-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #065f46;
+  text-transform: uppercase;
+}
+
+.commission-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #047857;
+}
+
+.commission-value.highlight {
+  font-size: 28px;
+  color: #059669;
+}
+
+.commission-note {
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  border-left: 4px solid #10b981;
+}
+
+.commission-note p {
+  margin: 0;
+  font-size: 13px;
+  color: #065f46;
+  line-height: 1.5;
+}
+
+/* Next Rank Card */
+.next-rank-card {
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  border: 2px solid #8b5cf6;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.next-rank-card h4 {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #5b21b6;
+}
+
+.next-rank-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.next-rank-name {
+  font-size: 16px;
+  color: #5b21b6;
+}
+
+.next-rank-name strong {
+  font-size: 20px;
+  color: #6d28d9;
+}
+
+.next-bonus {
+  color: #7c3aed;
+  font-weight: 600;
+}
+
+.progress-info p {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #5b21b6;
+}
+
+/* Rank Table */
+.rank-table-container {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+.rank-table-container h4 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.rank-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rank-table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+  padding: 12px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rank-table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.rank-table-row:hover {
+  background: #f9fafb;
+  transform: translateX(4px);
+}
+
+.rank-table-row.current {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border: 2px solid #3b82f6;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.rank-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.rank-emoji {
+  font-size: 18px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .binary-rank-container {
+    padding: 16px;
+  }
+
+  .rank-badge {
+    font-size: 20px;
+    padding: 10px 20px;
+  }
+
+  .rank-emoji {
+    font-size: 24px;
+  }
+
+  .rank-details {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .commission-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rank-table-header,
+  .rank-table-row {
+    grid-template-columns: 1.5fr 0.75fr 0.75fr;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .rank-cell {
+    font-size: 12px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .binary-rank-header h3 {
+    color: #f9fafb;
+  }
+
+  .current-rank-card {
+    background: #1f2937;
+  }
+
+  .detail-value {
+    color: #f9fafb;
+  }
+
+  .rank-table-container {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .rank-table-container h4 {
+    color: #f9fafb;
+  }
+
+  .rank-table-header {
+    background: #111827;
+  }
+
+  .rank-table-row {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .rank-table-row:hover {
+    background: #374151;
+  }
+
+  .rank-cell {
+    color: #d1d5db;
+  }
+}

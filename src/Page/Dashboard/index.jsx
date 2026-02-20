@@ -406,6 +406,108 @@ export default function Dashboard() {
               />
             </div>
 
+            {/* Quick Actions */}
+            <div
+              style={{
+                backgroundColor: "#1A2A3A",
+                border: "1px solid #2A4A5A",
+                borderRadius: "12px",
+                padding: "24px",
+                marginBottom: "30px",
+              }}
+            >
+              <h3 style={{ color: "#DAFAF4", marginTop: 0, marginBottom: "20px", display: "flex", alignItems: "center", gap: "12px" }}>
+                <span style={{ fontSize: "28px" }}>⚡</span>
+                Quick Actions
+              </h3>
+              <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+                <button
+                  onClick={() => navigate("/rewards")}
+                  style={{
+                    padding: "16px 24px",
+                    background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    fontWeight: "600",
+                    fontSize: "16px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    transition: "all 0.3s",
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow = "0 4px 12px rgba(16, 185, 129, 0.3)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                >
+                  <span style={{ fontSize: "24px" }}>🎁</span>
+                  View Binary Rewards
+                </button>
+                {/* <button
+                  onClick={() => navigate("/teams")}
+                  style={{
+                    padding: "16px 24px",
+                    background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    fontWeight: "600",
+                    fontSize: "16px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    transition: "all 0.3s",
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow = "0 4px 12px rgba(99, 102, 241, 0.3)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                > */}
+                  {/* <span style={{ fontSize: "24px" }}>👥</span>
+                  Manage Teams
+                </button>
+                <button
+                  onClick={() => navigate("/referral")}
+                  style={{
+                    padding: "16px 24px",
+                    background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    fontWeight: "600",
+                    fontSize: "16px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    transition: "all 0.3s",
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow = "0 4px 12px rgba(245, 158, 11, 0.3)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                > */}
+                  {/* <span style={{ fontSize: "24px" }}>🔗</span>
+                  Referral Link
+                </button> */}
+              </div>
+            </div>
+
             {/* Metrics */}
             {metrics && (
               <div

@@ -1,5 +1,5 @@
 ﻿import React, { createContext, useContext, useState, useEffect } from 'react';
-import { authAPI } from '../services/api';
+import { authAPI, setLogoutHandler } from '../services/api';
 
 const AuthContext = createContext();
 
@@ -128,6 +128,14 @@ export const AuthProvider = ({ children }) => {
       setUser(JSON.parse(storedUser));
       setIsAuthenticated(true);
     }
+
+    // Register logout handler for automatic logout on 401 errors
+    setLogoutHandler(logout);
+
+    // Cleanup on unmount
+    return () => {
+      setLogoutHandler(null);
+    };
   }, []);
 
   const value = {
