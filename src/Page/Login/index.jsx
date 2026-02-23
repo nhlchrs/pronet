@@ -7,8 +7,8 @@
         const { login, loading, error, setError } = useAuth();
         
         const [formData, setFormData] = useState({
-            email: "",
-            password: "",
+            email: "testuser1@test.com",
+            password: "Test@123",
         });
         const [localError, setLocalError] = useState("");
         const [fieldErrors, setFieldErrors] = useState({});

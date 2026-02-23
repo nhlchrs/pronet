@@ -4,6 +4,7 @@ import { useSocket } from "../../context/SocketContext";
 import { useNavigate } from "react-router-dom";
 import { authAPI, meetingAPI, announcementAPI, paymentAPI, teamAPI } from "../../services/api";
 import TermsAgreementModal from "../../Components/TermsAgreementModal";
+// import CommissionEarnings from "../../Components/Commission/CommissionEarnings";
 
 export default function Dashboard() {
   const { user, isAuthenticated } = useAuth();
@@ -405,6 +406,11 @@ export default function Dashboard() {
                 color="#4CD3C8"
               />
             </div>
+
+            {/* Commission Earnings Section */}
+            {/* <div style={{ marginBottom: "40px" }}>
+              <CommissionEarnings />
+            </div> */}
 
             {/* Quick Actions */}
             <div

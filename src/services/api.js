@@ -391,6 +391,43 @@ export const analyticsAPI = {
   },
 };
 
+// ===== COMMISSION ENDPOINTS =====
+export const commissionAPI = {
+  // Get all pending commissions for logged-in user
+  getPendingCommissions: async () => {
+    return apiCall('/commission/pending', 'GET');
+  },
+
+  // Get total pending commission amount
+  getTotalPending: async () => {
+    return apiCall('/commission/total-pending', 'GET');
+  },
+
+  // Get commission breakdown by type (direct, level, binary, reward)
+  getCommissionBreakdown: async (startDate, endDate) => {
+    const params = new URLSearchParams();
+    if (startDate) params.append('startDate', startDate);
+    if (endDate) params.append('endDate', endDate);
+    const queryString = params.toString();
+    return apiCall(`/commission/breakdown${queryString ? `?${queryString}` : ''}`, 'GET');
+  },
+
+  // Generate binary commission for logged-in user
+  generateMyBinaryCommission: async () => {
+    return apiCall('/commission/generate-my-binary', 'POST');
+  },
+
+  // Admin: Generate binary commission for specific user
+  generateBinaryCommissionForUser: async (userId) => {
+    return apiCall(`/commission/generate-binary/${userId}`, 'POST');
+  },
+
+  // Admin: Generate binary commissions for all qualified users
+  generateAllBinaryCommissions: async () => {
+    return apiCall('/commission/generate-all-binary', 'POST');
+  },
+};
+
 // ===== CONTACT/NEWSLETTER ENDPOINTS =====
 export const contactAPI = {
   submitContactForm: async (contactData) => {

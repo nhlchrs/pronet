@@ -5,6 +5,26 @@ import { teamAPI } from "../../services/api";
 import RewardClaim from "../../Components/Team/RewardClaim";
 import BinaryRank from "../../Components/Team/BinaryRank";
 
+// Helper function to get rank badge emoji
+const getRankBadge = (rank) => {
+  const rankBadges = {
+    NONE: "🌱",
+    IGNITOR: "🔥",
+    SPARK: "⚡",
+    RISER: "🚀",
+    PIONEER: "🏔️",
+    INNOVATOR: "💡",
+    TRAILBLAZER: "🌟",
+    CATALYST: "⚙️",
+    MOGUL: "👑",
+    VANGUARD: "🛡️",
+    LUMINARY: "💫",
+    SOVEREIGN: "🏆",
+    ZENITH: "💎",
+  };
+  return rankBadges[rank] || "🌱";
+};
+
 export default function RewardsPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
@@ -35,16 +55,17 @@ export default function RewardsPage() {
       // Set binary rank data
       if (data) {
         setBinaryRank({
-          binaryActivated: data.binaryActivated || false,
+          activated: data.binaryActivated || false,
           currentRank: data.binaryRank || "NONE",
-          binaryBonusPercent: data.binaryBonusPercent || 0,
+          rankBadge: getRankBadge(data.binaryRank || "NONE"),
+          bonusPercent: data.binaryBonusPercent || 0,
           totalActiveAffiliates: data.totalActiveAffiliates || 0,
           leftLegPV: data.leftLegPV || 0,
           rightLegPV: data.rightLegPV || 0,
           leftLegCount: data.leftLegCount || 0,
           rightLegCount: data.rightLegCount || 0,
           weakerLegPV: data.weakerLegPV || 0,
-          binaryCommissionEarned: data.binaryCommissionEarned || 0,
+          commission: data.binaryCommissionEarned || 0,
         });
         setDirectReferrals(data.directCount || 0);
       }
@@ -220,7 +241,7 @@ export default function RewardsPage() {
             <li>
               <strong style={{ color: "#DAFAF4" }}>ZENITH</strong>: 44,444 affiliates (₹4,00,000 Cash!)
             </li>
-            <li><em>Note: Binary commission (10%, 15%, 20%) activates with 1:2 ratio (1 member in one leg, 2 in the other)</em></li>
+            <li><em>Note: Binary commission (10%, 15%, 20%) activates with 2:1 or 1:2 ratio (2 members in one leg + 1 in the other)</em></li>
           </ul>
         </div>
 

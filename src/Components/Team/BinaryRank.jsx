@@ -19,11 +19,12 @@ const BinaryRank = ({ binaryRank, directReferrals }) => {
     referralsNeeded,
     leftLegCount = 0,
     rightLegCount = 0,
+    leftLegPV = 0,
+    rightLegPV = 0,
   } = binaryRank;
 
-  // Check 1:2 activation ratio
-  const meetsActivationRatio = (leftLegCount >= 1 && rightLegCount >= 2) || 
-                                 (rightLegCount >= 1 && leftLegCount >= 2);
+  // Check 2:1 or 1:2 activation ratio
+  const meetsActivationRatio = (leftLegCount >= 2 && rightLegCount >= 1) || (leftLegCount >= 1 && rightLegCount >= 2);
   const isActivationComplete = meetsActivationRatio;
 
   // Rank colors
@@ -59,32 +60,29 @@ const BinaryRank = ({ binaryRank, directReferrals }) => {
           <div className="warning-content">
             <h4>Binary Commission Not Activated</h4>
             <p>
-              <strong>Activation Requirement: 1:2 Ratio</strong>
+              <strong>Activation Requirement: 2:1 or 1:2 Ratio</strong>
             </p>
             <p style={{ fontSize: '15px', marginTop: '8px' }}>
-              You need <strong>at least 1 member in one leg AND 2 members in the other leg</strong> to activate binary matching.
+              You need <strong>either 2 members in one leg + 1 in the other, or 1 member in one leg + 2 in the other</strong> to activate binary matching.
             </p>
             <div style={{ marginTop: '16px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '24px', fontWeight: 'bold', color: leftLegCount >= 1 ? '#10B981' : '#F59E0B' }}>
+                <div style={{ fontSize: '24px', fontWeight: 'bold', color: (leftLegCount >= 2 && rightLegCount >= 1) || (leftLegCount >= 1 && rightLegCount >= 2) ? '#10B981' : '#F59E0B' }}>
                   {leftLegCount}
                 </div>
                 <div style={{ fontSize: '12px', marginTop: '4px' }}>Left Leg</div>
-                <div style={{ fontSize: '10px', opacity: 0.8 }}>{leftLegCount >= 1 ? '✓ Ready' : 'Need 1+'}</div>
+                <div style={{ fontSize: '10px', opacity: 0.8 }}>{leftLegCount >= 1 ? '✓' : 'Need 1+'}</div>
               </div>
               <div style={{ fontSize: '24px', alignSelf: 'center', opacity: 0.5 }}>×</div>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '24px', fontWeight: 'bold', color: rightLegCount >= 2 ? '#10B981' : '#F59E0B' }}>
+                <div style={{ fontSize: '24px', fontWeight: 'bold', color: (leftLegCount >= 2 && rightLegCount >= 1) || (leftLegCount >= 1 && rightLegCount >= 2) ? '#10B981' : '#F59E0B' }}>
                   {rightLegCount}
                 </div>
                 <div style={{ fontSize: '12px', marginTop: '4px' }}>Right Leg</div>
-                <div style={{ fontSize: '10px', opacity: 0.8 }}>{rightLegCount >= 2 ? '✓ Ready' : 'Need 2+'}</div>
+                <div style={{ fontSize: '10px', opacity: 0.8 }}>{rightLegCount >= 1 ? '✓' : 'Need 1+'}</div>
               </div>
             </div>
-            <p style={{ fontSize: '13px', marginTop: '16px', opacity: 0.9, fontStyle: 'italic' }}>
-              OR you can have 2+ in left and 1+ in right
-            </p>
-            <p style={{ fontSize: '13px', marginTop: '8px', opacity: 0.9 }}>
+            <p style={{ fontSize: '13px', marginTop: '16px', opacity: 0.9 }}>
               <em>📌 Note: You can still achieve ranks and claim rewards based on your active affiliates!</em>
             </p>
           </div>
@@ -108,6 +106,72 @@ const BinaryRank = ({ binaryRank, directReferrals }) => {
                 <span className="detail-label">Active Affiliates:</span>
                 <span className="detail-value">{totalActiveAffiliates?.toLocaleString()}</span>
               </div>
+            </div>
+          </div>
+
+          {/* Leg Performance Display */}
+          <div className="commission-card" style={{ marginTop: '20px' }}>
+            <h4>📊 Binary Tree Legs Performance</h4>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '16px' }}>
+              {/* Left Leg */}
+              <div style={{ 
+                padding: '16px', 
+                borderRadius: '8px', 
+                border: `2px solid ${leftLegPV < rightLegPV ? '#F59E0B' : '#10B981'}`,
+                backgroundColor: leftLegPV < rightLegPV ? 'rgba(251, 146, 60, 0.1)' : 'rgba(16, 185, 129, 0.1)'
+              }}>
+                <div style={{ textAlign: 'center', marginBottom: '12px' }}>
+                  <div style={{ fontSize: '24px', marginBottom: '4px' }}>⬅️</div>
+                  <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#1F2937', marginBottom: '4px' }}>
+                    Left Leg
+                    {leftLegPV < rightLegPV && leftLegPV > 0 && (
+                      <span style={{ marginLeft: '8px', fontSize: '14px', color: '#F59E0B' }}>⚡ Weaker</span>
+                    )}
+                    {leftLegPV === rightLegPV && leftLegPV > 0 && (
+                      <span style={{ marginLeft: '8px', fontSize: '14px', color: '#10B981' }}>⚖️ Balanced</span>
+                    )}
+                  </div>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: '12px', color: '#0D9488', marginBottom: '4px' }}>Members</div>
+                  <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#1F2937', marginBottom: '12px' }}>{leftLegCount}</div>
+                  <div style={{ fontSize: '12px', color: '#0D9488', marginBottom: '4px' }}>Point Value (PV)</div>
+                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#0F766E' }}>{leftLegPV || 0}</div>
+                </div>
+              </div>
+
+              {/* Right Leg */}
+              <div style={{ 
+                padding: '16px', 
+                borderRadius: '8px', 
+                border: `2px solid ${rightLegPV < leftLegPV ? '#F59E0B' : '#10B981'}`,
+                backgroundColor: rightLegPV < leftLegPV ? 'rgba(251, 146, 60, 0.1)' : 'rgba(16, 185, 129, 0.1)'
+              }}>
+                <div style={{ textAlign: 'center', marginBottom: '12px' }}>
+                  <div style={{ fontSize: '24px', marginBottom: '4px' }}>➡️</div>
+                  <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#1F2937', marginBottom: '4px' }}>
+                    Right Leg
+                    {rightLegPV < leftLegPV && rightLegPV > 0 && (
+                      <span style={{ marginLeft: '8px', fontSize: '14px', color: '#F59E0B' }}>⚡ Weaker</span>
+                    )}
+                    {leftLegPV === rightLegPV && rightLegPV > 0 && (
+                      <span style={{ marginLeft: '8px', fontSize: '14px', color: '#10B981' }}>⚖️ Balanced</span>
+                    )}
+                  </div>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: '12px', color: '#0D9488', marginBottom: '4px' }}>Members</div>
+                  <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#1F2937', marginBottom: '12px' }}>{rightLegCount}</div>
+                  <div style={{ fontSize: '12px', color: '#0D9488', marginBottom: '4px' }}>Point Value (PV)</div>
+                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#0F766E' }}>{rightLegPV || 0}</div>
+                </div>
+              </div>
+            </div>
+            <div style={{ marginTop: '16px', padding: '12px', backgroundColor: 'rgba(76, 211, 200, 0.1)', borderRadius: '8px', textAlign: 'center' }}>
+              <p style={{ margin: 0, fontSize: '14px', color: '#0D9488' }}>
+                <strong style={{ color: '#1F2937' }}>💡 Tip:</strong> Commission is calculated on the <strong style={{ color: '#F59E0B' }}>weaker leg</strong> (smaller PV). 
+                Build both legs evenly to maximize your earnings!
+              </p>
             </div>
           </div>
 
