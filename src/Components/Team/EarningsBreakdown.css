@@ -1,0 +1,380 @@
+.earnings-breakdown {
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.earnings-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.earnings-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+}
+
+.earnings-header p {
+  font-size: 1rem;
+  color: #718096;
+}
+
+/* Total Earnings Card */
+.total-earnings-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2.5rem;
+  border-radius: 16px;
+  text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+  color: white;
+}
+
+.total-earnings-label {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.total-earnings-value {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0.5rem 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.total-earnings-subtitle {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Earnings Grid */
+.earnings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.earning-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.earning-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--card-color-start), var(--card-color-end));
+}
+
+.earning-card.direct-bonus {
+  --card-color-start: #4f46e5;
+  --card-color-end: #6366f1;
+}
+
+.earning-card.level-income {
+  --card-color-start: #10b981;
+  --card-color-end: #059669;
+}
+
+.earning-card.binary-bonus {
+  --card-color-start: #f59e0b;
+  --card-color-end: #d97706;
+}
+
+.earning-card.reward-bonus {
+  --card-color-start: #ec4899;
+  --card-color-end: #db2777;
+}
+
+.earning-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.earning-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.earning-content {
+  flex: 1;
+}
+
+.earning-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.earning-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+}
+
+.earning-description {
+  font-size: 0.85rem;
+  color: #718096;
+  line-height: 1.4;
+}
+
+.earning-badge {
+  align-self: flex-end;
+  background: linear-gradient(135deg, var(--card-color-start), var(--card-color-end));
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Earnings Chart */
+.earnings-chart {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.earnings-chart h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 1.5rem;
+}
+
+.chart-container {
+  width: 100%;
+}
+
+.chart-bar-wrapper {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.chart-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.chart-bar:hover {
+  opacity: 0.9;
+}
+
+.chart-bar.direct {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+}
+
+.chart-bar.level {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.chart-bar.binary {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.chart-bar.reward {
+  background: linear-gradient(135deg, #ec4899, #db2777);
+}
+
+.chart-label {
+  font-size: 0.9rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.legend-color.direct {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+}
+
+.legend-color.level {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.legend-color.binary {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.legend-color.reward {
+  background: linear-gradient(135deg, #ec4899, #db2777);
+}
+
+/* No Earnings State */
+.no-earnings {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.no-earnings-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.no-earnings h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+}
+
+.no-earnings p {
+  color: #718096;
+  margin-bottom: 2rem;
+}
+
+.earnings-tips {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.tip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #f5f7fa, #e8eef5);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.tip-icon {
+  font-size: 1.25rem;
+}
+
+/* Loading & Error States */
+.earnings-loading,
+.earnings-error {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.retry-btn {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retry-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .earnings-breakdown {
+    padding: 1.5rem;
+  }
+
+  .earnings-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .total-earnings-value {
+    font-size: 2.5rem;
+  }
+
+  .earnings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .earning-value {
+    font-size: 1.75rem;
+  }
+
+  .chart-bar-wrapper {
+    height: 50px;
+  }
+
+  .chart-legend {
+    gap: 1rem;
+  }
+
+  .earnings-tips {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}

@@ -249,6 +249,57 @@
   line-height: 1.5;
 }
 
+/* Commission Types Guide */
+.commission-types-guide {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.commission-type-item {
+  display: flex;
+  gap: 1rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 4px solid #4CD3C8;
+  box-shadow: 0 2px 8px rgba(76, 211, 200, 0.08);
+  border: 1px solid rgba(76, 211, 200, 0.1);
+  transition: all 0.3s ease;
+}
+
+.commission-type-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(76, 211, 200, 0.15);
+}
+
+.commission-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.commission-type-item h4 {
+  margin: 0 0 0.25rem 0;
+  background: linear-gradient(135deg, #4CD3C8 0%, #0B1929 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.commission-type-item p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 /* FAQ Section */
 .faq-section {
   max-width: 1200px;

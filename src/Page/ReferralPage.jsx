@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../Components/shared/T
 import { ReferralCode } from '../Components/Team/ReferralCode';
 import { JoinTeam } from '../Components/Team/JoinTeam';
 import { TeamHierarchy } from '../Components/Team/TeamHierarchy';
+import { EarningsBreakdown } from '../Components/Team/EarningsBreakdown';
 import { teamAPI } from '../services/api';
 import './ReferralPage.css';
 
@@ -118,6 +119,9 @@ export const ReferralPage = () => {
               <TabsTrigger value="join-team">Join a Team</TabsTrigger>
             )}
             <TabsTrigger value="hierarchy">Team Hierarchy</TabsTrigger>
+            {isTeamMember && (
+              <TabsTrigger value="earnings">Earnings Breakdown</TabsTrigger>
+            )}
           </TabsList>
 
           {/* My Referral Code Tab */}
@@ -255,6 +259,57 @@ export const ReferralPage = () => {
               )}
             </div>
           </TabsContent>
+
+          {/* Earnings Breakdown Tab - Only show for team members */}
+          {isTeamMember && (
+            <TabsContent value="earnings">
+              <div className="tab-content">
+                <div className="tab-header">
+                  <h2>💰 Your Earnings Breakdown</h2>
+                  <p>
+                    Track all your earnings across different commission types. See how your income is distributed
+                    across direct referrals, level income, binary commissions, and rank rewards.
+                  </p>
+                </div>
+                <div className="tab-body">
+                  <EarningsBreakdown />
+                </div>
+                <div className="tab-info">
+                  <h3>💡 Commission Types Explained</h3>
+                  <div className="commission-types-guide">
+                    <div className="commission-type-item">
+                      <span className="commission-icon">👥</span>
+                      <div>
+                        <h4>Direct Referral Commission</h4>
+                        <p>Earn immediate commission when someone joins using your referral code</p>
+                      </div>
+                    </div>
+                    <div className="commission-type-item">
+                      <span className="commission-icon">📈</span>
+                      <div>
+                        <h4>Level Income</h4>
+                        <p>Earn from multiple levels of your downline based on their activity and subscriptions</p>
+                      </div>
+                    </div>
+                    <div className="commission-type-item">
+                      <span className="commission-icon">⚖️</span>
+                      <div>
+                        <h4>Binary Commission</h4>
+                        <p>Earn based on balanced team growth using the 1:2 matching system</p>
+                      </div>
+                    </div>
+                    <div className="commission-type-item">
+                      <span className="commission-icon">🎁</span>
+                      <div>
+                        <h4>Rank Rewards</h4>
+                        <p>Unlock special bonuses and rewards as you achieve higher binary ranks</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+          )}
         </Tabs>
       </div>
 
