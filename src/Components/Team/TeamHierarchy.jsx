@@ -424,13 +424,13 @@ export const TeamHierarchy = ({ isActive }) => {
             <div className="stat-value">Level {currentLevel}</div>
           </div>
         </div>
-        <div className="stat-card">
+        {/* <div className="stat-card">
           <div className="stat-icon">💰</div>
           <div className="stat-content">
             <div className="stat-label">Total Earnings</div>
             <div className="stat-value">${totalEarnings.toFixed(2)}</div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Legend */}
