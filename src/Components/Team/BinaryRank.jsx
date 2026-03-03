@@ -55,35 +55,58 @@ const BinaryRank = ({ binaryRank, directReferrals }) => {
 
       {/* Binary Commission Not Activated Warning */}
       {!isActivationComplete && (
-        <div className="activation-warning">
-          <div className="warning-icon">🔒</div>
-          <div className="warning-content">
-            <h4>Binary Commission Not Activated</h4>
+        <div className="activation-warning-modern">
+          <div className="warning-header">
+            <div className="warning-icon-modern">🔒</div>
+            <div>
+              <h4 className="warning-title">Binary Commission Not Activated</h4>
+              <p className="warning-subtitle">Activation Requirement: 2:1 or 1:2 Ratio</p>
+            </div>
+          </div>
+
+          <div className="warning-description">
             <p>
-              <strong>Activation Requirement: 2:1 or 1:2 Ratio</strong>
-            </p>
-            <p style={{ fontSize: '15px', marginTop: '8px' }}>
               You need <strong>either 2 members in one leg + 1 in the other, or 1 member in one leg + 2 in the other</strong> to activate binary matching.
             </p>
-            <div style={{ marginTop: '16px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
-              <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '24px', fontWeight: 'bold', color: (leftLegCount >= 2 && rightLegCount >= 1) || (leftLegCount >= 1 && rightLegCount >= 2) ? '#10B981' : '#F59E0B' }}>
-                  {leftLegCount}
-                </div>
-                <div style={{ fontSize: '12px', marginTop: '4px' }}>Left Leg</div>
-                <div style={{ fontSize: '10px', opacity: 0.8 }}>{leftLegCount >= 1 ? '✓' : 'Need 1+'}</div>
-              </div>
-              <div style={{ fontSize: '24px', alignSelf: 'center', opacity: 0.5 }}>×</div>
-              <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '24px', fontWeight: 'bold', color: (leftLegCount >= 2 && rightLegCount >= 1) || (leftLegCount >= 1 && rightLegCount >= 2) ? '#10B981' : '#F59E0B' }}>
-                  {rightLegCount}
-                </div>
-                <div style={{ fontSize: '12px', marginTop: '4px' }}>Right Leg</div>
-                <div style={{ fontSize: '10px', opacity: 0.8 }}>{rightLegCount >= 1 ? '✓' : 'Need 1+'}</div>
+          </div>
+
+          <div className="legs-display">
+            <div className={`leg-card ${leftLegCount >= 1 ? 'leg-active' : 'leg-inactive'}`}>
+              <div className="leg-icon">⬅️</div>
+              <div className="leg-label">Left Leg</div>
+              <div className="leg-count">{leftLegCount}</div>
+              <div className="leg-status">
+                {leftLegCount >= 1 ? (
+                  <span className="status-badge success">✓ Ready</span>
+                ) : (
+                  <span className="status-badge pending">Need 1+</span>
+                )}
               </div>
             </div>
-            <p style={{ fontSize: '13px', marginTop: '16px', opacity: 0.9 }}>
-              <em>📌 Note: You can still achieve ranks and claim rewards based on your active affiliates!</em>
+
+            <div className="legs-connector">
+              <div className="connector-icon">×</div>
+              <div className="connector-line"></div>
+            </div>
+
+            <div className={`leg-card ${rightLegCount >= 1 ? 'leg-active' : 'leg-inactive'}`}>
+              <div className="leg-icon">➡️</div>
+              <div className="leg-label">Right Leg</div>
+              <div className="leg-count">{rightLegCount}</div>
+              <div className="leg-status">
+                {rightLegCount >= 1 ? (
+                  <span className="status-badge success">✓ Ready</span>
+                ) : (
+                  <span className="status-badge pending">Need 1+</span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="warning-footer">
+            <div className="info-icon">📌</div>
+            <p>
+              <strong>Note:</strong> You can still achieve ranks and claim rewards based on your active affiliates! Binary commission activates once you meet the leg requirements.
             </p>
           </div>
         </div>
