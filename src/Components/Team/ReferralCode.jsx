@@ -106,12 +106,12 @@ export const ReferralCode = ({ isActive }) => {
       {/* Smart Restriction Notice */}
       {(isLeftLegFull || isRightLegFull) && (
         <div style={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
           padding: '1rem',
           borderRadius: '0.75rem',
           color: 'white',
           marginBottom: '1.5rem',
-          boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+          boxShadow: '0 4px 6px rgba(59, 130, 246, 0.3)'
         }}>
           <p style={{ margin: 0, fontSize: '0.95rem', fontWeight: '500' }}>
             🎯 <strong>Balance Your Team!</strong> {isLeftLegFull ? 'Left leg' : 'Right leg'} has 2 members. 
