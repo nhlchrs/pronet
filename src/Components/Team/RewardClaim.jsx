@@ -133,16 +133,16 @@ const RewardClaim = ({ binaryRank }) => {
 
   return (
     <div className="reward-claim-container">
-      <div className="reward-header">
+      {/* <div className="reward-header">
         <h2>🎁 Binary Rank Rewards</h2>
         <p>Claim exclusive rewards based on your highest rank achieved!</p>
         <p style={{ fontSize: '13px', color: '#6b7280', marginTop: '8px' }}>
           One reward per rank • Unlocked by highest rank ever achieved • One-time redemption
         </p>
-      </div>
+      </div> */}
 
       {/* Available Rewards */}
-      {availableRewards.length > 0 && (
+      {/* {availableRewards.length > 0 && (
         <div className="available-rewards-section">
           <h3>🎉 Available to Redeem</h3>
           <div className="rewards-grid">
@@ -167,15 +167,15 @@ const RewardClaim = ({ binaryRank }) => {
             ))}
           </div>
         </div>
-      )}
+      )} */}
 
       {/* No Available Rewards */}
-      {availableRewards.length === 0 && claimedRewards.length === 0 && (
+      {/* {availableRewards.length === 0 && claimedRewards.length === 0 && (
         <div className="no-rewards">
           <p>🏆 Keep building your team to unlock rank rewards!</p>
           <p>Your current rank: <strong style={{ color: '#4f46e5' }}>{binaryRank?.currentRank || 'NONE'}</strong></p>
         </div>
-      )}
+      )} */}
 
       {/* Claimed Rewards History */}
       {claimedRewards.length > 0 && (
