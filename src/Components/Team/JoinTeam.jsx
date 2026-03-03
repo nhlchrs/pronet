@@ -200,11 +200,11 @@ export const JoinTeam = ({ isActive, onSuccess }) => {
               <div className="info-box success-box">
                 <div className="info-icon">✅</div>
                 <h4>Direct Placement - 2:2 Achieved!</h4>
-                <p>{referrerInfo.specialMessage}</p>
-                <div className="info-note">
+                {/* <p>{referrerInfo.specialMessage}</p> */}
+                {/* <div className="info-note">
                   <strong>Note:</strong> Your sponsor has completed their initial 2:2 structure. 
                   All new members join as direct referrals - no spillover needed!
-                </div>
+                </div> */}
               </div>
             )}
 
