@@ -443,7 +443,7 @@ export const ReferralCode = ({ isActive }) => {
             )}
             {referralData.stats.leftTeamCount > 0 && (
               <div className="breakdown-card breakdown-left">
-                <div className="breakdown-emoji">â¬…ï¸</div>
+                <div className="breakdown-emoji">⬅️</div>
                 <div className="breakdown-label">Left Team (Lpro)</div>
                 <div className="breakdown-count">{referralData.stats.leftTeamCount}</div>
                 <div className="breakdown-percent">
@@ -455,7 +455,7 @@ export const ReferralCode = ({ isActive }) => {
             )}
             {referralData.stats.rightTeamCount > 0 && (
               <div className="breakdown-card breakdown-right">
-                <div className="breakdown-emoji">âž¡ï¸</div>
+                <div className="breakdown-emoji">➡️</div>
                 <div className="breakdown-label">Right Team (Rpro)</div>
                 <div className="breakdown-count">{referralData.stats.rightTeamCount}</div>
                 <div className="breakdown-percent">
