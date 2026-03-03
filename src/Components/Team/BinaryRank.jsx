@@ -21,6 +21,12 @@ const BinaryRank = ({ binaryRank, directReferrals }) => {
     rightLegCount = 0,
     leftLegPV = 0,
     rightLegPV = 0,
+    // New 1:2 matching data
+    matchedVolume = 0,
+    matchedLeft = 0,
+    matchedRight = 0,
+    carryForwardLeft = 0,
+    carryForwardRight = 0,
   } = binaryRank;
 
   // Check 2:1 or 1:2 activation ratio
@@ -198,25 +204,56 @@ const BinaryRank = ({ binaryRank, directReferrals }) => {
             </div>
           </div>
 
-          {/* Commission Info */}
+          {/* Commission Info - 1:2 Matching */}
           <div className="commission-card">
-            <h4>💰 Binary Commission</h4>
-            <div className="commission-grid">
-              <div className="commission-item">
-                <span className="commission-label">Weaker Leg PV:</span>
-                <span className="commission-value">{weakerLegPV || 0}</span>
+            <h4>💰 Binary Commission (1:2 Matching)</h4>
+            
+            {/* Matched Volume Breakdown */}
+            <div style={{ marginBottom: '16px', padding: '16px', backgroundColor: 'rgba(16, 185, 129, 0.1)', borderRadius: '8px', border: '2px solid #10B981' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                <div>
+                  <div style={{ fontSize: '12px', color: '#059669', fontWeight: '600', marginBottom: '4px' }}>MATCHED VOLUME</div>
+                  <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#047857' }}>{matchedVolume?.toFixed(2) || '0.00'} PV</div>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontSize: '12px', color: '#059669', fontWeight: '600', marginBottom: '4px' }}>COMMISSION EARNED</div>
+                  <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#047857' }}>${commission?.toFixed(2) || '0.00'}</div>
+                </div>
               </div>
-              <div className="commission-item">
-                <span className="commission-label">Bonus Rate:</span>
-                <span className="commission-value">{bonusPercent}%</span>
-              </div>
-              <div className="commission-item total">
-                <span className="commission-label">Commission Earned:</span>
-                <span className="commission-value highlight">${commission?.toFixed(2) || '0.00'}</span>
+              <div style={{ fontSize: '13px', color: '#065F46', textAlign: 'center', padding: '8px', backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: '6px' }}>
+                {matchedVolume?.toFixed(2) || '0'} PV × {bonusPercent}% = ${commission?.toFixed(2) || '0.00'}
               </div>
             </div>
+
+            {/* Matching Details Grid */}
+            <div className="commission-grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
+              <div style={{ padding: '12px', backgroundColor: 'rgba(59, 130, 246, 0.1)', borderRadius: '8px', border: '1px solid #3B82F6' }}>
+                <div style={{ fontSize: '11px', color: '#1E40AF', fontWeight: '600', marginBottom: '6px' }}>⬅️ LEFT MATCHED</div>
+                <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#1E3A8A' }}>{matchedLeft?.toFixed(2) || '0.00'} PV</div>
+              </div>
+              <div style={{ padding: '12px', backgroundColor: 'rgba(139, 92, 246, 0.1)', borderRadius: '8px', border: '1px solid #8B5CF6' }}>
+                <div style={{ fontSize: '11px', color: '#6B21A8', fontWeight: '600', marginBottom: '6px' }}>➡️ RIGHT MATCHED</div>
+                <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#581C87' }}>{matchedRight?.toFixed(2) || '0.00'} PV</div>
+              </div>
+            </div>
+
+            {/* Carry Forward */}
+            <div style={{ padding: '12px', backgroundColor: 'rgba(251, 146, 60, 0.1)', borderRadius: '8px', border: '1px dashed #F59E0B', marginBottom: '12px' }}>
+              <div style={{ fontSize: '12px', color: '#92400E', fontWeight: '600', marginBottom: '8px' }}>📦 CARRY FORWARD (Unmatched PV)</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px' }}>
+                <div>
+                  <span style={{ fontSize: '12px', color: '#78350F' }}>Left: </span>
+                  <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#92400E' }}>{carryForwardLeft?.toFixed(2) || '0.00'} PV</span>
+                </div>
+                <div>
+                  <span style={{ fontSize: '12px', color: '#78350F' }}>Right: </span>
+                  <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#92400E' }}>{carryForwardRight?.toFixed(2) || '0.00'} PV</span>
+                </div>
+              </div>
+            </div>
+
             <div className="commission-note">
-              <p>💡 Commission is calculated on your <strong>weaker leg</strong> (smaller PV). Balance your team for maximum earnings!</p>
+              <p>💡 <strong>1:2 Matching Rule:</strong> You can match either 1 PV from left with 2 from right, or 2 from left with 1 from right. System automatically uses the option that gives you maximum commission!</p>
             </div>
           </div>
 

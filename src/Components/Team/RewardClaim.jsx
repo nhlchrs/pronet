@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { teamAPI } from '../../services/api';
 import './RewardClaim.css';
 
 const RewardClaim = ({ binaryRank }) => {
@@ -34,11 +34,12 @@ const RewardClaim = ({ binaryRank }) => {
   const fetchRewards = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/team/rewards/available');
+      const response = await teamAPI.getAvailableRewards();
+      console.log('🎁 Rewards API Response:', response);
       
-      if (response.data.success) {
-        setAvailableRewards(response.data.availableRewards || []);
-        setClaimedRewards(response.data.claimedRewards || []);
+      if (response.success) {
+        setAvailableRewards(response.availableRewards || []);
+        setClaimedRewards(response.claimedRewards || []);
       }
     } catch (error) {
       console.error('Error fetching rewards:', error);
@@ -88,7 +89,7 @@ const RewardClaim = ({ binaryRank }) => {
     setMessage(null);
 
     try {
-      const response = await axios.post('/api/team/rewards/claim', {
+      const response = await teamAPI.claimReward({
         rank: selectedReward.rank,
         shippingAddress: selectedReward.requiresShipping ? claimForm.shippingAddress : null,
         size: selectedReward.requiresSize ? claimForm.size : undefined,
@@ -96,19 +97,19 @@ const RewardClaim = ({ binaryRank }) => {
         notes: claimForm.notes,
       });
 
-      if (response.data.success) {
-        setMessage({ type: 'success', text: response.data.message });
+      if (response.success) {
+        setMessage({ type: 'success', text: response.message });
         setTimeout(() => {
           closeClaimModal();
           fetchRewards(); // Refresh rewards list
         }, 2000);
       } else {
-        setMessage({ type: 'error', text: response.data.message });
+        setMessage({ type: 'error', text: response.message });
       }
     } catch (error) {
       setMessage({ 
         type: 'error', 
-        text: error.response?.data?.message || 'Failed to claim reward' 
+        text: error.message || 'Failed to claim reward' 
       });
     } finally {
       setSubmitting(false);

@@ -50,7 +50,13 @@ export default function RewardsPage() {
       
       // Fetch binary rank info and stats
       const response = await teamAPI.getTeamStats();
+      console.log('🎯 Rewards Page - Full API Response:', response);
       const data = response.data || response;
+      console.log('🎯 Rewards Page - Data extracted:', data);
+      console.log('🎯 Binary Rank:', data.binaryRank);
+      console.log('🎯 Left Leg PV:', data.leftLegPV);
+      console.log('🎯 Right Leg PV:', data.rightLegPV);
+      console.log('🎯 Total Active Affiliates:', data.totalActiveAffiliates);
       
       // Set binary rank data
       if (data) {
@@ -66,6 +72,12 @@ export default function RewardsPage() {
           rightLegCount: data.rightLegCount || 0,
           weakerLegPV: data.weakerLegPV || 0,
           commission: data.binaryCommissionEarned || 0,
+          // New 1:2 matching data
+          matchedVolume: data.matchedVolume || 0,
+          matchedLeft: data.matchedLeft || 0,
+          matchedRight: data.matchedRight || 0,
+          carryForwardLeft: data.carryForwardLeft || 0,
+          carryForwardRight: data.carryForwardRight || 0,
         });
         setDirectReferrals(data.directCount || 0);
       }
