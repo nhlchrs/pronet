@@ -402,27 +402,6 @@ export const ReferralCode = ({ isActive }) => {
         </div>
       )}
 
-      {/* Stats Grid */}
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-label">Direct Referrals</div>
-          <div className="stat-value">{referralData.stats.directCount}</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-label">Total Downline</div>
-          <div className="stat-value">{referralData.stats.totalDownline}</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-label">Your Level</div>
-          <div className="stat-value">Level {referralData.stats.level}</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-label">Total Earnings</div>
-          <div className="stat-value">
-            ${(referralData.stats.totalEarnings || 0).toFixed(2)}
-          </div>
-        </div>
-      </div>
 
       {/* Team Position Breakdown */}
       {(referralData.stats.mainTeamCount || referralData.stats.leftTeamCount || referralData.stats.rightTeamCount) > 0 && (
