@@ -67,19 +67,7 @@ const HierarchyNode = ({ member, depth = 0, maxDepth = 5, currentUserId }) => {
             <span className="detail-item">
               👥 {member.directCount || 0} Direct
             </span>
-            <span className="detail-item">
-              🌳 {member.totalDownline || 0} Total
-            </span>
-            {member.totalEarnings > 0 && (
-              <span className="detail-item earnings">
-                💰 ${member.totalEarnings.toFixed(2)}
-              </span>
-            )}
-            {member.referralCode && (
-              <span className="detail-item code">
-                🔑 {member.referralCode}
-              </span>
-            )}
+           
           </div>
         </div>
       </div>
@@ -166,16 +154,6 @@ const OrgChartNode = ({ member, currentUserId, maxDepth = 5, currentDepth = 0 })
             <div className="org-stat-value">{member.directCount || 0}</div>
             <div className="org-stat-label">Direct</div>
           </div>
-          <div className="org-stat">
-            <div className="org-stat-value">{member.totalDownline || 0}</div>
-            <div className="org-stat-label">Team</div>
-          </div>
-          {member.totalEarnings > 0 && (
-            <div className="org-stat">
-              <div className="org-stat-value">${(member.totalEarnings || 0).toFixed(0)}</div>
-              <div className="org-stat-label">Earned</div>
-            </div>
-          )}
         </div>
       </div>
 
