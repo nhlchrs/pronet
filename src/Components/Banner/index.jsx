@@ -10,7 +10,7 @@ const BannerHome =() => {
             <div className="section">
                 <div className="hero-container">
                     <div className="banner-heading">
-                        <h1 className="font-family-1 animate-box animated animate__animated" data-animate="animate__fadeInUp">Pro Net Solutions<span className="accent-color"> Multi-Service</span> Platform </h1>
+                        <h1 className="font-family-1 animate-box animated animate__animated" data-animate="animate__fadeInUp">Pronet Solutions<span className="accent-color"> Multi-Service</span> Platform </h1>
                         <div className="banner-client-container">
                             <div className="banner-client-rating">
                                 <div>

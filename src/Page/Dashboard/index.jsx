@@ -11,11 +11,11 @@ export default function Dashboard() {
   const { socket } = useSocket();
   const navigate = useNavigate();
 
-  const [metrics, setMetrics] = useState(null);
   const [meetings, setMeetings] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
   const [paymentHistory, setPaymentHistory] = useState([]);
   const [teams, setTeams] = useState([]);
+  const [teamStats, setTeamStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
@@ -56,14 +56,6 @@ export default function Dashboard() {
         setLoading(true);
         setError("");
 
-        // Fetch metrics
-        try {
-          const metricsRes = await authAPI.getUserMetrics();
-          setMetrics(metricsRes.data || metricsRes);
-        } catch (err) {
-          console.warn("Could not fetch metrics:", err);
-        }
-
         // Fetch upcoming meetings (user endpoint, not admin)
         try {
           const meetingsRes = await meetingAPI.getUpcomingMeetings();
@@ -100,6 +92,22 @@ export default function Dashboard() {
           setTeams(Array.isArray(teamsRes.data) ? teamsRes.data : teamsRes || []);
         } catch (err) {
           console.warn("Could not fetch teams:", err);
+        }
+
+        // Fetch team statistics (direct count & total downline)
+        try {
+          const teamStatsRes = await teamAPI.getTeamStats();
+          console.log('Team Stats Response:', teamStatsRes);
+          if (teamStatsRes.success && teamStatsRes.data) {
+            console.log('Team Stats Data:', teamStatsRes.data);
+            setTeamStats(teamStatsRes.data);
+          } else if (teamStatsRes.data) {
+            // Handle case where success flag might be missing
+            console.log('Team Stats Data (no success flag):', teamStatsRes.data);
+            setTeamStats(teamStatsRes.data);
+          }
+        } catch (err) {
+          console.warn("Could not fetch team stats:", err);
         }
       } catch (err) {
         console.error("Error fetching dashboard data:", err);
@@ -394,8 +402,8 @@ export default function Dashboard() {
                 color="#5DDDD2"
               />
               <StatCard
-                title="Teams"
-                value={teams.length}
+                title="Team Members"
+                value={teamStats?.totalActiveAffiliates || teamStats?.totalDownline || 0}
                 icon="👥"
                 color="#DAFAF4"
               />
@@ -405,6 +413,110 @@ export default function Dashboard() {
                 icon="💳"
                 color="#4CD3C8"
               />
+            </div>
+
+            {/* Team Statistics Section */}
+            <div
+              style={{
+                backgroundColor: "#1A2A3A",
+                border: "1px solid #2A4A5A",
+                borderRadius: "12px",
+                padding: "24px",
+                marginBottom: "30px",
+              }}
+            >
+              <h3 style={{ color: "#DAFAF4", marginTop: 0, marginBottom: "24px", display: "flex", alignItems: "center", gap: "12px" }}>
+                <span style={{ fontSize: "28px" }}>👥</span>
+                Your Team Statistics
+              </h3>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                  gap: "20px",
+                }}
+              >
+                {/* Direct Referrals */}
+                <div
+                  style={{
+                    backgroundColor: "rgba(6, 214, 160, 0.1)",
+                    padding: "20px",
+                    borderRadius: "12px",
+                    border: "2px solid #06d6a0",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
+                    <span style={{ fontSize: "24px" }}>🤝</span>
+                    <p
+                      style={{
+                        color: "#5DDDD2",
+                        fontSize: "13px",
+                        textTransform: "uppercase",
+                        margin: 0,
+                        fontWeight: "600",
+                        letterSpacing: "0.5px",
+                      }}
+                    >
+                      Direct Referrals
+                    </p>
+                  </div>
+                  <p
+                    style={{
+                      color: "#DAFAF4",
+                      fontSize: "32px",
+                      fontWeight: "bold",
+                      margin: 0,
+                    }}
+                  >
+                    {teamStats?.directCount || 0}
+                  </p>
+                  <p style={{ color: "#06d6a0", fontSize: "12px", marginTop: "8px", margin: 0 }}>
+                    First-level referrals
+                  </p>
+                </div>
+
+                {/* Binary Rank */}
+                {teamStats?.binaryRank && (
+                  <div
+                    style={{
+                      backgroundColor: "rgba(245, 158, 11, 0.1)",
+                      padding: "20px",
+                      borderRadius: "12px",
+                      border: "2px solid #f59e0b",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
+                      <span style={{ fontSize: "24px" }}>🏆</span>
+                      <p
+                        style={{
+                          color: "#f59e0b",
+                          fontSize: "13px",
+                          textTransform: "uppercase",
+                          margin: 0,
+                          fontWeight: "600",
+                          letterSpacing: "0.5px",
+                        }}
+                      >
+                        Binary Rank
+                      </p>
+                    </div>
+                    <p
+                      style={{
+                        color: "#DAFAF4",
+                        fontSize: "24px",
+                        fontWeight: "bold",
+                        margin: 0,
+                      }}
+                    >
+                      {teamStats.binaryRank}
+                    </p>
+                    <p style={{ color: "#f59e0b", fontSize: "12px", marginTop: "8px", margin: 0 }}>
+                      {teamStats.binaryBonusPercent ? `${teamStats.binaryBonusPercent}% bonus` : 'Current rank'}
+                    </p>
+                  </div>
+                )}
+               
+              </div>
             </div>
 
             {/* Commission Earnings Section */}
@@ -513,296 +625,6 @@ export default function Dashboard() {
                 </button> */}
               </div>
             </div>
-
-            {/* Metrics */}
-            {metrics && (
-              <div
-                style={{
-                  backgroundColor: "#1A2A3A",
-                  border: "1px solid #2A4A5A",
-                  borderRadius: "12px",
-                  padding: "24px",
-                  marginBottom: "30px",
-                }}
-              >
-                <h3 style={{ color: "#DAFAF4", marginTop: 0, marginBottom: "24px", display: "flex", alignItems: "center", gap: "12px" }}>
-                  <span style={{ fontSize: "28px" }}>📊</span>
-                  Your Statistics
-                </h3>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-                    gap: "20px",
-                  }}
-                >
-                  {/* User Statistics */}
-                  {metrics.users && (
-                    <>
-                      <div
-                        style={{
-                          backgroundColor: "rgba(76, 211, 200, 0.1)",
-                          padding: "20px",
-                          borderRadius: "12px",
-                          border: "2px solid #4CD3C8",
-                        }}
-                      >
-                        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-                          <span style={{ fontSize: "24px" }}>👥</span>
-                          <p
-                            style={{
-                              color: "#5DDDD2",
-                              fontSize: "13px",
-                              textTransform: "uppercase",
-                              margin: 0,
-                              fontWeight: "600",
-                              letterSpacing: "0.5px",
-                            }}
-                          >
-                            Total Users
-                          </p>
-                        </div>
-                        <p
-                          style={{
-                            color: "#DAFAF4",
-                            fontSize: "32px",
-                            fontWeight: "bold",
-                            margin: 0,
-                          }}
-                        >
-                          {metrics.users.total?.toLocaleString() || "0"}
-                        </p>
-                        <div style={{ marginTop: "12px", display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                          <span style={{ color: "#06d6a0", fontSize: "12px", backgroundColor: "rgba(6, 214, 160, 0.15)", padding: "4px 8px", borderRadius: "6px" }}>
-                            ✓ Active: {metrics.users.active || 0}
-                          </span>
-                          {metrics.users.newToday > 0 && (
-                            <span style={{ color: "#4CD3C8", fontSize: "12px", backgroundColor: "rgba(76, 211, 200, 0.15)", padding: "4px 8px", borderRadius: "6px" }}>
-                              🆕 Today: +{metrics.users.newToday}
-                            </span>
-                          )}
-                          {metrics.users.newThisMonth > 0 && (
-                            <span style={{ color: "#5DDDD2", fontSize: "12px", backgroundColor: "rgba(93, 221, 210, 0.15)", padding: "4px 8px", borderRadius: "6px" }}>
-                              📅 This Month: +{metrics.users.newThisMonth}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  {/* Revenue Statistics */}
-                  {metrics.revenue && (
-                    <>
-                      <div
-                        style={{
-                          backgroundColor: "rgba(6, 214, 160, 0.1)",
-                          padding: "20px",
-                          borderRadius: "12px",
-                          border: "2px solid #06d6a0",
-                        }}
-                      >
-                        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-                          <span style={{ fontSize: "24px" }}>💰</span>
-                          <p
-                            style={{
-                              color: "#5DDDD2",
-                              fontSize: "13px",
-                              textTransform: "uppercase",
-                              margin: 0,
-                              fontWeight: "600",
-                              letterSpacing: "0.5px",
-                            }}
-                          >
-                            Total Revenue
-                          </p>
-                        </div>
-                        <p
-                          style={{
-                            color: "#DAFAF4",
-                            fontSize: "32px",
-                            fontWeight: "bold",
-                            margin: 0,
-                          }}
-                        >
-                          ${(metrics.revenue.total || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                        </p>
-                        <div style={{ marginTop: "12px" }}>
-                          <span style={{ color: "#06d6a0", fontSize: "12px", backgroundColor: "rgba(6, 214, 160, 0.15)", padding: "4px 8px", borderRadius: "6px" }}>
-                            📈 This Month: ${(metrics.revenue.thisMonth || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                          </span>
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  {/* Other metrics */}
-                  {Object.entries(metrics)
-                    .filter(([key, value]) => {
-                      // Skip users and revenue as they're handled above
-                      if (key === "users" || key === "revenue") return false;
-                      // Only show simple values, not complex objects
-                      return (
-                        typeof value === "number" ||
-                        typeof value === "string" ||
-                        typeof value === "boolean"
-                      );
-                    })
-                    .map(([key, value]) => (
-                      <div
-                        key={key}
-                        style={{
-                          backgroundColor: "#252525",
-                          padding: "20px",
-                          borderRadius: "12px",
-                          border: "1px solid #2A4A5A",
-                        }}
-                      >
-                        <p
-                          style={{
-                            color: "#5DDDD2",
-                            fontSize: "13px",
-                            textTransform: "uppercase",
-                            margin: 0,
-                            marginBottom: "12px",
-                            fontWeight: "600",
-                            letterSpacing: "0.5px",
-                          }}
-                        >
-                          {key.replace(/([A-Z])/g, " $1").trim()}
-                        </p>
-                        <p
-                          style={{
-                            color: "#DAFAF4",
-                            fontSize: "28px",
-                            fontWeight: "bold",
-                            margin: 0,
-                          }}
-                        >
-                          {typeof value === "boolean"
-                            ? value
-                              ? "✓ Active"
-                              : "✗ Inactive"
-                            : typeof value === "number"
-                            ? value.toLocaleString()
-                            : value}
-                        </p>
-                      </div>
-                    ))}
-                </div>
-
-                {/* Show complex metrics separately if any */}
-                {Object.entries(metrics).some(
-                  ([key, value]) =>
-                    key !== "users" && key !== "revenue" && typeof value === "object" && value !== null
-                ) && (
-                  <div style={{ marginTop: "32px", paddingTop: "24px", borderTop: "2px solid #2A4A5A" }}>
-                    <h4 style={{ 
-                      color: "#DAFAF4", 
-                      marginTop: 0,
-                      marginBottom: "20px",
-                      fontSize: "20px",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px"
-                    }}>
-                      <span style={{ fontSize: "24px" }}>📋</span>
-                      Additional Details
-                    </h4>
-                    <div
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                        gap: "20px",
-                      }}
-                    >
-                      {Object.entries(metrics)
-                        .filter(
-                          ([key, value]) =>
-                            key !== "users" && key !== "revenue" && typeof value === "object" && value !== null
-                        )
-                        .map(([key, value]) => (
-                          <div
-                            key={key}
-                            style={{
-                              backgroundColor: "rgba(42, 74, 90, 0.3)",
-                              padding: "20px",
-                              borderRadius: "12px",
-                              border: "1px solid #2A4A5A",
-                              transition: "all 0.3s ease",
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.borderColor = "#4CD3C8";
-                              e.currentTarget.style.backgroundColor = "rgba(76, 211, 200, 0.1)";
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.borderColor = "#2A4A5A";
-                              e.currentTarget.style.backgroundColor = "rgba(42, 74, 90, 0.3)";
-                            }}
-                          >
-                            <p
-                              style={{
-                                color: "#4CD3C8",
-                                fontSize: "14px",
-                                textTransform: "uppercase",
-                                margin: 0,
-                                marginBottom: "16px",
-                                fontWeight: "700",
-                                letterSpacing: "1px",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "8px",
-                              }}
-                            >
-                              <span style={{ fontSize: "18px" }}>▪</span>
-                              {key.replace(/([A-Z])/g, " $1").trim()}
-                            </p>
-                            <div style={{ 
-                              backgroundColor: "#0B1929",
-                              padding: "12px",
-                              borderRadius: "8px",
-                              border: "1px solid #1A2A3A"
-                            }}>
-                              {Object.entries(value).map(([subKey, subValue], index) => (
-                                <div 
-                                  key={subKey} 
-                                  style={{ 
-                                    marginBottom: index < Object.entries(value).length - 1 ? "10px" : "0",
-                                    paddingBottom: index < Object.entries(value).length - 1 ? "10px" : "0",
-                                    borderBottom: index < Object.entries(value).length - 1 ? "1px solid #2A4A5A" : "none"
-                                  }}
-                                >
-                                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px" }}>
-                                    <span style={{ 
-                                      color: "#5DDDD2", 
-                                      fontSize: "12px",
-                                      textTransform: "capitalize",
-                                      fontWeight: "500"
-                                    }}>
-                                      {subKey.replace(/([A-Z])/g, " $1").trim()}:
-                                    </span>
-                                    <span style={{ 
-                                      color: "#DAFAF4", 
-                                      fontSize: "14px",
-                                      fontWeight: "600"
-                                    }}>
-                                      {typeof subValue === "number" 
-                                        ? subValue.toLocaleString() 
-                                        : typeof subValue === "boolean"
-                                        ? subValue ? "✓" : "✗"
-                                        : String(subValue)}
-                                    </span>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
 
             {/* Quick Summary */}
             <div

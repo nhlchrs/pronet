@@ -71,7 +71,7 @@ const PaymentPage = () => {
         '💬 Premium support',
         '⬇️ Downloadable resources',
         '👨‍🏫 One-on-one mentorship',
-        '♾️ Lifetime resource access',
+        '📅 360 days resource access',
       ]
     }
   ];
@@ -415,7 +415,9 @@ const PaymentPage = () => {
             <div className="plans-grid single-plan">
               {plans.map((plan) => (
                 <div key={plan.id} className="plan-card featured">
-                  <div className="popular-badge">Best Value - 360 Days</div>
+                  <div className="popular-badge">
+                    {plan.id === 'test' ? 'Test Plan - 7 Days' : 'Best Value - 360 Days'}
+                  </div>
                   <h3>{plan.name}</h3>
                   <div className="plan-price">
                     <span className="currency">$</span>

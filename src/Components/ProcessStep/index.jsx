@@ -12,7 +12,7 @@ const ProcessSection = () => {
                             <i className="fa-solid fa-circle-notch"></i>
                             <h6 className="font-family-1 accent-color">Our Process</h6>
                         </div>
-                        <h2 className="text-center animate-box animated animate__animated" data-animate="animate__fadeInUp"> Alert Providers You Can Trust</h2>
+                        <h2 className="text-center animate-box animated animate__animated" data-animate="animate__fadeInUp">Market research you can trust  </h2>
 
                         <div className="row row-cols-md-3 row-cols-1 grid-spacer-2">
     <div className="col">
@@ -22,8 +22,11 @@ const ProcessSection = () => {
             </div>
             <div className="card card-process animate-box animated animate__animated" data-animate="animate__fadeInUp">
                 <i className="fa-solid fa-signal"></i>
-                <h3 className="secondary-accent">Forex Signals</h3>
-                <p>Access precise entry and exit points for major currency pairs with 85%+ accuracy, delivered by trusted traders.</p>
+                <h3 className="secondary-accent">Technical Analysis</h3>
+                <p>Leverage high-probability, data-backed trade setups built to
+capitalize on short-term volatility and market inefficiencies. Our technical frameworks
+focus on precise entries, structured risk management, and optimized exit strategies to
+maximize edge and consistency.</p>
             </div>
         </div>
     </div>
@@ -34,8 +37,11 @@ const ProcessSection = () => {
             </div>
             <div className="card card-process animate-box animated animate__animated" data-animate="animate__fadeInUp">
                 <i className="fa-solid fa-bitcoin-sign"></i>
-                <h3 className="secondary-accent">Crypto Analysis</h3>
-                <p>Stay ahead of market trends with real-time crypto predictions and signal alerts to make smart investment moves.</p>
+                <h3 className="secondary-accent">Market Research & Strategic Commentary</h3>
+                <p> Gain a comprehensive understanding of
+market dynamics through in-depth research and macro-level insights. We go beyond
+price movement to explain underlying drivers, valuation perspectives, liquidity flows,
+and the broader economic environment shaping asset behavior.</p>
             </div>
         </div>
     </div>
@@ -46,8 +52,10 @@ const ProcessSection = () => {
             </div>
             <div className="card card-process animate-box animated animate__animated" data-animate="animate__fadeInUp">
                 <i className="fa-solid fa-chart-line"></i>
-                <h3 className="secondary-accent">Stock Insights</h3>
-                <p>Receive expert analysis and actionable buy/sell recommendations for consistently profitable stock picks.</p>
+                <h3 className="secondary-accent">Actionable Insights</h3>
+                <p>Transform complex market data into clear, practical opportunities.
+We deliver structured trade ideas and investment perspectives designed to help you act
+decisively with confidence and disciplined risk management.</p>
             </div>
         </div>
     </div>
