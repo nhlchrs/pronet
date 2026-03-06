@@ -117,10 +117,7 @@ export const JoinTeam = ({ isActive, onSuccess }) => {
           onSuccess();
         }
         
-        // Reload page after short delay to show success message
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+     
       } else {
         setError(response.message || 'Failed to join team');
       }
@@ -139,7 +136,8 @@ export const JoinTeam = ({ isActive, onSuccess }) => {
         <div className="success-message">
           <CheckCircle className="success-icon" />
           <h3>Successfully Joined Team!</h3>
-          <p>You've been added to the referral network. Redirecting...</p>
+          <p>You've been added to the referral network. Commission earnings have been updated!</p>
+          <p>Redirecting...</p>
         </div>
       </div>
     );
