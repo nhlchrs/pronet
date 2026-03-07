@@ -376,7 +376,7 @@ export const ReferralCode = ({ isActive }) => {
       )}
 
       {/* Position Information Card */}
-      {referralData.stats.userPosition && (
+      {/* {referralData.stats.userPosition && (
         <div className="position-info-card">
           <h3>🔍 Your Position</h3>
           <div className="position-display">
@@ -400,7 +400,7 @@ export const ReferralCode = ({ isActive }) => {
             You joined the team through the {referralData.stats.userPosition === 'left' ? 'Left (Lpro)' : referralData.stats.userPosition === 'right' ? 'Right (Rpro)' : 'Main'} referral code
           </p>
         </div>
-      )}
+      )} */}
 
 
       {/* Team Position Breakdown */}
