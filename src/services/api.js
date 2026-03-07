@@ -358,6 +358,11 @@ export const teamAPI = {
     return apiCall('/team/check-status', 'GET');
   },
 
+  // Get simple team members list with binary calculations
+  getSimpleTeamList: async () => {
+    return apiCall('/team/my-team-list', 'GET');
+  },
+
   // Reward claim endpoints
   getAvailableRewards: async () => {
     return apiCall('/team/rewards/available', 'GET');

@@ -21,12 +21,11 @@ const BinaryRank = ({ binaryRank, directReferrals }) => {
     rightLegCount = 0,
     leftLegPV = 0,
     rightLegPV = 0,
-    // New 1:2 matching data
+    // 1:1 matching data (weaker leg)
     matchedVolume = 0,
-    matchedLeft = 0,
-    matchedRight = 0,
     carryForwardLeft = 0,
     carryForwardRight = 0,
+    highestRankAchieved = "NONE",
   } = binaryRank;
 
   // Check 2:1 or 1:2 activation ratio
@@ -204,16 +203,16 @@ const BinaryRank = ({ binaryRank, directReferrals }) => {
             </div>
           </div>
 
-          {/* Commission Info - 1:2 Matching */}
+          {/* Commission Info - 1:1 Matching (Weaker Leg) */}
           <div className="commission-card">
-            <h4>💰 Binary Commission (1:2 Matching)</h4>
+            <h4>💰 Binary Commission (1:1 Matching - Weaker Leg)</h4>
             
             {/* Matched Volume Breakdown */}
             <div style={{ marginBottom: '16px', padding: '16px', backgroundColor: 'rgba(16, 185, 129, 0.1)', borderRadius: '8px', border: '2px solid #10B981' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                 <div>
-                  <div style={{ fontSize: '12px', color: '#059669', fontWeight: '600', marginBottom: '4px' }}>MATCHED VOLUME</div>
-                  <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#047857' }}>{matchedVolume?.toFixed(2) || '0.00'} PV</div>
+                  <div style={{ fontSize: '12px', color: '#059669', fontWeight: '600', marginBottom: '4px' }}>MATCHED VOLUME (Weaker Leg)</div>
+                  <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#047857' }}>{(matchedVolume || weakerLegPV)?.toFixed(2) || '0.00'} PV</div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
                   <div style={{ fontSize: '12px', color: '#059669', fontWeight: '600', marginBottom: '4px' }}>COMMISSION EARNED</div>
@@ -221,25 +220,13 @@ const BinaryRank = ({ binaryRank, directReferrals }) => {
                 </div>
               </div>
               <div style={{ fontSize: '13px', color: '#065F46', textAlign: 'center', padding: '8px', backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: '6px' }}>
-                {matchedVolume?.toFixed(2) || '0'} PV × {bonusPercent}% = ${commission?.toFixed(2) || '0.00'}
-              </div>
-            </div>
-
-            {/* Matching Details Grid */}
-            <div className="commission-grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
-              <div style={{ padding: '12px', backgroundColor: 'rgba(59, 130, 246, 0.1)', borderRadius: '8px', border: '1px solid #3B82F6' }}>
-                <div style={{ fontSize: '11px', color: '#1E40AF', fontWeight: '600', marginBottom: '6px' }}>⬅️ LEFT MATCHED</div>
-                <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#1E3A8A' }}>{matchedLeft?.toFixed(2) || '0.00'} PV</div>
-              </div>
-              <div style={{ padding: '12px', backgroundColor: 'rgba(139, 92, 246, 0.1)', borderRadius: '8px', border: '1px solid #8B5CF6' }}>
-                <div style={{ fontSize: '11px', color: '#6B21A8', fontWeight: '600', marginBottom: '6px' }}>➡️ RIGHT MATCHED</div>
-                <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#581C87' }}>{matchedRight?.toFixed(2) || '0.00'} PV</div>
+                {(matchedVolume || weakerLegPV)?.toFixed(2) || '0'} PV × {bonusPercent}% = ${commission?.toFixed(2) || '0.00'}
               </div>
             </div>
 
             {/* Carry Forward */}
             <div style={{ padding: '12px', backgroundColor: 'rgba(251, 146, 60, 0.1)', borderRadius: '8px', border: '1px dashed #F59E0B', marginBottom: '12px' }}>
-              <div style={{ fontSize: '12px', color: '#92400E', fontWeight: '600', marginBottom: '8px' }}>📦 CARRY FORWARD (Unmatched PV)</div>
+              <div style={{ fontSize: '12px', color: '#92400E', fontWeight: '600', marginBottom: '8px' }}>📦 CARRY FORWARD (Unmatched PV Rolls Over)</div>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px' }}>
                 <div>
                   <span style={{ fontSize: '12px', color: '#78350F' }}>Left: </span>
@@ -253,7 +240,7 @@ const BinaryRank = ({ binaryRank, directReferrals }) => {
             </div>
 
             <div className="commission-note">
-              <p>💡 <strong>1:2 Matching Rule:</strong> You can match either 1 PV from left with 2 from right, or 2 from left with 1 from right. System automatically uses the option that gives you maximum commission!</p>
+              <p>💡 <strong>1:1 Matching Rule:</strong> Commission is calculated on the weaker leg (minimum of both legs). The remaining PV from the stronger leg carries forward to the next period!</p>
             </div>
           </div>
 

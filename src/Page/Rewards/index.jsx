@@ -48,36 +48,37 @@ export default function RewardsPage() {
       setLoading(true);
       setError("");
       
-      // Fetch binary rank info and stats
-      const response = await teamAPI.getTeamStats();
+      // Fetch binary rank info and stats from new API
+      const response = await teamAPI.getSimpleTeamList();
       console.log('🎯 Rewards Page - Full API Response:', response);
       const data = response.data || response;
       console.log('🎯 Rewards Page - Data extracted:', data);
       console.log('🎯 Binary Rank:', data.binaryRank);
-      console.log('🎯 Left Leg PV:', data.leftLegPV);
-      console.log('🎯 Right Leg PV:', data.rightLegPV);
-      console.log('🎯 Total Active Affiliates:', data.totalActiveAffiliates);
+      console.log('🎯 Left Leg PV:', data.leftProPV);
+      console.log('🎯 Right Leg PV:', data.rightProPV);
+      console.log('🎯 Direct Count:', data.directCount);
+      console.log('🎯 Matched Volume:', data.matchedVolume);
+      console.log('🎯 Commission Amount:', data.commissionAmount);
       
-      // Set binary rank data
+      // Set binary rank data from new API structure
       if (data) {
         setBinaryRank({
           activated: data.binaryActivated || false,
           currentRank: data.binaryRank || "NONE",
           rankBadge: getRankBadge(data.binaryRank || "NONE"),
           bonusPercent: data.binaryBonusPercent || 0,
-          totalActiveAffiliates: data.totalActiveAffiliates || 0,
-          leftLegPV: data.leftLegPV || 0,
-          rightLegPV: data.rightLegPV || 0,
-          leftLegCount: data.leftLegCount || 0,
-          rightLegCount: data.rightLegCount || 0,
+          totalActiveAffiliates: data.directCount || 0, // Using directCount as total affiliates
+          leftLegPV: data.leftProPV || 0,
+          rightLegPV: data.rightProPV || 0,
+          leftLegCount: data.leftProCount || 0,
+          rightLegCount: data.rightProCount || 0,
           weakerLegPV: data.weakerLegPV || 0,
-          commission: data.binaryCommissionEarned || 0,
-          // New 1:2 matching data
+          commission: data.commissionAmount || 0,
+          // 1:1 matching data (weaker leg)
           matchedVolume: data.matchedVolume || 0,
-          matchedLeft: data.matchedLeft || 0,
-          matchedRight: data.matchedRight || 0,
           carryForwardLeft: data.carryForwardLeft || 0,
           carryForwardRight: data.carryForwardRight || 0,
+          highestRankAchieved: data.highestRankAchieved || "NONE",
         });
         setDirectReferrals(data.directCount || 0);
       }
@@ -253,7 +254,7 @@ export default function RewardsPage() {
             <li>
               <strong style={{ color: "#DAFAF4" }}>ZENITH</strong>: 44,444 affiliates (₹4,00,000 Cash!)
             </li>
-            <li><em>Note: Binary commission (10%, 15%, 20%) activates with 2:1 or 1:2 ratio (2 members in one leg + 1 in the other)</em></li>
+            <li><em>Note: Binary commission (10%, 15%, 20%) uses 1:1 matching (weaker leg). Build both legs evenly to maximize earnings!</em></li>
           </ul>
         </div>
 
