@@ -50,12 +50,37 @@ const RewardClaim = ({ binaryRank }) => {
   };
 
   const openClaimModal = (reward) => {
+    console.log('🎯 Opening claim modal for reward:', reward);
+    console.log('🔍 Before state update - showClaimModal:', showClaimModal);
     setSelectedReward(reward);
     setClaimForm({
-      ...claimForm,
       rewardType: reward.rewardType || '',
+      size: reward.requiresSize ? '' : 'N/A',
+      color: reward.requiresColor ? '' : '',
+      shippingAddress: {
+        street: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        country: '',
+        phone: '',
+      },
+      notes: '',
     });
     setShowClaimModal(true);
+    console.log('✅ Modal state updated to true');
+    // Force check after state update
+    setTimeout(() => {
+      console.log('🔍 After state update - showClaimModal:', showClaimModal);
+      const modalElement = document.querySelector('.modal-overlay');
+      console.log('🔍 Modal element in DOM:', modalElement);
+      if (modalElement) {
+        console.log('✅ Modal element exists in DOM');
+        console.log('🔍 Modal computed styles:', window.getComputedStyle(modalElement));
+      } else {
+        console.log('❌ Modal element NOT found in DOM');
+      }
+    }, 100);
   };
 
   const closeClaimModal = () => {
@@ -84,32 +109,49 @@ const RewardClaim = ({ binaryRank }) => {
   };
 
   const handleSubmitClaim = async (e) => {
+    console.log('🔥 handleSubmitClaim CALLED!', e);
     e.preventDefault();
     setSubmitting(true);
     setMessage(null);
 
     try {
-      const response = await teamAPI.claimReward({
+      console.log('🎁 Submitting reward claim:', {
         rank: selectedReward.rank,
-        shippingAddress: selectedReward.requiresShipping ? claimForm.shippingAddress : null,
-        size: selectedReward.requiresSize ? claimForm.size : undefined,
-        color: selectedReward.requiresColor ? claimForm.color : undefined,
-        notes: claimForm.notes,
+        requiresShipping: selectedReward.requiresShipping,
+        requiresSize: selectedReward.requiresSize,
+        requiresColor: selectedReward.requiresColor,
+        size: claimForm.size,
+        color: claimForm.color,
       });
 
+      const payload = {
+        rank: selectedReward.rank,
+        shippingAddress: selectedReward.requiresShipping ? claimForm.shippingAddress : undefined,
+        size: selectedReward.requiresSize ? claimForm.size : undefined,
+        color: selectedReward.requiresColor ? claimForm.color : undefined,
+        notes: claimForm.notes || undefined,
+      };
+
+      console.log('📦 Claim payload:', payload);
+
+      const response = await teamAPI.claimReward(payload);
+
+      console.log('✅ Claim response:', response);
+
       if (response.success) {
-        setMessage({ type: 'success', text: response.message });
+        setMessage({ type: 'success', text: response.message || 'Reward redeemed successfully!' });
         setTimeout(() => {
           closeClaimModal();
           fetchRewards(); // Refresh rewards list
         }, 2000);
       } else {
-        setMessage({ type: 'error', text: response.message });
+        setMessage({ type: 'error', text: response.message || 'Failed to claim reward' });
       }
     } catch (error) {
+      console.error('❌ Claim error:', error);
       setMessage({ 
         type: 'error', 
-        text: error.message || 'Failed to claim reward' 
+        text: error.response?.data?.message || error.message || 'Failed to claim reward. Please try again.' 
       });
     } finally {
       setSubmitting(false);
@@ -131,18 +173,21 @@ const RewardClaim = ({ binaryRank }) => {
     return <div className="reward-loading">Loading rewards...</div>;
   }
 
+  // Debug logging for modal state
+  console.log('🔍 Render - showClaimModal:', showClaimModal, 'selectedReward:', selectedReward);
+
   return (
     <div className="reward-claim-container">
-      {/* <div className="reward-header">
+      <div className="reward-header">
         <h2>🎁 Binary Rank Rewards</h2>
         <p>Claim exclusive rewards based on your highest rank achieved!</p>
         <p style={{ fontSize: '13px', color: '#6b7280', marginTop: '8px' }}>
           One reward per rank • Unlocked by highest rank ever achieved • One-time redemption
         </p>
-      </div> */}
+      </div>
 
       {/* Available Rewards */}
-      {/* {availableRewards.length > 0 && (
+      {availableRewards.length > 0 && (
         <div className="available-rewards-section">
           <h3>🎉 Available to Redeem</h3>
           <div className="rewards-grid">
@@ -167,15 +212,15 @@ const RewardClaim = ({ binaryRank }) => {
             ))}
           </div>
         </div>
-      )} */}
+      )}
 
       {/* No Available Rewards */}
-      {/* {availableRewards.length === 0 && claimedRewards.length === 0 && (
+      {availableRewards.length === 0 && claimedRewards.length === 0 && (
         <div className="no-rewards">
           <p>🏆 Keep building your team to unlock rank rewards!</p>
           <p>Your current rank: <strong style={{ color: '#4f46e5' }}>{binaryRank?.currentRank || 'NONE'}</strong></p>
         </div>
-      )} */}
+      )}
 
       {/* Claimed Rewards History */}
       {claimedRewards.length > 0 && (
@@ -215,15 +260,71 @@ const RewardClaim = ({ binaryRank }) => {
       )}
 
       {/* Claim Modal */}
+      {console.log('🔍 Modal condition check:', showClaimModal && selectedReward)}
       {showClaimModal && selectedReward && (
-        <div className="modal-overlay" onClick={closeClaimModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h3>
+        <div 
+          className="modal-overlay" 
+          onClick={closeClaimModal}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 9999,
+            display: 'flex',
+            background: 'rgba(11, 25, 41, 0.95)',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          {console.log('🎨 RENDERING MODAL OVERLAY')}
+          <div 
+            className="modal-content" 
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: 'relative',
+              zIndex: 10000,
+              background: '#1A2A3A',
+              border: '2px solid #4CD3C8',
+              borderRadius: '16px',
+              maxWidth: '600px',
+              width: '90%',
+              maxHeight: '90vh',
+              overflow: 'auto',
+              boxShadow: '0 20px 60px rgba(76, 211, 200, 0.2)'
+            }}
+          >
+            {console.log('🎨 RENDERING MODAL CONTENT')}
+            <div className="modal-header" style={{
+              background: '#1A2A3A',
+              borderBottom: '1px solid #2A4A5A',
+              padding: '24px',
+              position: 'sticky',
+              top: 0,
+              zIndex: 10
+            }}>
+              <h3 style={{
+                color: '#DAFAF4',
+                margin: 0,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}>
                 <span className="modal-badge">{selectedReward.badge}</span>
                 Claim {selectedReward.rank} Reward
               </h3>
-              <button className="modal-close" onClick={closeClaimModal}>×</button>
+              <button 
+                className="modal-close" 
+                onClick={closeClaimModal}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#5DDDD2',
+                  fontSize: '32px',
+                  cursor: 'pointer'
+                }}
+              >×</button>
             </div>
 
             {message && (
@@ -234,18 +335,19 @@ const RewardClaim = ({ binaryRank }) => {
 
             <form onSubmit={handleSubmitClaim} className="claim-form">
               {/* Reward Display */}
-              <div className="form-group">
-                <label>Reward</label>
+              <div className="form-group" style={{ padding: '0 24px' }}>
+                <label style={{ color: '#5DDDD2', fontWeight: '600', display: 'block', marginBottom: '8px' }}>Reward</label>
                 <div style={{ 
                   padding: '12px', 
-                  backgroundColor: '#f3f4f6', 
+                  backgroundColor: '#0B1929', 
+                  border: '1px solid #2A4A5A',
                   borderRadius: '6px',
                   fontWeight: '600',
-                  color: '#1f2937'
+                  color: '#DAFAF4'
                 }}>
                   {selectedReward.rewardName}
                 </div>
-                <p style={{ fontSize: '13px', color: '#6b7280', marginTop: '4px' }}>
+                <p style={{ fontSize: '13px', color: '#5DDDD2', marginTop: '4px' }}>
                   {selectedReward.rewardDescription}
                 </p>
               </div>

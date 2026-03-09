@@ -322,7 +322,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(11, 25, 41, 0.95);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -331,32 +331,33 @@
 }
 
 .modal-content {
-  background: white;
+  background: #1A2A3A;
+  border: 2px solid #4CD3C8;
   border-radius: 16px;
   padding: 0;
   max-width: 600px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 60px rgba(76, 211, 200, 0.2);
 }
 
 .modal-header {
   padding: 24px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #2A4A5A;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
-  background: white;
+  background: #1A2A3A;
   z-index: 10;
 }
 
 .modal-header h3 {
   font-size: 22px;
   font-weight: 700;
-  color: #1f2937;
+  color: #DAFAF4;
   margin: 0;
   display: flex;
   align-items: center;
@@ -371,13 +372,19 @@
   background: none;
   border: none;
   font-size: 32px;
-  color: #9ca3af;
+  color: #5DDDD2;
   cursor: pointer;
   padding: 0;
   width: 32px;
   height: 32px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: #4CD3C8;
   justify-content: center;
   border-radius: 6px;
   transition: all 0.2s ease;
@@ -398,14 +405,14 @@
 }
 
 .message-success {
-  background: #d1fae5;
-  color: #065f46;
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
   border: 1px solid #10b981;
 }
 
 .message-error {
-  background: #fee2e2;
-  color: #991b1b;
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
   border: 1px solid #ef4444;
 }
 
@@ -417,13 +424,13 @@
 .form-section {
   margin-top: 24px;
   padding-top: 24px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid #2A4A5A;
 }
 
 .form-section h4 {
   font-size: 16px;
   font-weight: 600;
-  color: #1f2937;
+  color: #DAFAF4;
   margin: 0 0 16px 0;
 }
 
@@ -435,7 +442,7 @@
   display: block;
   font-size: 14px;
   font-weight: 600;
-  color: #374151;
+  color: #5DDDD2;
   margin-bottom: 6px;
 }
 
@@ -444,19 +451,27 @@
 .form-group textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #d1d5db;
+  border: 1px solid #2A4A5A;
+  background: #0B1929;
+  color: #DAFAF4;
   border-radius: 6px;
   font-size: 14px;
   font-family: inherit;
   transition: all 0.2s ease;
 }
 
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #5DDDD2;
+  opacity: 0.5;
+}
+
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+  border-color: #4CD3C8;
+  box-shadow: 0 0 0 3px rgba(76, 211, 200, 0.1);
 }
 
 .form-row {
@@ -470,7 +485,7 @@
   gap: 12px;
   margin-top: 24px;
   padding-top: 24px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid #2A4A5A;
 }
 
 .btn-cancel,
@@ -486,21 +501,24 @@
 }
 
 .btn-cancel {
-  background: #f3f4f6;
-  color: #374151;
+  background: #2A4A5A;
+  color: #DAFAF4;
+  border: 1px solid #4CD3C8;
 }
 
 .btn-cancel:hover {
-  background: #e5e7eb;
+  background: #1A2A3A;
 }
 
 .btn-submit {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
+  background: linear-gradient(135deg, #4CD3C8 0%, #10b981 100%);
+  color: #0B1929;
+  font-weight: 700;
 }
 
 .btn-submit:hover {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
 }
 
 .btn-submit:disabled,
