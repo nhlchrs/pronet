@@ -1,31 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { commissionAPI } from '../../services/api';
+import { commissionAPI, teamAPI } from '../../services/api';
 import './EarningsBreakdown.css';
 
 export const EarningsBreakdown = () => {
   const [breakdown, setBreakdown] = useState(null);
+  const [binaryCommission, setBinaryCommission] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchCommissionBreakdown();
+    fetchAllEarnings();
   }, []);
 
-  const fetchCommissionBreakdown = async () => {
+  const fetchAllEarnings = async () => {
     try {
       setLoading(true);
       setError('');
       
-      const response = await commissionAPI.getCommissionBreakdown();
-      console.log('💰 Commission Breakdown Response:', response);
+      // Fetch commission breakdown (direct + level)
+      const commissionResponse = await commissionAPI.getCommissionBreakdown();
+      console.log('💰 Commission Breakdown Response:', commissionResponse);
       
-      if (response.success) {
-        setBreakdown(response.breakdown || {});
+      // Fetch binary commission from team list API
+      const teamResponse = await teamAPI.getSimpleTeamList();
+      console.log('⚡ Binary Commission Response:', teamResponse);
+      
+      if (commissionResponse.success) {
+        setBreakdown(commissionResponse.breakdown || {});
       } else {
-        setError(response.message || 'Failed to load earnings');
+        setError(commissionResponse.message || 'Failed to load earnings');
+      }
+
+      if (teamResponse.success && teamResponse.data) {
+        setBinaryCommission(teamResponse.data.commissionAmount || 0);
       }
     } catch (err) {
-      console.error('Error fetching commission breakdown:', err);
+      console.error('Error fetching earnings:', err);
       setError(err.message || 'Failed to load earnings');
     } finally {
       setLoading(false);
@@ -48,7 +58,7 @@ export const EarningsBreakdown = () => {
       <div className="earnings-breakdown">
         <div className="earnings-error">
           <p>⚠️ {error}</p>
-          <button onClick={fetchCommissionBreakdown} className="retry-btn">
+          <button onClick={fetchAllEarnings} className="retry-btn">
             Try Again
           </button>
         </div>
@@ -58,9 +68,9 @@ export const EarningsBreakdown = () => {
 
   const directBonus = breakdown?.direct_bonus || 0;
   const levelIncome = breakdown?.level_income || 0;
-  // const binaryBonus = breakdown?.binary_bonus || 0;
+  const binaryBonus = binaryCommission || 0;
   // const rewardBonus = breakdown?.reward_bonus || 0;
-  const totalEarnings = directBonus + levelIncome; // Only direct and level income
+  const totalEarnings = directBonus + levelIncome + binaryBonus; // Including binary commission
 
   return (
     <div className="earnings-breakdown">
@@ -108,21 +118,20 @@ export const EarningsBreakdown = () => {
           </div>
         </div>
 
-        {/* Binary Bonus - Commented out
+        {/* Binary Bonus */}
         <div className="earning-card binary-bonus">
           <div className="earning-icon">⚖️</div>
           <div className="earning-content">
             <div className="earning-label">Binary Commission</div>
             <div className="earning-value">${binaryBonus.toFixed(2)}</div>
             <div className="earning-description">
-              Earn from balanced growth of left and right team legs
+              Earn from balanced growth of left and right team legs (1:1 weaker leg matching)
             </div>
           </div>
           <div className="earning-badge">
-            {binaryBonus > 0 ? `${((binaryBonus / totalEarnings) * 100).toFixed(1)}%` : '0%'}
+            {binaryBonus > 0 && totalEarnings > 0 ? `${((binaryBonus / totalEarnings) * 100).toFixed(1)}%` : '0%'}
           </div>
         </div>
-        */}
 
         {/* Reward Bonus - Commented out
         <div className="earning-card reward-bonus">
@@ -165,6 +174,15 @@ export const EarningsBreakdown = () => {
                   <span className="chart-label">{((levelIncome / totalEarnings) * 100).toFixed(0)}%</span>
                 </div>
               )}
+              {binaryBonus > 0 && (
+                <div 
+                  className="chart-bar binary" 
+                  style={{ width: `${(binaryBonus / totalEarnings) * 100}%` }}
+                  title={`Binary: $${binaryBonus.toFixed(2)}`}
+                >
+                  <span className="chart-label">{((binaryBonus / totalEarnings) * 100).toFixed(0)}%</span>
+                </div>
+              )}
             </div>
             <div className="chart-legend">
               <div className="legend-item">
@@ -174,6 +192,10 @@ export const EarningsBreakdown = () => {
               <div className="legend-item">
                 <span className="legend-color level"></span>
                 <span>Level</span>
+              </div>
+              <div className="legend-item">
+                <span className="legend-color binary"></span>
+                <span>Binary</span>
               </div>
             </div>
           </div>
