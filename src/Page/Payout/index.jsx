@@ -535,7 +535,29 @@ export default function Payout() {
 
             {activeTab === "history" && (
               <div className="payout-history-container">
-                <h3>Payout History</h3>
+                <div className="history-header">
+                  <h3>Payout History</h3>
+                  <button
+                    onClick={() => fetchPayoutHistory(currentPage)}
+                    className="refresh-button"
+                    disabled={loading}
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="23 4 23 10 17 10"></polyline>
+                      <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                    </svg>
+                    {loading ? "Refreshing..." : "Refresh"}
+                  </button>
+                </div>
 
                 {payouts.length === 0 ? (
                   <div className="empty-state">
