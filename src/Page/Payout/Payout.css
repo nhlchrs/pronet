@@ -1108,3 +1108,158 @@
     font-size: 0.875rem;
   }
 }
+
+/* Earnings Breakdown Section */
+.earnings-breakdown-section {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 1400px;
+  box-shadow: 0 4px 20px rgba(76, 211, 200, 0.12);
+  border: 1px solid rgba(76, 211, 200, 0.1);
+}
+
+.earnings-title {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0B1929;
+  text-align: center;
+}
+
+.earnings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.earning-card {
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.05) 0%, rgba(11, 25, 41, 0.02) 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(76, 211, 200, 0.15);
+  transition: all 0.3s ease;
+}
+
+.earning-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 211, 200, 0.15);
+  border-color: rgba(76, 211, 200, 0.3);
+}
+
+.earning-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+.earning-icon.direct {
+  background: linear-gradient(135deg, #4CD3C8 0%, #3dabab 100%);
+}
+
+.earning-icon.level {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.earning-icon.binary {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.earning-content {
+  flex: 1;
+}
+
+.earning-label {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.earning-amount {
+  margin: 0 0 1rem 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0B1929;
+}
+
+.earning-progress {
+  width: 100%;
+  height: 8px;
+  background: rgba(76, 211, 200, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.earning-progress-bar {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s ease;
+}
+
+.earning-progress-bar.direct-bar {
+  background: linear-gradient(90deg, #4CD3C8 0%, #3dabab 100%);
+}
+
+.earning-progress-bar.level-bar {
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+}
+
+.earning-progress-bar.binary-bar {
+  background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.earning-percentage {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #4CD3C8;
+  font-weight: 600;
+}
+
+.earnings-total {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(76, 211, 200, 0.1) 0%, rgba(76, 211, 200, 0.05) 100%);
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid rgba(76, 211, 200, 0.3);
+}
+
+.earnings-total span {
+  font-size: 1.125rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.earnings-total strong {
+  font-size: 1.5rem;
+  color: #0B1929;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .earnings-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .earning-amount {
+    font-size: 1.5rem;
+  }
+  
+  .earnings-total {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}

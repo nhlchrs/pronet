@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { teamAPI, userAPI } from "../../services/api";
+import { teamAPI, userAPI, commissionAPI } from "../../services/api";
 import { toast } from "sonner";
 import "./Payout.css";
 
@@ -11,6 +11,7 @@ export default function Payout() {
 
   // State management
   const [balance, setBalance] = useState(null);
+  const [earnings, setEarnings] = useState(null);
   const [stats, setStats] = useState(null);
   const [payouts, setPayouts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -62,6 +63,7 @@ export default function Payout() {
       setLoading(true);
       await Promise.all([
         fetchBalance(),
+        fetchEarningsBreakdown(),
         fetchStats(),
         fetchPayoutHistory(1),
       ]);
@@ -72,6 +74,7 @@ export default function Payout() {
       setLoading(false);
     }
   };
+
   // Fetch available balance
   const fetchBalance = async () => {
     try {
@@ -81,6 +84,31 @@ export default function Payout() {
       }
     } catch (error) {
       console.error("Error fetching balance:", error);
+    }
+  };
+
+  // Fetch earnings breakdown (from EarningsBreakdown component logic)
+  const fetchEarningsBreakdown = async () => {
+    try {
+      // Fetch commission breakdown (direct + level)
+      const commissionResponse = await commissionAPI.getCommissionBreakdown();
+      
+      // Fetch binary commission from team list API
+      const teamResponse = await teamAPI.getSimpleTeamList();
+      
+      if (commissionResponse.success && teamResponse.success) {
+        const breakdown = commissionResponse.breakdown || {};
+        const binaryCommission = teamResponse.data?.commissionAmount || 0;
+        
+        setEarnings({
+          directBonus: breakdown.direct_bonus || 0,
+          levelIncome: breakdown.level_income || 0,
+          binaryBonus: binaryCommission,
+          totalEarnings: (breakdown.direct_bonus || 0) + (breakdown.level_income || 0) + binaryCommission
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching earnings breakdown:", error);
     }
   };
 
@@ -134,8 +162,8 @@ export default function Payout() {
       return;
     }
 
-    if (parseFloat(payoutForm.amount) < 100) {
-      toast.error("Minimum payout amount is ₹100");
+    if (parseFloat(payoutForm.amount) < 10) {
+      toast.error("Minimum payout amount is $10");
       return;
     }
 
@@ -209,9 +237,9 @@ export default function Payout() {
 
   // Format currency
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("en-IN", {
+    return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "INR",
+      currency: "USD",
       minimumFractionDigits: 2,
     }).format(amount || 0);
   };
@@ -265,83 +293,70 @@ export default function Payout() {
           <p>Request instant crypto payouts via NOWPayments</p>
         </div>
 
-        {/* Balance Cards */}
-        <div className="balance-cards">
-          <div className="balance-card">
-            <div className="balance-card-content">
-              <div className="balance-card-info">
-                <h3>Available Balance</h3>
-                <p className="balance-card-amount primary">
-                  {balance ? formatCurrency(balance.availableBalance) : "₹0.00"}
-                </p>
-              </div>
-              <div className="balance-card-icon primary">
-                <svg
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
+      
 
-          <div className="balance-card">
-            <div className="balance-card-content">
-              <div className="balance-card-info">
-                <h3>Total Earned</h3>
-                <p className="balance-card-amount success">
-                  {balance ? formatCurrency(balance.totalEarned) : "₹0.00"}
-                </p>
+        {/* Earnings Breakdown */}
+        {earnings && (
+          <div className="earnings-breakdown-section">
+            <h3 className="earnings-title">💰 Your Earnings Breakdown</h3>
+            <div className="earnings-grid">
+              <div className="earning-card">
+                <div className="earning-icon direct">👥</div>
+                <div className="earning-content">
+                  <p className="earning-label">Direct Referral Commission</p>
+                  <p className="earning-amount">{formatCurrency(earnings.directBonus)}</p>
+                  <div className="earning-progress">
+                    <div 
+                      className="earning-progress-bar direct-bar"
+                      style={{ width: earnings.totalEarnings > 0 ? `${(earnings.directBonus / earnings.totalEarnings) * 100}%` : '0%' }}
+                    ></div>
+                  </div>
+                  <p className="earning-percentage">
+                    {earnings.totalEarnings > 0 ? ((earnings.directBonus / earnings.totalEarnings) * 100).toFixed(1) : 0}% of total
+                  </p>
+                </div>
               </div>
-              <div className="balance-card-icon success">
-                <svg
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
 
-          <div className="balance-card">
-            <div className="balance-card-content">
-              <div className="balance-card-info">
-                <h3>Total Paid</h3>
-                <p className="balance-card-amount info">
-                  {balance ? formatCurrency(balance.totalPaid) : "₹0.00"}
-                </p>
+              <div className="earning-card">
+                <div className="earning-icon level">📈</div>
+                <div className="earning-content">
+                  <p className="earning-label">Level Income</p>
+                  <p className="earning-amount">{formatCurrency(earnings.levelIncome)}</p>
+                  <div className="earning-progress">
+                    <div 
+                      className="earning-progress-bar level-bar"
+                      style={{ width: earnings.totalEarnings > 0 ? `${(earnings.levelIncome / earnings.totalEarnings) * 100}%` : '0%' }}
+                    ></div>
+                  </div>
+                  <p className="earning-percentage">
+                    {earnings.totalEarnings > 0 ? ((earnings.levelIncome / earnings.totalEarnings) * 100).toFixed(1) : 0}% of total
+                  </p>
+                </div>
               </div>
-              <div className="balance-card-icon info">
-                <svg
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
+
+              <div className="earning-card">
+                <div className="earning-icon binary">⚖️</div>
+                <div className="earning-content">
+                  <p className="earning-label">Binary Commission</p>
+                  <p className="earning-amount">{formatCurrency(earnings.binaryBonus)}</p>
+                  <div className="earning-progress">
+                    <div 
+                      className="earning-progress-bar binary-bar"
+                      style={{ width: earnings.totalEarnings > 0 ? `${(earnings.binaryBonus / earnings.totalEarnings) * 100}%` : '0%' }}
+                    ></div>
+                  </div>
+                  <p className="earning-percentage">
+                    {earnings.totalEarnings > 0 ? ((earnings.binaryBonus / earnings.totalEarnings) * 100).toFixed(1) : 0}% of total
+                  </p>
+                </div>
               </div>
             </div>
+            <div className="earnings-total">
+              <span>Total Earnings:</span>
+              <strong>{formatCurrency(earnings.totalEarnings)}</strong>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Statistics */}
         {/* {stats && (
@@ -404,7 +419,7 @@ export default function Payout() {
                       Amount <span className="required">*</span>
                     </label>
                     <div className="input-with-icon">
-                      <span className="input-icon">₹</span>
+                      <span className="input-icon">$</span>
                       <input
                         type="number"
                         name="amount"
@@ -412,13 +427,13 @@ export default function Payout() {
                         onChange={handleInputChange}
                         className="form-input"
                         placeholder="Enter amount"
-                        min="100"
+                        min="10"
                         step="0.01"
                         required
                       />
                     </div>
                     <p className="form-hint">
-                      Minimum: ₹100 | Available Balance: {balance ? formatCurrency(balance.availableBalance) : "₹0.00"}
+                      Minimum: $10 | Available Balance: {balance ? formatCurrency(balance.availableBalance) : "$0.00"}
                     </p>
                   </div>
 
@@ -507,7 +522,7 @@ export default function Payout() {
                         <p className="info-box-title">Important Information</p>
                         <ul>
                           <li>Payouts processed via NOWPayments within 24-48 hours</li>
-                          <li>Minimum payout: ₹100 (approx $1.20 USD)</li>
+                          <li>Minimum payout: $10</li>
                           <li>Double-check your wallet address - transactions are irreversible</li>
                           <li>USDT recommended for stable value & lower fees</li>
                         </ul>
