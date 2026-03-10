@@ -7,6 +7,7 @@ import { SocketProvider } from "./context/SocketContext";
 import Navbar from "./Components/Header/header";
 import Footer from "./Components/Footer/footer";
 import Sidebar from "./Components/Sidebar/sidebar";
+import SendinpulseChatbot from "./Components/Chatbot/SendinpulseChatbot";
 
 const AppContent = () => {
     const location = useLocation();
@@ -15,6 +16,7 @@ const AppContent = () => {
     return (
         <>
             <Toaster position="top-right" richColors />
+            <SendinpulseChatbot />
             {!isAuthPage && <Navbar />}
             {!isAuthPage && <Sidebar />}
             <ModalVideoProvider>
