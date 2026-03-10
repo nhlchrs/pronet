@@ -391,10 +391,13 @@ const PaymentPage = () => {
 
             {/* Currency Selector */}
             <div className="currency-selector">
-              <label>Pay with Cryptocurrency:</label>
+              <label htmlFor="currency-select">Pay with Cryptocurrency:</label>
               <select
+                id="currency-select"
+                name="currency"
                 value={selectedCurrency}
                 onChange={(e) => setSelectedCurrency(e.target.value)}
+                aria-label="Select cryptocurrency payment method"
               >
                 <option value="bnbbsc">BNB (BEP-20) - Recommended ⭐</option>
                 <option value="usdtbsc">USDT (BEP-20) - Recommended ⭐</option>
